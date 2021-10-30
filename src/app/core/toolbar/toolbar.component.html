@@ -1,22 +1,18 @@
 <mat-sidenav-container class="example-container">
-
   <mat-sidenav mode="side" [opened]="false">
-    <img class="logo" src="./assets/liraki_logo.svg" alt="logo liraki">
+    <img class="logo" src="./assets/liraki_logo.svg" alt="logo liraki" />
   </mat-sidenav>
 
-
-
-
-
-
-
   <mat-sidenav-content>
-    <mat-toolbar class="mat-elevation-z2">
-      <div class=" logo">
-        <img class="isotipo" src="./assets/liraki_isotipo.svg" alt="logo liraki">
+    <mat-toolbar class="mat-elevation-z4">
+      <div class="logo">
+        <img
+          class="isotipo"
+          src="./assets/liraki_isotipo.svg"
+          alt="logo liraki"
+        />
         <span>LIRAKI</span>
       </div>
-
 
       <ul>
         <li>
@@ -28,22 +24,20 @@
         </li>
 
         <li>
-          <a routerLink="categories" routerLinkActive="linkActive">Categorias</a>
+          <a routerLink="categories" routerLinkActive="linkActive"
+            >Categorias</a
+          >
         </li>
         <li>
           <a routerLink="about" routerLinkActive="linkActive">Nosotros</a>
         </li>
 
         <button mat-icon-button>
-          <mat-icon>
-            shopping_cart
-          </mat-icon>
+          <mat-icon> shopping_cart </mat-icon>
         </button>
 
         <button mat-icon-button [matMenuTriggerFor]="accountMenu">
-          <mat-icon>
-            account_circle
-          </mat-icon>
+          <mat-icon> account_circle </mat-icon>
         </button>
 
         <mat-menu #accountMenu="matMenu">
@@ -57,13 +51,8 @@
             <span>Registrarse</span>
           </button>
         </mat-menu>
-
       </ul>
-
-
     </mat-toolbar>
     <ng-content></ng-content>
-
   </mat-sidenav-content>
-
 </mat-sidenav-container>

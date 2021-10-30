@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic');
-@import './styles/toast.custom.scss';
-@import '~@angular/material/theming';
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic");
+@import "./styles/toast.custom.scss";
+@import "~@angular/material/theming";
 
 @include mat-core();
 // hue. Available color palettes: https://material.io/design/color/
@@ -10,24 +10,28 @@ $mendozarq-accent: mat-palette($mat-green);
 $mendozarq-success: mat-palette($mat-green);
 $mendozarq-warn: mat-palette($mat-red);
 
-$mendozarq-theme: mat-light-theme((color: (primary: $mendozarq-primary,
+$mendozarq-theme: mat-light-theme(
+  (
+    color: (
+      primary: $mendozarq-primary,
       accent: $mendozarq-accent,
       warn: $mendozarq-warn,
-      success: $mendozarq-success)));
+      success: $mendozarq-success,
+    ),
+  )
+);
 @include angular-material-theme($mendozarq-theme);
-
-
 
 * {
   font-family: Montserrat, sans-serif;
 
-  --primary: #FF6E00;
+  --primary: #ff6e00;
   --secondary: #425066;
   --warn: red;
-  --accent: #FFBD2D;
-  --success: #2AC940;
-  --error: #FF6058;
-  --info: #33B5E5;
+  --accent: #ffbd2d;
+  --success: #2ac940;
+  --error: #ff6058;
+  --info: #33b5e5;
   --blue: #498afb;
 
   --gray0: #f8f8f8;
@@ -55,4 +59,29 @@ body {
   width: 98%;
   max-width: 1490px;
   margin: auto;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background-color: whitesmoke;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(212, 212, 212);
+  border-radius: 25px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(197, 196, 196);
+}
+.mat-sidenav-content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.mat-sidenav-content::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+.custom-dialog-container .mat-dialog-container {
+  padding: 0px !important;
 }

@@ -1,0 +1,38 @@
+<div class="card-item mat-elevation-z2" routerLink="gg">
+  <div class="img-container">
+    <img
+      loading="lazy"
+      [src]="
+        producto.fotos.length
+          ? getImage(producto.fotos[0].keyName)
+          : './assets/no-image.svg'
+      "
+      [alt]="
+        producto.fotos.length ? producto.fotos[0].nombre : 'imagen producto'
+      "
+      class="card-img"
+    />
+  </div>
+
+  <h3 class="card-title">
+    <span>
+      {{ producto.nombre }}
+    </span>
+  </h3>
+
+  <div class="details">
+    <!-- <mat-chip-list aria-label="Fish selection">
+      <mat-chip *ngFor="let categoria of producto.categorias" class="chip">{{
+        categoria.nombre
+      }}</mat-chip>
+    </mat-chip-list> -->
+
+    <span class="item-price">Bs. {{ producto.precio }}</span>
+
+    <div class="stock">
+      <span [class]="stockColor(producto.stock)">{{
+        alertStock(producto.stock)
+      }}</span>
+    </div>
+  </div>
+</div>

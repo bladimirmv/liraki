@@ -30,6 +30,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatListModule } from '@angular/material/list';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { ToastrModule } from 'ngx-toastr';
 const matModules = [

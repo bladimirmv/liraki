@@ -29,9 +29,7 @@ mat-sidenav-container {
   .anclas {
     overflow: auto;
     padding-top: 5px;
-
   }
-
 }
 
 mat-sidenav {
@@ -97,15 +95,11 @@ mat-toolbar {
     overflow: hidden;
     white-space: nowrap;
   }
-
-
 }
 
 @keyframes MoveUpDown {
-
   0%,
   100% {
-
     bottom: 0;
   }
 
@@ -113,7 +107,6 @@ mat-toolbar {
     bottom: 4px;
   }
 }
-
 
 @keyframes opacity-logo {
   from {
@@ -158,7 +151,6 @@ mat-toolbar {
   }
 }
 
-
 .logo-row {
   height: 100%;
   // background-color: red;
@@ -179,7 +171,6 @@ mat-toolbar {
     animation: type-2 1s steps(9);
     overflow: hidden;
     white-space: nowrap;
-
   }
 }
 
@@ -189,7 +180,6 @@ mat-toolbar {
   border-radius: 0;
   height: 45px;
   text-align: center;
-
 
   display: flex;
   justify-content: flex-start;
@@ -205,10 +195,7 @@ mat-toolbar {
     margin: 0 16px;
     font-size: 22px;
   }
-
 }
-
-
 
 .btn-extra {
   margin-top: 10px;
@@ -225,10 +212,9 @@ mat-toolbar {
   color: white;
 
   &:hover {
-    box-shadow: 0 0 2px 2px var(--primary),
+    box-shadow: 0 0 2px 2px var(--primary);
   }
 }
-
 
 .btn-fill {
   margin-top: 10px;
@@ -239,7 +225,7 @@ mat-toolbar {
   font-weight: bold;
 
   &:hover {
-    box-shadow: 0 0 2px 2px var(--secondary),
+    box-shadow: 0 0 2px 2px var(--secondary);
   }
 }
 
@@ -247,7 +233,6 @@ mat-toolbar {
   color: var(--primary);
   border-left: 7px solid var(--primary);
   border-radius: 0 50px 50px 0;
-
 
   .active-wave {
     z-index: -1;

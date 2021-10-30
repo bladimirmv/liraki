@@ -5,19 +5,24 @@
   left: 0;
   right: 0;
   background: white;
-
-
 }
 
+// mat-sidenav-content {
+//   display: grid;
+//   grid-template-rows: auto auto 1fr auto;
+// }
 
 mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: inherit;
+
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
   height: 60px;
   overflow: hidden;
   background-color: white;
-
 
   ul {
     list-style: none;
@@ -46,11 +51,7 @@ mat-toolbar {
   .linkActive {
     color: var(--primary) !important;
   }
-
 }
-
-
-
 
 .logo {
   display: flex;
@@ -62,15 +63,15 @@ mat-toolbar {
 
   span {
     margin-left: 10px;
-    font-size: 25px;
+    font-size: 1.5em;
     font-weight: bolder;
     color: var(--secondary);
   }
 }
 
 .mat-sidenav-content {
-  // display: grid;
-  // grid-template-rows: auto auto 1fr auto;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   width: 100vw;
   max-width: 100vw;
 }
