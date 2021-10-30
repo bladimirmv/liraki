@@ -1,1 +1,58 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic');
+@import './styles/toast.custom.scss';
+@import '~@angular/material/theming';
+
+@include mat-core();
+// hue. Available color palettes: https://material.io/design/color/
+$mendozarq-primary: mat-palette($mat-orange, 600);
+// $mendozarq-accent: mat-palette($mat-pink, A200, A100, A400);
+$mendozarq-accent: mat-palette($mat-green);
+$mendozarq-success: mat-palette($mat-green);
+$mendozarq-warn: mat-palette($mat-red);
+
+$mendozarq-theme: mat-light-theme((color: (primary: $mendozarq-primary,
+      accent: $mendozarq-accent,
+      warn: $mendozarq-warn,
+      success: $mendozarq-success)));
+@include angular-material-theme($mendozarq-theme);
+
+
+
+* {
+  font-family: Montserrat, sans-serif;
+
+  --primary: #FF6E00;
+  --secondary: #425066;
+  --warn: red;
+  --accent: #FFBD2D;
+  --success: #2AC940;
+  --error: #FF6058;
+  --info: #33B5E5;
+  --blue: #498afb;
+
+  --gray0: #f8f8f8;
+  --gray1: #dbe1e8;
+  --gray2: #b2becd;
+  --gray3: #6c7983;
+  --gray4: #454e56;
+  --gray5: #2a2e35;
+  --gray6: #12181b;
+}
+
+body {
+  font-size: 1em;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.content {
+  width: 98%;
+  max-width: 1490px;
+  margin: auto;
+}

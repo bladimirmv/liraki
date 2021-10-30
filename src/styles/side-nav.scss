@@ -1,0 +1,285 @@
+.wave {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 250px;
+  z-index: -2;
+}
+
+.flex-side {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+.sidenav-container {
+  display: grid;
+  height: 100vh;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto minmax(50px, 1fr) auto;
+  overflow: hidden;
+
+  .anclas {
+    overflow: auto;
+    padding-top: 5px;
+
+  }
+
+}
+
+mat-sidenav {
+  width: 250px;
+  height: 100%;
+  background-color: white;
+
+  mat-icon {
+    cursor: pointer;
+    color: var(--secondary);
+  }
+}
+
+mat-sidenav-content {
+  width: auto;
+  color: var(--secondary);
+  overflow: auto;
+}
+
+.flex-closed {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  justify-content: flex-end;
+
+  mat-icon {
+    color: white;
+  }
+}
+
+mat-toolbar {
+  background-color: white;
+  height: 60px;
+
+  mat-icon {
+    color: var(--secondary);
+  }
+}
+
+.logo-column {
+  display: grid;
+  place-items: center;
+  outline: none;
+  cursor: pointer;
+  margin: 5px 0;
+  text-decoration: none;
+  color: var(--secondary);
+  font-weight: 450;
+  font-size: 14px;
+
+  text-transform: uppercase;
+  letter-spacing: 8px;
+
+  img {
+    width: 90px;
+    position: relative;
+    animation: MoveUpDown 2.3s infinite;
+  }
+
+  span {
+    animation: type 1.5s steps(18);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+
+}
+
+@keyframes MoveUpDown {
+
+  0%,
+  100% {
+
+    bottom: 0;
+  }
+
+  50% {
+    bottom: 4px;
+  }
+}
+
+
+@keyframes opacity-logo {
+  from {
+    opacity: 0;
+    transition: opacity;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes type {
+  from {
+    width: 0ch;
+    border-right: 1px solid black;
+  }
+
+  to {
+    border-right: 1px solid black;
+    width: 18ch;
+  }
+}
+
+@keyframes type-2 {
+  from {
+    width: 0ch;
+    border-right: 1px solid black;
+  }
+
+  to {
+    border-right: 1px solid black;
+    width: 9ch;
+  }
+}
+
+@media screen and(max-width: 500px) {
+  .logo-row {
+    span {
+      // display: none;
+    }
+  }
+}
+
+
+.logo-row {
+  height: 100%;
+  // background-color: red;
+  display: grid;
+  grid-template-columns: auto auto;
+  place-items: center;
+  text-decoration: none;
+  color: var(--secondary);
+  text-transform: uppercase;
+  font-size: 18px;
+
+  img {
+    animation: opacity-logo 1s;
+    height: 40px;
+  }
+
+  span {
+    animation: type-2 1s steps(9);
+    overflow: hidden;
+    white-space: nowrap;
+
+  }
+}
+
+.btn-admin {
+  padding: 0;
+  width: 100%;
+  border-radius: 0;
+  height: 45px;
+  text-align: center;
+
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-left: 7px solid transparent;
+
+  outline: none;
+
+  font-size: 14px;
+
+  mat-icon {
+    color: var(--secondary);
+    margin: 0 16px;
+    font-size: 22px;
+  }
+
+}
+
+
+
+.btn-extra {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-bottom: 20px;
+}
+
+.btn-just-border {
+  width: 90%;
+  background-color: var(--primary);
+  color: white;
+
+  &:hover {
+    box-shadow: 0 0 2px 2px var(--primary),
+  }
+}
+
+
+.btn-fill {
+  margin-top: 10px;
+  width: 90%;
+  background-color: var(--secondary);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+
+  &:hover {
+    box-shadow: 0 0 2px 2px var(--secondary),
+  }
+}
+
+.active {
+  color: var(--primary);
+  border-left: 7px solid var(--primary);
+  border-radius: 0 50px 50px 0;
+
+
+  .active-wave {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+  }
+
+  mat-icon {
+    color: var(--primary);
+    animation: spin 1s;
+  }
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+
+  button {
+    margin: 0 5px;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

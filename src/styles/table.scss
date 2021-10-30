@@ -1,0 +1,193 @@
+// table class
+.table-container {
+  max-width: 100%;
+  width: 100%;
+  margin: 30px 0;
+
+
+  .header-table {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-gap: 5px;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+  }
+
+  .table-content {
+    width: 100%;
+    max-width: 100%;
+    scrollbar-width: thin;
+    overflow: auto;
+    scrollbar-width: 100px;
+  }
+
+  table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  tr:hover {
+    background-color: whitesmoke;
+  }
+
+  .actions-table {
+    min-width: 40px;
+    text-align: center;
+  }
+
+
+  .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .mat-cell {
+    white-space: nowrap;
+    padding: 0 15px;
+  }
+
+  mat-paginator {
+    width: 100%;
+  }
+
+  .edit-icon {
+    color: var(--secondary);
+  }
+
+  .long-txt {
+    white-space: normal;
+    min-width: 300px;
+  }
+
+  .td-longtext {
+    position: relative;
+    width: 300px;
+    cursor: pointer;
+  }
+
+  .td-longtext::before {
+    content: '&nbsp;';
+    visibility: hidden;
+  }
+
+  .td-longtext span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
+
+.delete-table {
+  position: relative;
+  height: 76px;
+  background-color: var(--warn);
+  color: white;
+  animation: opacity-table 0.7s;
+
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap: 20px;
+  grid-template-rows: 1fr;
+  place-items: center;
+  justify-content: space-around;
+  font-size: 18px;
+  text-align: center;
+
+  grid-template-areas:
+    "btn-clear span btn-delete";
+
+  span {
+    grid-area: span;
+  }
+
+  .btn-clear {
+    grid-area: btn-clear;
+    padding-left: 22px;
+
+  }
+
+  .btn-delete {
+    width: auto;
+    margin: 0 5px;
+    color: white;
+    background-color: var(--warn);
+    border: 1px solid white;
+    text-transform: uppercase;
+    grid-area: btn-delete;
+
+    &:hover {
+      background-color: white;
+      color: red;
+    }
+  }
+
+}
+
+.btn-edit {
+  mat-icon {
+    color: var(--secondary);
+
+  }
+}
+
+.mat-cell,
+.mat-header-cell {
+  padding: 0 10px;
+}
+
+
+@keyframes opacity-table {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .delete-table {
+    font-size: 16px;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "btn-clear span btn-delete"
+      "btn-clear span btn-delete";
+    grid-gap: 0px;
+
+
+  }
+}
+
+// .table-content::-webkit-scrollbar {
+//   width: 5px;
+// }
+
+// /* Track */
+// .table-content::-webkit-scrollbar-track {
+//   background: #f1f1f1;
+// }
+
+// /* Handle */
+// .table-content::-webkit-scrollbar-thumb {
+//   background: rgb(212, 212, 212);
+// }
+
+// /* Handle on hover */
+// .table-content::-webkit-scrollbar-thumb:hover {
+//   background: var(--primary);
+// }

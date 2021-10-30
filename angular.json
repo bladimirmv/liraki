@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "liraki"
+    }
+  },
+  "defaultProject": "liraki",
+  "cli": {
+    "analytics": "6b2f14fe-3e33-4f72-9a20-0ff96a0ffb70"
+  }
 }
