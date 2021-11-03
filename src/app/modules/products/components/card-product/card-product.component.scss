@@ -10,9 +10,7 @@
 .img-container {
   width: 215px;
   height: 215px;
-  // max-width: 215px;
-  // max-height: 215px;
-  background-color: whitesmoke;
+  background-color: var(--light-primary);
   border-radius: 5px;
   margin: 10px;
 
@@ -34,6 +32,7 @@
 
 .card-title {
   margin: 10px;
+  // height: 30px;
   font-size: 14px;
   word-wrap: break-word;
   width: 90%;
@@ -51,12 +50,14 @@
 
 .card-title > span:hover {
   color: var(--primary);
+  text-decoration: underline;
 }
 
 .details {
   width: 90%;
   align-items: flex-start;
   margin-bottom: 15px;
+  color: var(--secondary);
 }
 
 .details .item-price {
@@ -65,13 +66,19 @@
   font-style: italic;
 }
 
+.antes-price {
+  color: var(--gray2);
+  text-decoration: line-through;
+}
+
 .stock {
   margin-top: 10px;
+  font-size: 14px;
 }
 .stock-agotado {
   color: var(--warn);
 }
 
 .stock-disponible {
-  color: var(--success);
+  color: var(--info);
 }

@@ -22,9 +22,15 @@ export class ProductoService {
         catchError(error => this.handdleError(error)));
   }
 
+  public getOneProducto(uuid: string): Observable<ProductoView> {
+    return this.http
+      .get<ProductoView>(`${this.API_URL}/api/producto/${uuid}`)
+      .pipe(catchError(error => this.handdleError(error)));
+  }
 
   // ====================> handdleError
   public handdleError(httpError: HttpErrorResponse | any): Observable<never> {
+
     let errorMessage = '';
     if (httpError.error.message) {
       if (typeof httpError.error.message === 'string') {
@@ -50,6 +56,8 @@ export class ProductoService {
       timeOut: 7000,
       enableHtml: true
     });
+
+
     return throwError(httpError);
   }
 }

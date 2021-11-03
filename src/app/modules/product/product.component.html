@@ -1,0 +1,52 @@
+<div class="content">
+  <div class="content-product">
+    <div class="product-view mat-elevation-z">
+      <div
+        class="first-img"
+        (click)="currentFoto ? modalPreview($event, currentFoto) : ''"
+      >
+        <img
+          [src]="
+            currentFoto
+              ? this.getImage(currentFoto.keyName)
+              : './assets/no-image.svg'
+          "
+          alt=""
+        />
+      </div>
+
+      <div class="thumbs">
+        <div
+          class="img-thumb"
+          *ngFor="let foto of producto.fotos"
+          (click)="modalPreview($event, foto)"
+        >
+          <img [src]="getImage(foto.keyName)" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="product-detail mat-elevation-z">
+      <h4 class="title full-column">
+        {{ producto.nombre }}
+      </h4>
+      <div class="product-stars">estrellas</div>
+      <div class="availability">
+        {{ alertStock(producto.stock) }}
+      </div>
+      <div class="price full-column">Bs. {{ producto.precio }}</div>
+      <div class="categories full-column">
+        <div class="categoy" *ngFor="let categoria of producto.categorias">
+          {{ categoria.nombre }}
+        </div>
+      </div>
+      <div class="description full-column">
+        {{ producto.descripcion }}
+      </div>
+      <div class="quantity"></div>
+
+      <button class="full-column">Agregar al Carrito</button>
+      <a href="">Agregar a lista de deseados</a>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="no-imagesvg.svg"
+   sodipodi:docname="no-image.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@
      showgrid="false"
      inkscape:zoom="2.9006173"
      inkscape:cx="306.31411"
-     inkscape:cy="79.638221"
+     inkscape:cy="79.63822"
      inkscape:window-width="3440"
      inkscape:window-height="1411"
      inkscape:window-x="-9"
@@ -151,7 +151,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ececec;fill-rule:evenodd;stroke-width:0.0832976"
+       style="fill:#f5f5f5;fill-rule:evenodd;stroke-width:0.0832976;fill-opacity:1"
        id="rect846"
        width="56.885418"
        height="56.885418"

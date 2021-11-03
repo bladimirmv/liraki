@@ -25,8 +25,19 @@ const routes: Routes = [
         path: 'about', loadChildren: () =>
           import('./modules/about/about.module').then(m => m.AboutModule)
       },
+      {
+        path: 'product/:uuid', loadChildren: () =>
+          import('./modules/product/product.module').then(m => m.ProductModule)
+      },
+
     ]
   },
+
+  // {
+  //   path: 'product/:uuid', component:
+
+  // },
+
   {
     path: '**', loadChildren: () =>
       import('./core/not-found/not-found.module').then(m => m.NotFoundModule)

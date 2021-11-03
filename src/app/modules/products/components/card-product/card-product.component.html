@@ -1,4 +1,7 @@
-<div class="card-item mat-elevation-z2" routerLink="gg">
+<div
+  class="card-item mat-elevation-z2"
+  [routerLink]="['/product/', producto.uuid]"
+>
   <div class="img-container">
     <img
       loading="lazy"
@@ -27,7 +30,9 @@
       }}</mat-chip>
     </mat-chip-list> -->
 
-    <span class="item-price">Bs. {{ producto.precio }}</span>
+    <span class="item-price antes-price">Bs. {{ 300 }} </span>
+
+    <span class="item-price">Bs. {{ producto.precio }} </span>
 
     <div class="stock">
       <span [class]="stockColor(producto.stock)">{{
