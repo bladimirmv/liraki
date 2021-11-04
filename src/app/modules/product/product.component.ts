@@ -79,4 +79,9 @@ export class ProductComponent implements OnInit, OnDestroy {
       panelClass: 'custom-dialog-container'
     });
   }
+  public stockColor(stock: number): string {
+    return stock > 3
+      ? 'info-stock'
+      : 'warn-stock'
+  }
 }

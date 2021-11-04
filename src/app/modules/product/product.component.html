@@ -2,7 +2,7 @@
   <div class="content-product">
     <div class="product-view mat-elevation-z">
       <div
-        class="first-img"
+        class="first-img mat-elevation-z2"
         (click)="currentFoto ? modalPreview($event, currentFoto) : ''"
       >
         <img
@@ -17,7 +17,7 @@
 
       <div class="thumbs">
         <div
-          class="img-thumb"
+          class="img-thumb mat-elevation-z2"
           *ngFor="let foto of producto.fotos"
           (click)="modalPreview($event, foto)"
         >
@@ -30,23 +30,169 @@
       <h4 class="title full-column">
         {{ producto.nombre }}
       </h4>
-      <div class="product-stars">estrellas</div>
-      <div class="availability">
-        {{ alertStock(producto.stock) }}
-      </div>
-      <div class="price full-column">Bs. {{ producto.precio }}</div>
-      <div class="categories full-column">
-        <div class="categoy" *ngFor="let categoria of producto.categorias">
-          {{ categoria.nombre }}
+      <div class="star-rating">
+        <div class="stars">
+          <mat-icon class="star-checked"> star </mat-icon>
+          <mat-icon class="star-checked"> star </mat-icon>
+          <mat-icon class="star-checked"> star </mat-icon>
+          <mat-icon class="star-checked"> star </mat-icon>
+          <mat-icon class="star-middle"> star </mat-icon>
         </div>
       </div>
-      <div class="description full-column">
-        {{ producto.descripcion }}
+      <div class="availability">
+        <mat-chip-list aria-label="availability">
+          <mat-chip [class]="stockColor(producto.stock)">
+            {{ alertStock(producto.stock) }}
+          </mat-chip>
+        </mat-chip-list>
       </div>
+      <h2 class="price full-column">Bs. {{ producto.precio }}</h2>
+      <div class="categories full-column">
+        <mat-chip-list aria-label="categories-list">
+          <mat-chip
+            class="category"
+            *ngFor="let categoria of producto.categorias"
+          >
+            {{ categoria.nombre }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <p class="description full-column">
+        {{ producto.descripcion }}
+      </p>
       <div class="quantity"></div>
 
-      <button class="full-column">Agregar al Carrito</button>
-      <a href="">Agregar a lista de deseados</a>
+      <button class="btn-carrito full-column" mat-button>
+        Agregar al Carrito
+      </button>
+      <a href="#" class="wish-list full-column">
+        <mat-icon> favorite_border </mat-icon>
+        Agregar a lista de deseados</a
+      >
+    </div>
+  </div>
+
+  <div class="content-rm">
+    <div class="product-rating">
+      <h3>Opiniones de clientes</h3>
+      <span>0 calificaciones</span>
+
+      <div class="list-stars">
+        <div class="star-progress">
+          <span>5 estrellas</span>
+
+          <span>
+            <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+          </span>
+          <span>70%</span>
+        </div>
+        <div class="star-progress">
+          <span>4 estrellas</span>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+          <span>6%</span>
+        </div>
+        <div class="star-progress">
+          <span>3 estrellas</span>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+          <span>0%</span>
+        </div>
+        <div class="star-progress">
+          <span>2 estrellas</span>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+          <span>70%</span>
+        </div>
+        <div class="star-progress">
+          <span>1 estrellas</span>
+          <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+          <span>70%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-comment">
+      <div class="comment">
+        <div class="user-comment full-column">
+          <span class="user-circle">B</span>
+          <span>Bladimir Medrano Vargas</span>
+        </div>
+        <div class="star-rating">
+          <div class="stars">
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-middle"> star </mat-icon>
+          </div>
+        </div>
+        <h4>
+          Fine for Low Powered Devices Fine for Low Powered Devices Fine for Low
+          Powered Devices Fine for Low Powered Devices
+        </h4>
+        <span class="full-column">Fecha: 07/05/2021 03:30 pm.</span>
+        <span class="full-column">Compra Verificada</span>
+        <p class="full-column">
+          This is a decent, well constructed USB-C to USB3 hub. The biggest
+          issue with the hub is that it's not powered and has no option to be
+          externally powered which docked off 1 star. I docked another star
+          because the cable is attached and only about 20" long and not
+          removable. Would have been nice to have a removable cable that you
+          could swap out with a longer one if you need to.
+        </p>
+      </div>
+
+      <div class="comment">
+        <div class="user-comment full-column">
+          <span class="user-circle">B</span>
+          <span>Bladimir Medrano Vargas</span>
+        </div>
+        <div class="star-rating">
+          <div class="stars">
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-middle"> star </mat-icon>
+          </div>
+        </div>
+        <h4>Fine for Low Powered Devices Fine</h4>
+        <span class="full-column">Fecha: 07/05/2021 03:30 pm.</span>
+        <span class="full-column">Compra Verificada</span>
+        <p class="full-column">
+          This is a decent, well constructed USB-C to USB3 hub. The biggest
+          issue with the hub is that it's not powered and has no option to be
+          externally powered which docked off 1 star. I docked another star
+          because the cable is attached and only about 20" long and not
+          removable. Would have been nice to have a removable cable that you
+          could swap out with a longer one if you need to.
+        </p>
+      </div>
+
+      <div class="comment">
+        <div class="user-comment full-column">
+          <span class="user-circle">B</span>
+          <span>Bladimir Medrano Vargas</span>
+        </div>
+        <div class="star-rating">
+          <div class="stars">
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-checked"> star </mat-icon>
+            <mat-icon class="star-middle"> star </mat-icon>
+          </div>
+        </div>
+        <h4>Fine for Low Powered Devices Fine</h4>
+        <span class="full-column">Fecha: 07/05/2021 03:30 pm.</span>
+        <span class="full-column">Compra Verificada</span>
+        <p class="full-column">
+          This is a decent, well constructed USB-C to USB3 hub. The biggest
+          issue with the hub is that it's not powered and has no option to be
+          externally powered which docked off 1 star. I docked another star
+          because the cable is attached and only about 20" long and not
+          removable. Would have been nice to have a removable cable that you
+          could swap out with a longer one if you need to.
+        </p>
+      </div>
     </div>
   </div>
 </div>
