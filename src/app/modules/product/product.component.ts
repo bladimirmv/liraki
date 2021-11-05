@@ -28,6 +28,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     private productoSvc: ProductoService,
     private dialog: MatDialog) {
     this.uuidProducto = this.activateRoute.snapshot.params.uuid;
+
   }
 
   ngOnInit(): void {

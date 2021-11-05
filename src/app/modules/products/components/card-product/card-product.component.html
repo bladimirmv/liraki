@@ -2,7 +2,7 @@
   class="card-item mat-elevation-z2"
   [routerLink]="['/product/', producto.uuid]"
 >
-  <div class="img-container">
+  <div class="img-container mat-elevation-z">
     <img
       loading="lazy"
       [src]="
@@ -24,12 +24,6 @@
   </h3>
 
   <div class="details">
-    <!-- <mat-chip-list aria-label="Fish selection">
-      <mat-chip *ngFor="let categoria of producto.categorias" class="chip">{{
-        categoria.nombre
-      }}</mat-chip>
-    </mat-chip-list> -->
-
     <span class="item-price antes-price">Bs. {{ 300 }} </span>
 
     <span class="item-price">Bs. {{ producto.precio }} </span>

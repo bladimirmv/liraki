@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppContainerComponent } from './core/app-container/app-container.component';
+import { SearchComponent } from './modules/products/components/search/search.component';
 
 const routes: Routes = [
 
@@ -28,7 +29,12 @@ const routes: Routes = [
       {
         path: 'product/:uuid', loadChildren: () =>
           import('./modules/product/product.module').then(m => m.ProductModule)
+      }, {
+        path: 'search/:value', component: SearchComponent
       },
+
+
+
 
     ]
   },

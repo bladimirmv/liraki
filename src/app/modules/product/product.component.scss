@@ -76,7 +76,7 @@
   width: 100%;
   margin: 20px 0px;
   padding: 20px 50px;
-  border-radius: 5px;
+  border-radius: 6px;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -105,6 +105,10 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.antes-price {
+  color: var(--gray2);
+  text-decoration: line-through;
+}
 
 .availability {
   display: flex;
@@ -113,6 +117,7 @@
 .description {
   word-wrap: break-word;
   font-size: 16px;
+  text-align: justify;
 }
 
 .info-stock {
@@ -162,16 +167,12 @@
   align-items: flex-start;
   grid-gap: 20px;
   width: 90%;
-}
-
-.content-rm div {
-  // background-color: var(--light-primary);
+  margin: 30px 0;
 }
 
 .content-rm .product-rating {
   position: sticky;
   top: 70px;
-  z-index: inherit;
   height: auto;
 }
 
@@ -217,4 +218,14 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
+}
+
+.compra-verificada {
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.date-comment {
+  font-size: 13px;
 }

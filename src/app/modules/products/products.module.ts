@@ -5,14 +5,18 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
 import { MaterialModule } from 'src/app/material.module';
 import { CardProductComponent } from './components/card-product/card-product.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
-  declarations: [ProductsComponent, CardProductComponent],
+  declarations: [ProductsComponent, CardProductComponent, SearchComponent],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     MaterialModule
+  ],
+  exports: [
+    // [SearchComponent]
   ]
 })
 export class ProductsModule { }
