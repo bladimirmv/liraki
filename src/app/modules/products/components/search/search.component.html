@@ -1,3 +1,12 @@
-<p>search works!</p>
+<div class="content">
+  <div class="list-item">
+    <app-card-product
+      *ngFor="let producto of filteredProducts"
+      [producto]="producto"
+    ></app-card-product>
+  </div>
 
-{{ value }}
+  <div class="no-content" *ngIf="!filteredProducts.length">
+    No se encontro ningun producto con el nombre "{{ value }}"
+  </div>
+</div>

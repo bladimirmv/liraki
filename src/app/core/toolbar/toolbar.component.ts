@@ -38,14 +38,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       ).subscribe(res => this.breakpoint = res);
 
     this.getProducts();
-
-
-
-    // this.filteredProducts = this.control.valueChanges.pipe(
-    //   startWith(''),
-    //   map((value) => this._filter(value)),
-    // );
-
   }
 
   ngOnDestroy(): void {
@@ -56,6 +48,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   private getProducts(): void {
     this.productoSvc
       .getAllProductos()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((productos: ProductoView[]) => {
         this.productos = productos;
         this.filteredProducts = productos;
@@ -66,12 +59,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   public onKey(value): void {
     this.filteredProducts = this._filter(value);
+    if (value === '')
+      this.router.navigate(['/products']);
   }
 
 
   public search(value: string): void {
-    console.log(value);
-
     this.router.navigate(['/search/', value]);
   }
 
