@@ -1,12 +1,14 @@
 <div class="content">
-  <div class="list-item">
-    <app-card-product
-      *ngFor="let producto of filteredProducts"
-      [producto]="producto"
-    ></app-card-product>
+  <div class="no-content" *ngIf="!filteredProducts.length; else list_item">
+    <img src="./assets/no-found.svg" alt="" />
+    No se encontro el producto que buscaba.
   </div>
-
-  <div class="no-content" *ngIf="!filteredProducts.length">
-    No se encontro ningun producto con el nombre "{{ value }}"
-  </div>
+  <ng-template #list_item>
+    <div class="list-item">
+      <app-card-product
+        *ngFor="let producto of filteredProducts"
+        [producto]="producto"
+      ></app-card-product>
+    </div>
+  </ng-template>
 </div>

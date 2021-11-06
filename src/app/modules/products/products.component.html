@@ -1,5 +1,9 @@
 <div class="content">
-  <div class="list-item">
+  <div class="loader" *ngIf="loader.isLoading | async">
+    <mat-spinner align="center"></mat-spinner>
+  </div>
+
+  <div class="list-item" *ngIf="(loader.isLoading | async) === false">
     <app-card-product
       *ngFor="let producto of productos"
       [producto]="producto"

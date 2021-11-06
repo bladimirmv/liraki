@@ -18,6 +18,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   public breakpoint: boolean;
   private destroy$: Subject<any> = new Subject<any>();
 
+  public hideSearch: boolean = false;
+
 
 
 
@@ -30,12 +32,17 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private productoSvc: ProductoService,
     private router: Router) { }
   ngOnInit(): void {
-    this.breakpointObserver.observe('(max-width: 700px)')
+    this.breakpointObserver.observe('(max-width: 540px)')
       .pipe(
         takeUntil(this.destroy$),
         map(res => res.matches),
         shareReplay()
-      ).subscribe(res => this.breakpoint = res);
+      ).subscribe((res: boolean) => {
+        this.breakpoint = res;
+        if (res === false) {
+          this.hideSearch = false;
+        }
+      });
 
     this.getProducts();
   }

@@ -43,11 +43,11 @@ const routes: Routes = [
   //   path: 'product/:uuid', component:
 
   // },
-
   {
     path: '**', loadChildren: () =>
       import('./core/not-found/not-found.module').then(m => m.NotFoundModule)
   }
+
 ];
 
 @NgModule({

@@ -74,7 +74,8 @@ const matModules = [
     matModules,
     ToastrModule.forRoot({
       timeOut: 2000,
-      positionClass: 'toast-top-right'
+      positionClass: 'toast-top-right',
+      preventDuplicates: true
     })
   ],
   exports: [matModules, ToastrModule]

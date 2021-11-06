@@ -1,11 +1,50 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav mode="side" [opened]="false">
-    <img class="logo" src="./assets/liraki_logo.svg" alt="logo liraki" />
+<mat-sidenav-container>
+  <mat-sidenav mode="over" [opened]="true" #drawer class="sidenav-container">
+    <img class="wave" src="./assets/wave-2.svg" alt="" />
+    <div class="sidenav-container">
+      <div class="header-sidenav">
+        <button mat-icon-button (click)="drawer.close()">
+          <mat-icon> closed </mat-icon>
+        </button>
+
+        <a class="logo-column" routerLink="/admin">
+          <img src="./assets/liraki_isotipo.svg" alt="" />
+          <span>Liraki</span>
+        </a>
+      </div>
+
+      <ul>
+        <li class="menu-item">
+          <a routerLink="home" routerLinkActive="linkActive">Inicio</a>
+        </li>
+
+        <li class="menu-item">
+          <a routerLink="products" routerLinkActive="linkActive">Productos</a>
+        </li>
+
+        <li class="menu-item">
+          <a routerLink="categories" routerLinkActive="linkActive">
+            Categorias
+          </a>
+        </li>
+        <li class="menu-item">
+          <a routerLink="about" routerLinkActive="linkActive">Nosotros</a>
+        </li>
+      </ul>
+
+      <div class="btn-extra">
+        <button mat-raised-button class="btn-fill">Cerrar sesion</button>
+      </div>
+    </div>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <mat-toolbar class="mat-elevation-z4">
-      <div class="logo">
+      <button class="btn-menu" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon> menu </mat-icon>
+      </button>
+
+      <div class="logo" *ngIf="!hideSearch">
         <img
           class="isotipo"
           src="./assets/liraki_isotipo.svg"
@@ -14,7 +53,7 @@
         <span>LIRAKI</span>
       </div>
 
-      <div class="input-search">
+      <div class="input-search lg-search">
         <input
           type="text"
           placeholder="Buscar un producto..."
@@ -23,6 +62,30 @@
           (keydown.enter)="search($event.target.value)"
           #btn_search
         />
+
+        <mat-icon *ngIf="!btn_search.value" class="icon"> search </mat-icon>
+        <button
+          *ngIf="btn_search.value"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="onKey('')"
+          (click)="btn_search.value = ''"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="hideSearch" class="input-search m-search">
+        <input
+          type="text"
+          placeholder="Buscar un producto..."
+          [matAutocomplete]="auto"
+          (keyup)="onKey($event.target.value)"
+          (keydown.enter)="search($event.target.value)"
+          #btn_search
+        />
+
         <mat-icon *ngIf="!btn_search.value" class="icon"> search </mat-icon>
         <button
           *ngIf="btn_search.value"
@@ -46,29 +109,44 @@
         </mat-option>
       </mat-autocomplete>
 
-      <ul>
-        <li>
+      <span class="example-spacer"></span>
+
+      <ul class="menu-list">
+        <li class="menu-item">
           <a routerLink="home" routerLinkActive="linkActive">Inicio</a>
         </li>
 
-        <li>
+        <li class="menu-item">
           <a routerLink="products" routerLinkActive="linkActive">Productos</a>
         </li>
 
-        <li>
-          <a routerLink="categories" routerLinkActive="linkActive"
-            >Categorias</a
-          >
+        <li class="menu-item">
+          <a routerLink="categories" routerLinkActive="linkActive">
+            Categorias
+          </a>
         </li>
-        <li>
+        <li class="menu-item">
           <a routerLink="about" routerLinkActive="linkActive">Nosotros</a>
         </li>
 
-        <button mat-icon-button>
+        <button
+          class="m-btn-search"
+          mat-icon-button
+          (click)="hideSearch ? (hideSearch = false) : (hideSearch = true)"
+        >
+          <mat-icon> {{ hideSearch ? "cancel" : "search" }} </mat-icon>
+        </button>
+
+        <button mat-icon-button class="btn-shop" *ngIf="!hideSearch">
           <mat-icon> shopping_cart </mat-icon>
         </button>
 
-        <button mat-icon-button [matMenuTriggerFor]="accountMenu">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="accountMenu"
+          class="btn-user"
+          *ngIf="!hideSearch"
+        >
           <mat-icon> account_circle </mat-icon>
         </button>
 
@@ -85,6 +163,7 @@
         </mat-menu>
       </ul>
     </mat-toolbar>
+
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container>

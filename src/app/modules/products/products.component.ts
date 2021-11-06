@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoaderService } from '@app/core/services/loader.service';
 import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { environment } from '@env/environment';
 import { ProductoService } from '@services/liraki/producto.service';
@@ -16,7 +17,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private productoSvc: ProductoService
+    private productoSvc: ProductoService,
+    public loader: LoaderService
   ) {
 
   }

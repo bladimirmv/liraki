@@ -1,17 +1,37 @@
-.example-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
+mat-sidenav-container {
+  height: 100%;
 }
 
-// mat-sidenav-content {
-//   display: grid;
-//   grid-template-rows: auto auto 1fr auto;
-// }
+.sidenav-container {
+  height: 100%;
+  width: 250px;
+  margin: 0;
+  padding: 0;
 
+  .wave {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 250px;
+    z-index: -2;
+  }
+
+  .sidenav-container {
+  }
+
+  .header-sidenav button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+  }
+}
+
+mat-sidenav-content {
+  width: auto;
+  color: var(--secondary);
+  overflow: auto;
+}
 mat-toolbar {
   position: sticky;
   top: 0;
@@ -26,7 +46,8 @@ mat-toolbar {
 
   ul {
     list-style: none;
-
+    margin: 0;
+    padding-left: 0px;
     li {
       display: inline;
       margin: 0 10px;
@@ -52,11 +73,14 @@ mat-toolbar {
     color: var(--primary) !important;
   }
 }
-
+.btn-menu,
+.m-btn-search {
+  display: none;
+}
 .logo {
   display: flex;
   align-items: center;
-  margin-right: 40px;
+  margin-right: 10px;
 
   .isotipo {
     height: 50px;
@@ -124,4 +148,63 @@ mat-toolbar {
 .input-focus input {
   border-bottom: 2px solid white;
   border-radius: 20px 20px 0 0;
+}
+
+.m-search {
+  width: 100%;
+  display: none;
+}
+
+@media screen and (max-width: 910px) {
+  .menu-list {
+    margin: 0;
+    padding-left: 0px;
+  }
+  .menu-list .menu-item {
+    display: none;
+  }
+  .btn-menu {
+    display: inline-block;
+    // margin-right: 5px;
+  }
+  mat-toolbar {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .lg-search {
+    display: none;
+  }
+  .m-btn-search {
+    display: inline-block;
+  }
+  .m-search {
+    width: 100%;
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .logo .isotipo {
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 340px) {
+  .logo span {
+    display: none;
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.hide-item {
+  display: none;
+}
+.show-item {
+  display: flex;
 }

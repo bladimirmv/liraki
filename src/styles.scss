@@ -1,6 +1,9 @@
+// Imports
 @import url("https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic");
-@import "./styles/toast.custom.scss";
 @import "~@angular/material/theming";
+@import "~ngx-toastr/toastr";
+@import "./styles/table.scss";
+@import "./styles/toast.custom.scss";
 
 @include mat-core();
 // hue. Available color palettes: https://material.io/design/color/
@@ -68,15 +71,17 @@ body {
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-  background-color: whitesmoke;
+  background-color: var(--gray1);
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgb(212, 212, 212);
   border-radius: 25px;
+  background: var(--primary);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(197, 196, 196);
+  background-color: var(--primary);
 }
 .mat-sidenav-content::-webkit-scrollbar {
   width: 6px;

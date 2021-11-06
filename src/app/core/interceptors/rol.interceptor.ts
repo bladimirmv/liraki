@@ -8,15 +8,18 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr'
-import { catchError } from 'rxjs/operators';
-
+import { catchError, finalize } from 'rxjs/operators';
+import { LoaderService } from '@services/loader.service'
 @Injectable()
 export class RolInterceptor implements HttpInterceptor {
 
-  constructor(private toastrSvc: ToastrService) { }
+  constructor(private toastrSvc: ToastrService,
+    private loader: LoaderService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
+
+    this.loader.isLoading.next(true);
 
     // const authToken = this.authSvc.userTokenValue;
     const authRequest = request.clone({
@@ -27,6 +30,7 @@ export class RolInterceptor implements HttpInterceptor {
 
 
     return next.handle(authRequest).pipe(
+      finalize(() => this.loader.isLoading.next(false)),
       catchError((httpError: HttpErrorResponse) => {
 
 

@@ -47,8 +47,6 @@ export class SearchComponent implements OnInit {
   }
   private _filter(value: string): ProductoView[] {
     const filterValue = this._normalizeValue(value);
-    console.log(filterValue);
-
     return this.productos.filter((product: ProductoView) => this._normalizeValue(product.nombre).includes(filterValue));
   }
 
@@ -57,3 +55,5 @@ export class SearchComponent implements OnInit {
   }
 
 }
+
+
