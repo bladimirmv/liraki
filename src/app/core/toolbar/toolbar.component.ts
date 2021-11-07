@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { ProductoService } from '../services/liraki/producto.service';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -30,7 +31,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   constructor(private breakpointObserver: BreakpointObserver,
     private productoSvc: ProductoService,
-    private router: Router) { }
+    private router: Router,
+    public loader: LoaderService) { }
+
   ngOnInit(): void {
     this.breakpointObserver.observe('(max-width: 540px)')
       .pipe(

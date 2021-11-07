@@ -18,7 +18,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     private productoSvc: ProductoService,
-    public loader: LoaderService
   ) {
 
   }

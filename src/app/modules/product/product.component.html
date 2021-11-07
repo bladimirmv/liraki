@@ -1,27 +1,29 @@
 <div class="content">
   <div class="content-product">
     <div class="product-view mat-elevation-z">
-      <div
-        class="first-img mat-elevation-z2"
-        (click)="currentFoto ? modalPreview($event, currentFoto) : ''"
-      >
-        <img
-          [src]="
-            currentFoto
-              ? this.getImage(currentFoto.keyName)
-              : './assets/no-image.svg'
-          "
-          alt=""
-        />
-      </div>
-
-      <div class="thumbs">
+      <div class="product-view-content">
         <div
-          class="img-thumb mat-elevation-z2"
-          *ngFor="let foto of producto.fotos"
-          (click)="modalPreview($event, foto)"
+          class="first-img mat-elevation-z"
+          (click)="currentFoto ? modalPreview($event, currentFoto) : ''"
         >
-          <img [src]="getImage(foto.keyName)" alt="" />
+          <img
+            [src]="
+              currentFoto
+                ? this.getImage(currentFoto.keyName)
+                : './assets/no-image.svg'
+            "
+            alt="no image"
+          />
+        </div>
+
+        <div class="thumbs">
+          <div
+            class="img-thumb mat-elevation-z"
+            *ngFor="let foto of producto.fotos"
+            (click)="modalPreview($event, foto)"
+          >
+            <img [src]="getImage(foto.keyName)" alt="" />
+          </div>
         </div>
       </div>
     </div>

@@ -1,29 +1,24 @@
 .content {
-  height: 100%;
-  // display: grid;
-  // grid-template-columns: 205px 1fr;
-  // grid-gap: 15px;
-
-  // display: flex;
-  // // gap: 15px;
-
-  // justify-content: center;
-  // align-items: center;
-
-  // height: 100%;
-
-  .loader {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
   .categories {
     width: 205px;
     height: 100%;
-    // margin: 20px 0;
-    // background-color: red;
   }
+}
+
+.content::after {
+  // content: "";
+  // background-image: url("./../../../assets/bg-shop.svg");
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-attachment: fixed;
+  // background-size: 100vh 100vw;
+  // opacity: 0.1;
+  // top: 0;
+  // left: 0;
+  // bottom: 0px;
+  // right: 0;
+  // position: absolute;
+  // z-index: -1;
 }
 
 .list-item {
