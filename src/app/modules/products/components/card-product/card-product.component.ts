@@ -20,7 +20,14 @@ export class CardProductComponent implements OnInit {
     return `${this.API_URL}/api/file/${keyName}`;
   }
 
-
+  public getDescuento(): string {
+    let result: number = 0;
+    this.producto.descuento > 100 || this.producto.descuento < 0
+      ? result = 0
+      : result = this.producto.precio -
+      (this.producto.precio * this.producto.descuento) / 100;
+    return result.toFixed(2);
+  }
 
 
   public alertStock(stock: number): string {

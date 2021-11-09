@@ -24,12 +24,18 @@
   </h3>
 
   <div class="details">
-    <span class="item-price antes-price">Bs. {{ 300 }} </span>
+    <span
+      class="item-price antes-price font-head"
+      *ngIf="producto.descuento > 0"
+      >Bs. {{ producto.precio }}
+    </span>
 
-    <span class="item-price">Bs. {{ producto.precio }} </span>
+    <span class="item-price font-head">
+      Bs. {{ producto.descuento > 0 ? getDescuento() : producto.precio }}
+    </span>
 
     <div class="stock">
-      <span [class]="stockColor(producto.stock)">{{
+      <span class="font-head" [class]="stockColor(producto.stock)">{{
         alertStock(producto.stock)
       }}</span>
     </div>

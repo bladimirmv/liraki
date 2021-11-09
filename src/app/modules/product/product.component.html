@@ -29,7 +29,7 @@
     </div>
 
     <div class="product-detail mat-elevation-z">
-      <h2 class="title full-column">
+      <h2 class="title full-column gradient-text">
         {{ producto.nombre }}
       </h2>
       <div class="star-rating">
@@ -41,16 +41,18 @@
           <mat-icon class="star-middle"> star </mat-icon>
         </div>
       </div>
-      <div class="availability">
+      <div class="availability" sty>
         <mat-chip-list aria-label="availability">
-          <mat-chip [class]="stockColor(producto.stock)">
+          <mat-chip class="font-head" [class]="stockColor(producto.stock)">
             {{ alertStock(producto.stock) }}
           </mat-chip>
         </mat-chip-list>
       </div>
-      <h2 class="price full-column">
-        <span class="antes-price">Bs. {{ producto.precio }}</span>
-        Bs. {{ producto.precio }}
+      <h2 class="price full-column font-head">
+        <span class="antes-price font-head" *ngIf="producto.descuento > 0"
+          >Bs. {{ producto.precio }}</span
+        >
+        Bs. {{ producto.descuento > 0 ? getDescuento() : producto.precio }}
       </h2>
 
       <div class="categories full-column">
@@ -80,7 +82,7 @@
 
   <div class="content-rm">
     <div class="product-rating">
-      <h3 class="text-center">Opiniones de clientes</h3>
+      <h3 class="text-center font-head gradient-text">Opiniones de clientes</h3>
       <span>0 calificaciones</span>
 
       <div class="list-stars">
@@ -116,11 +118,11 @@
     </div>
 
     <div class="product-comment">
-      <h3 class="full-column text-center">Comentarios</h3>
-      <mat-divider class="full-column"></mat-divider>
-      <br />
+      <h3 class="full-column-pc text-center font-head gradient-text">
+        Comentarios
+      </h3>
       <div class="comment">
-        <div class="user-comment full-column">
+        <div class="user-comment full-column-pc">
           <span class="user-circle">B</span>
           <span>Bladimir Medrano Vargas</span>
         </div>
@@ -133,10 +135,10 @@
             <mat-icon class="star-middle"> star </mat-icon>
           </div>
         </div>
-        <h4>Fine for Low Powered Devices Fine</h4>
-        <span class="full-column date-comment">07/05/2021 03:30 pm.</span>
-        <span class="full-column compra-verificada">Compra Verificada</span>
-        <p class="full-column">
+        <h4 class="font-head">Fine for Low Powered Devices Fine</h4>
+        <span class="full-column-pc date-comment">07/05/2021 03:30 pm.</span>
+        <span class="full-column-pc compra-verificada">Compra Verificada</span>
+        <p class="full-column-pc">
           This is a decent, well constructed USB-C to USB3 hub. The biggest
           issue with the hub is that it's not powered and has no option to be
           externally powered which docked off 1 star. I docked another star
@@ -146,7 +148,7 @@
         </p>
       </div>
 
-      <div class="full-column text-center">Sin commentarios</div>
+      <div class="full-column-pc text-center">Sin commentarios</div>
     </div>
   </div>
 </div>

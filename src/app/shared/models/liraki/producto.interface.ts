@@ -8,6 +8,7 @@ export interface Producto {
   precio?: number;
   moneda?: string;
   stock: number;
+  descuento: number;
   estado: boolean;
 }
 

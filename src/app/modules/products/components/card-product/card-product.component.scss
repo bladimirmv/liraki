@@ -1,6 +1,7 @@
 .card-item {
   width: 100%;
-  height: 360px;
+  // height: 360px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,7 +38,7 @@
 .card-title {
   margin: 10px;
   // height: 30px;
-  font-size: 14px;
+  font-size: 16px;
   word-wrap: break-word;
   width: 90%;
   position: relative;
@@ -65,14 +66,14 @@
 }
 
 .details .item-price {
-  font-weight: bold;
   font-size: 16px;
-  font-style: italic;
+  // font-style: italic;
+  color: var(--secondary);
 }
 
 .antes-price {
-  color: var(--gray2);
   text-decoration: line-through;
+  color: var(--gray2) !important;
 }
 
 .stock {
