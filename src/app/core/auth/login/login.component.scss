@@ -100,6 +100,21 @@
     outline: none;
   }
 
+  .link-login {
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--secondary);
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
   .btn-login {
     width: 100%;
     background-color: var(--primary);
@@ -109,7 +124,8 @@
     padding: 5px 0;
     margin: 20px 0;
 
-    &:hover {
+    &:hover,
+    &:focus {
       box-shadow: 0 0 3.5px 3.5px var(--primary);
     }
   }

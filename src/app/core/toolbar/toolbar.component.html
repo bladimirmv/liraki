@@ -202,22 +202,42 @@
         </button>
 
         <mat-menu #accountMenu="matMenu">
-          <div *ngIf="authSvc.isLogged | async as isLogged">
+          <div>
             <button
+              *ngIf="(authSvc.isLogged | async) === false"
               mat-menu-item
-              [routerLink]="isLogged ? '/perfil' : '/login'"
+              routerLink="/login"
             >
-              <mat-icon>{{ isLogged ? "account_circle" : "login" }}</mat-icon>
-              <span> {{ isLogged ? "Perfil" : "Iniciar Sesion" }} </span>
+              <mat-icon>login</mat-icon>
+              <span> Iniciar Sesion </span>
             </button>
 
-            <button mat-menu-item (click)="isLogged ? authSvc.logout() : ''">
-              <mat-icon>
-                {{ isLogged ? "logout" : "app_registration" }}
-              </mat-icon>
-              <span>
-                {{ isLogged ? "Cerrar Sesion" : "Registrarse" }}
-              </span>
+            <button
+              *ngIf="(authSvc.isLogged | async) === false"
+              mat-menu-item
+              routerLink="/register"
+            >
+              <mat-icon>app_registration</mat-icon>
+              <span> Registrarse </span>
+            </button>
+
+            <button
+              *ngIf="(authSvc.isLogged | async) === true"
+              mat-menu-item
+              routerLink="/profile"
+            >
+              <mat-icon>manage_accounts</mat-icon>
+              <span> Perfil </span>
+            </button>
+
+            <button
+              *ngIf="(authSvc.isLogged | async) === true"
+              mat-menu-item
+              routerLink="/home"
+              (click)="authSvc.logout()"
+            >
+              <mat-icon>logout</mat-icon>
+              <span> Cerrar Sesion </span>
             </button>
           </div>
         </mat-menu>

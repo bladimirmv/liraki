@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppContainerComponent } from './core/app-container/app-container.component';
 import { LoginComponent } from './core/auth/login/login.component';
+import { RegisterComponent } from './core/auth/register/register.component';
 import { SearchComponent } from './modules/products/components/search/search.component';
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
       }, {
         path: 'search/:value', component: SearchComponent
       },
+      { path: 'profile', loadChildren: () => import('./modules/profile/profile.module').then(m => m.ProfileModule) },
 
 
 
@@ -47,6 +49,9 @@ const routes: Routes = [
 
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'register', component: RegisterComponent
   },
 
   {

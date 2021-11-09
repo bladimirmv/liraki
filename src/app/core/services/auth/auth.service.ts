@@ -51,6 +51,20 @@ export class AuthService extends RoleValidator {
 
   }
   // ====================================================================
+  public registerUsuario(usuario: Usuario): Observable<UsuarioResponse> {
+    return this.http
+      .post<UsuarioResponse>(`${this.API_URL}/api/usuario/register`, usuario)
+      .pipe(
+        map((usuario: UsuarioResponse) => {
+          this.usuario.next(usuario.body);
+          this.saveToken(usuario.token);
+          this.loggedIn.next(true);
+          this.usuarioToken.next(usuario.token);
+          return usuario;
+        }),
+        catchError(error => this.handdleError(error)));
+  }
+  // ====================================================================
   public logout(): void {
     localStorage.removeItem('token-liraki');
     this.loggedIn.next(false);

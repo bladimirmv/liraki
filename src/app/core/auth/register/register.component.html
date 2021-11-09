@@ -1,1 +1,225 @@
-<p>register works!</p>
+<img class="wave" src="./assets/wave-1.svg" alt="" />
+<img class="wave-2" src="./assets/wave-2.svg" alt="" />
+
+<div class="login-container">
+  <div class="copyright">
+    <a> @copyright 2021 MendozArq - Liraki</a>
+  </div>
+  <div class="login-content">
+    <div class="login">
+      <h2 align="center" class="title font-head gradient-text full-column">
+        Bienvenido
+      </h2>
+      <form
+        class="form"
+        [formGroup]="registerForm"
+        (ngSubmit)="onRegister(registerForm.value)"
+      >
+        <!-- *Nombre -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('nombre').color"
+        >
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" autocomplete="no" />
+          <mat-icon matSuffix [color]="isValidField('nombre').color">
+            {{ isValidField("nombre").icon }}
+          </mat-icon>
+          <mat-error *ngIf="registerForm.get('nombre').errors?.required">
+            Ingrese un nombre.
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('nombre').errors?.pattern">
+            Debe incluir solo letras en minuscula.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Apellido Paterno -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('apellidoPaterno').color"
+        >
+          <mat-label>Apellido Paterno</mat-label>
+          <input matInput formControlName="apellidoPaterno" autocomplete="no" />
+          <mat-icon matSuffix [color]="isValidField('apellidoPaterno').color">
+            {{ isValidField("apellidoPaterno").icon }}
+          </mat-icon>
+          <mat-error
+            *ngIf="registerForm.get('apellidoPaterno').errors?.required"
+          >
+            Por favor ingrese el apellido paterno.
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('apellidoPaterno').errors?.maxlength"
+          >
+            Debe contener
+            {{
+              registerForm.get("apellidoPaterno").errors?.maxlength
+                ?.requiredLength
+            }}
+            letras como maximo.
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('apellidoPaterno').errors?.pattern"
+          >
+            Debe incluir solo letras en minuscula.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Apellido Materno -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('apellidoMaterno').color"
+        >
+          <mat-label>Apellido Materno</mat-label>
+          <mat-icon
+            matSuffix
+            [color]="isValidField('apellidoMaterno').color"
+            *ngIf="registerForm.value.apellidoMaterno"
+          >
+            {{ isValidField("apellidoMaterno").icon }}
+          </mat-icon>
+          <input matInput formControlName="apellidoMaterno" autocomplete="no" />
+          <mat-error
+            *ngIf="registerForm.get('apellidoMaterno').errors?.maxlength"
+          >
+            Debe contener
+            {{
+              registerForm.get("apellidoMaterno").errors?.maxlength
+                ?.requiredLength
+            }}
+            letras como maximo.
+          </mat-error>
+          <mat-error
+            *ngIf="registerForm.get('apellidoMaterno').errors?.pattern"
+          >
+            Debe incluir solo letras en minuscula.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Correo -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('correo').color"
+        >
+          <mat-label>Correo</mat-label>
+          <input matInput formControlName="correo" />
+          <mat-icon matSuffix [color]="isValidField('correo').color">
+            {{ isValidField("correo").icon }}
+          </mat-icon>
+          <mat-error *ngIf="registerForm.get('correo').errors?.required">
+            Por favor ingrese el correo.
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('correo').errors?.pattern">
+            Por favor ingrese un correo valido.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Username -->
+        <mat-form-field [color]="isValidField('username').color">
+          <mat-label>Nombre de Usuario</mat-label>
+          <input matInput formControlName="username" autocomplete="off" />
+
+          <mat-hint align="end">
+            {{
+              registerForm.value.username
+                ? registerForm.value.username.length
+                : 0
+            }}/10
+          </mat-hint>
+          <mat-icon
+            matSuffix
+            [color]="isValidField('username').color"
+            *ngIf="!registerForm.value.autoUsuario; else isValidUsername"
+          >
+            {{ isValidField("username").icon }}
+          </mat-icon>
+          <ng-template #isValidUsername>
+            <mat-icon matSuffix color="accent"> done </mat-icon>
+          </ng-template>
+          <button type="button" mat-icon-button matSuffix>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          <mat-error *ngIf="registerForm.get('username').errors?.required">
+            Ingrese un nombre de usuario.
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('username').errors?.minlength">
+            Debe contener
+            {{ registerForm.get("username").errors?.minlength?.requiredLength }}
+            digitos como minimo.
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('username').errors?.maxlength">
+            Debe contener
+            {{ registerForm.get("username").errors?.maxlength?.requiredLength }}
+            digitos como maximo.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Contrasenha -->
+        <mat-form-field [color]="isValidField('contrasenha').color">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            formControlName="contrasenha"
+            autocomplete="off"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <mat-hint align="end">
+            {{
+              registerForm.value.contrasenha
+                ? registerForm.value.contrasenha.length
+                : 0
+            }}/20
+          </mat-hint>
+          <mat-icon
+            matSuffix
+            [color]="isValidField('contrasenha').color"
+            *ngIf="!registerForm.value.autoContrasenha; else isValidContrasenha"
+          >
+            {{ isValidField("contrasenha").icon }}
+          </mat-icon>
+          <ng-template #isValidContrasenha>
+            <mat-icon matSuffix color="accent"> done </mat-icon>
+          </ng-template>
+
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="registerForm.get('contrasenha').errors?.required">
+            Ingrese una contraseña.
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('contrasenha').errors?.minlength">
+            Debe contener
+            {{
+              registerForm.get("contrasenha").errors?.minlength?.requiredLength
+            }}
+            digitos como minimo.
+          </mat-error>
+          <mat-error *ngIf="registerForm.get('contrasenha').errors?.maxlength">
+            Debe contener
+            {{
+              registerForm.get("contrasenha").errors?.maxlength?.requiredLength
+            }}
+            digitos como maximo.
+          </mat-error>
+        </mat-form-field>
+
+        <button type="submit" class="btn-login full-column" mat-button>
+          Registrarse
+        </button>
+
+        <a routerLink="/login" class="full-column link-login" align="center">
+          <mat-icon>login </mat-icon>
+          Iniciar sesión
+        </a>
+      </form>
+    </div>
+  </div>
+</div>
