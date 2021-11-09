@@ -69,12 +69,12 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   public alertStock(stock: number): string {
     return stock <= 3 && stock > 1
-      ? `Solo quedan ${stock}!`
+      ? `⏳ Solo quedan ${stock}!`
       : stock === 1
-        ? `Solo queda uno!`
+        ? `⏳ Solo queda uno!`
         : stock < 1
-          ? `Agotado!`
-          : `Disponible: ${stock}`
+          ? `⛔ Agotado!`
+          : `  Disponible: ${stock}`
   }
 
   public modalPreview(e: Event, foto: FotoProducto): void {

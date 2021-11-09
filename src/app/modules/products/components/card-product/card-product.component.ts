@@ -32,11 +32,11 @@ export class CardProductComponent implements OnInit {
 
   public alertStock(stock: number): string {
     return stock <= 3 && stock > 1
-      ? `Solo quedan ${stock}!`
+      ? `⏳ Solo quedan ${stock}!`
       : stock === 1
-        ? `Solo queda uno!`
+        ? `⏳ Solo queda uno!`
         : stock < 1
-          ? `Agotado!`
+          ? `⛔ Agotado!`
           : `Disponible: ${stock}`
   }
 

@@ -202,15 +202,24 @@
         </button>
 
         <mat-menu #accountMenu="matMenu">
-          <button mat-menu-item routerLink="/login">
-            <mat-icon>login</mat-icon>
-            <span>Iniciar Sesion</span>
-          </button>
+          <div *ngIf="authSvc.isLogged | async as isLogged">
+            <button
+              mat-menu-item
+              [routerLink]="isLogged ? '/perfil' : '/login'"
+            >
+              <mat-icon>{{ isLogged ? "account_circle" : "login" }}</mat-icon>
+              <span> {{ isLogged ? "Perfil" : "Iniciar Sesion" }} </span>
+            </button>
 
-          <button mat-menu-item>
-            <mat-icon>app_registration</mat-icon>
-            <span>Registrarse</span>
-          </button>
+            <button mat-menu-item (click)="isLogged ? authSvc.logout() : ''">
+              <mat-icon>
+                {{ isLogged ? "logout" : "app_registration" }}
+              </mat-icon>
+              <span>
+                {{ isLogged ? "Cerrar Sesion" : "Registrarse" }}
+              </span>
+            </button>
+          </div>
         </mat-menu>
       </ul>
     </mat-toolbar>

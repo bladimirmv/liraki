@@ -29,8 +29,10 @@
     </div>
 
     <div class="product-detail mat-elevation-z">
-      <h2 class="title full-column gradient-text">
-        {{ producto.nombre }}
+      <h2 class="full-column">
+        <span class="title gradient-text">
+          {{ producto.nombre }}
+        </span>
       </h2>
       <div class="star-rating">
         <div class="stars">
@@ -49,8 +51,9 @@
         </mat-chip-list>
       </div>
       <h2 class="price full-column font-head">
-        <span class="antes-price font-head" *ngIf="producto.descuento > 0"
-          >Bs. {{ producto.precio }}</span
+        <span *ngIf="producto.descuento > 0">💸</span>
+        <span class="antes-price font-head" *ngIf="producto.descuento > 0">
+          Bs. {{ producto.precio }}</span
         >
         Bs. {{ producto.descuento > 0 ? getDescuento() : producto.precio }}
       </h2>
@@ -82,7 +85,10 @@
 
   <div class="content-rm">
     <div class="product-rating">
-      <h3 class="text-center font-head gradient-text">Opiniones de clientes</h3>
+      <h3 class="text-center">
+        ⭐
+        <span class="font-head gradient-text"> Opiniones de clientes </span>
+      </h3>
       <span>0 calificaciones</span>
 
       <div class="list-stars">
@@ -118,8 +124,8 @@
     </div>
 
     <div class="product-comment">
-      <h3 class="full-column-pc text-center font-head gradient-text">
-        Comentarios
+      <h3 class="full-column-pc text-center">
+        📜<span class="gradient-text font-head"> Comentarios </span>
       </h3>
       <div class="comment">
         <div class="user-comment full-column-pc">

@@ -8,6 +8,7 @@ import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { ProductoService } from '../services/liraki/producto.service';
 import { Router } from '@angular/router';
 import { LoaderService } from '../services/loader.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -32,7 +33,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(private breakpointObserver: BreakpointObserver,
     private productoSvc: ProductoService,
     private router: Router,
-    public loader: LoaderService) { }
+    public loader: LoaderService,
+    public authSvc: AuthService) { }
 
   ngOnInit(): void {
     this.breakpointObserver.observe('(max-width: 540px)')

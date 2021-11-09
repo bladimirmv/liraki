@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { AuthService } from '@services/auth/auth.service';
+import { UsuarioResponse } from '@app/shared/models/usuario.interface';
 
 @Component({
   selector: 'app-login',
@@ -24,14 +26,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    // private authSvc: AuthService,
+    private authSvc: AuthService,
     private toastrSvc: ToastrService,
   ) {
   }
 
 
   ngOnInit(): void {
-    this.checkUserStatus();
   }
 
 
@@ -41,29 +42,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public onLogIn(usr: any): void {
-
-    // this.authSvc.login(usr)
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((res: UsuarioResponse) => {
-    //     if (res) {
-    //       this.authSvc.roleNavigate(res.body);
-    //     }
-    //   })
-
-
-    this.router.navigate(['/home'])
+    this.authSvc.login(usr)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: UsuarioResponse) => {
+        if (res) {
+          this.authSvc.roleNavigate(res.body);
+        }
+      })
   }
-
-
-  private checkUserStatus(): void {
-    // this.authSvc.usuario$
-    //   .subscribe((usuario: Usuario) => {
-    //     if (usuario) {
-    //       this.authSvc.roleNavigate(usuario);
-    //     }
-    //   });
-  }
-
-
-
 }
