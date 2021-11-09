@@ -12,6 +12,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RolInterceptor } from '@core/interceptors/rol.interceptor';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './core/auth/login/login.component';
+import { RegisterComponent } from './core/auth/register/register.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     ToolbarComponent,
     FooterComponent,
-    AppContainerComponent
+    AppContainerComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

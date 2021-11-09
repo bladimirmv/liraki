@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AppContainerComponent } from './core/app-container/app-container.component';
+import { LoginComponent } from './core/auth/login/login.component';
 import { SearchComponent } from './modules/products/components/search/search.component';
 
 const routes: Routes = [
@@ -43,6 +44,11 @@ const routes: Routes = [
   //   path: 'product/:uuid', component:
 
   // },
+
+  {
+    path: 'login', component: LoginComponent
+  },
+
   {
     path: '**', loadChildren: () =>
       import('./core/not-found/not-found.module').then(m => m.NotFoundModule)

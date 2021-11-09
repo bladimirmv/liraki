@@ -1,0 +1,60 @@
+<img class="wave" src="./assets/wave-1.svg" alt="" />
+<img class="wave-2" src="./assets/wave-2.svg" alt="" />
+
+<div class="login-container">
+  <div class="copyright">
+    <a> @copyright 2021 MendozArq - Liraki</a>
+  </div>
+  <div class="login-content">
+    <div class="login">
+      <div class="avatar">
+        <img class="avatar" src="./assets/avatar.svg" alt="avatar" />
+      </div>
+      <h2 class="title font-head gradient-text">Bienvenido</h2>
+      <form
+        class="form"
+        [formGroup]="loginForm"
+        (ngSubmit)="onLogIn(loginForm.value)"
+      >
+        <mat-form-field>
+          <mat-label>Nombre de usuario</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="username"
+            autocomplete="on"
+            placeholder="bladimirmv"
+            id="username"
+          />
+          <button type="button" mat-icon-button matSuffix>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            formControlName="contrasenha"
+            autocomplete="off"
+            [type]="hide ? 'password' : 'text'"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button type="submit" class="btn-login" mat-button>
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

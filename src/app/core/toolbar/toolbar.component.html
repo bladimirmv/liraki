@@ -9,7 +9,7 @@
 
         <a class="logo-column" routerLink="/home">
           <img src="./assets/liraki_isotipo.svg" alt="" />
-          <span>Liraki</span>
+          <span class="font-head">LIRAKI</span>
         </a>
       </div>
 
@@ -18,7 +18,7 @@
           <a routerLink="home">
             <button
               mat-button
-              class="btn-admin"
+              class="btn-admin font-head"
               routerLinkActive="active  mat-raised-button"
               (click)="breakpoint ? drawer.close() : false"
             >
@@ -202,7 +202,7 @@
         </button>
 
         <mat-menu #accountMenu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item routerLink="/login">
             <mat-icon>login</mat-icon>
             <span>Iniciar Sesion</span>
           </button>
