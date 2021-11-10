@@ -1,1 +1,349 @@
-<p>profile works!</p>
+<div class="content">
+  <div class="profile-container">
+    <div class="data-user">
+      <form class="user-form" [formGroup]="usuarioForm">
+        <!-- <div class="full-column" align="center">
+          <span class="circle-name">
+            {{ usuario.nombre.substr(0, 1) | titlecase }}
+          </span>
+        </div> -->
+
+        <!-- *Nombre -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('nombre').color"
+        >
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" autocomplete="no" />
+          <mat-icon matSuffix [color]="isValidField('nombre').color">
+            {{ isValidField("nombre").icon }}
+          </mat-icon>
+          <mat-error *ngIf="usuarioForm.get('nombre').errors?.required">
+            Ingrese un nombre.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('nombre').errors?.pattern">
+            Debe incluir solo letras en minuscula.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Apellido Paterno -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('apellidoPaterno').color"
+        >
+          <mat-label>Apellido Paterno</mat-label>
+          <input matInput formControlName="apellidoPaterno" autocomplete="no" />
+          <mat-icon matSuffix [color]="isValidField('apellidoPaterno').color">
+            {{ isValidField("apellidoPaterno").icon }}
+          </mat-icon>
+          <mat-error
+            *ngIf="usuarioForm.get('apellidoPaterno').errors?.required"
+          >
+            Por favor ingrese el apellido paterno.
+          </mat-error>
+          <mat-error
+            *ngIf="usuarioForm.get('apellidoPaterno').errors?.maxlength"
+          >
+            Debe contener
+            {{
+              usuarioForm.get("apellidoPaterno").errors?.maxlength
+                ?.requiredLength
+            }}
+            letras como maximo.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('apellidoPaterno').errors?.pattern">
+            Debe incluir solo letras en minuscula.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Apellido Materno -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('apellidoMaterno').color"
+        >
+          <mat-label>Apellido Materno</mat-label>
+          <mat-icon
+            matSuffix
+            [color]="isValidField('apellidoMaterno').color"
+            *ngIf="usuarioForm.value.apellidoMaterno"
+          >
+            {{ isValidField("apellidoMaterno").icon }}
+          </mat-icon>
+          <input matInput formControlName="apellidoMaterno" autocomplete="no" />
+          <mat-error
+            *ngIf="usuarioForm.get('apellidoMaterno').errors?.maxlength"
+          >
+            Debe contener
+            {{
+              usuarioForm.get("apellidoMaterno").errors?.maxlength
+                ?.requiredLength
+            }}
+            letras como maximo.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('apellidoMaterno').errors?.pattern">
+            Debe incluir solo letras en minuscula.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Celular -->
+        <mat-form-field
+          class="full-width"
+          [color]="isValidField('celular').color"
+        >
+          <mat-label>Celular</mat-label>
+          <span matPrefix>+591 &nbsp;</span>
+
+          <input
+            type="tel"
+            matInput
+            placeholder="69409749"
+            formControlName="celular"
+            autocomplete="off"
+          />
+
+          <mat-hint align="end">
+            {{
+              usuarioForm.value.celular
+                ? getString(usuarioForm.value.celular).length
+                : 0
+            }}/8
+          </mat-hint>
+          <mat-icon matSuffix [color]="isValidField('celular').color">
+            {{ isValidField("celular").icon }}
+          </mat-icon>
+          <mat-error *ngIf="usuarioForm.get('celular').errors?.required">
+            Ingrese el numero de celular o telefono.
+          </mat-error>
+          <mat-error
+            *ngIf="
+              usuarioForm.get('celular').errors?.pattern;
+              else min_maxLength
+            "
+          >
+            Debe incluir solo numeros.
+          </mat-error>
+          <ng-template #min_maxLength>
+            <mat-error *ngIf="usuarioForm.get('celular').errors?.minlength">
+              Debe contener
+              {{ usuarioForm.get("celular").errors?.minlength?.requiredLength }}
+              numeros como minimo.
+            </mat-error>
+            <mat-error *ngIf="usuarioForm.get('celular').errors?.maxlength">
+              Debe contener
+              {{ usuarioForm.get("celular").errors?.maxlength?.requiredLength }}
+              numeros como maximo.
+            </mat-error>
+          </ng-template>
+        </mat-form-field>
+        <!-- *Username -->
+        <mat-form-field [color]="isValidField('username').color">
+          <mat-checkbox
+            matPrefix
+            align="start"
+            matTooltip="Generar Usuario"
+            matTooltipPosition="below"
+            formControlName="autoUsuario"
+            (change)="onCheckBox(usuarioForm.value)"
+          >
+          </mat-checkbox>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" />
+          <mat-hint align="end">
+            {{
+              usuarioForm.value.username
+                ? usuarioForm.value.username.length
+                : 0
+            }}/10
+          </mat-hint>
+          <mat-icon
+            matSuffix
+            [color]="isValidField('username').color"
+            *ngIf="!usuarioForm.value.autoUsuario; else isValidUsername"
+          >
+            {{ isValidField("username").icon }}
+          </mat-icon>
+          <ng-template #isValidUsername>
+            <mat-icon matSuffix color="accent"> done </mat-icon>
+          </ng-template>
+          <mat-error *ngIf="usuarioForm.get('username').errors?.required">
+            Ingrese un nombre de usuario.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('username').errors?.minlength">
+            Debe contener
+            {{ usuarioForm.get("username").errors?.minlength?.requiredLength }}
+            digitos como minimo.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('username').errors?.maxlength">
+            Debe contener
+            {{ usuarioForm.get("username").errors?.maxlength?.requiredLength }}
+            digitos como maximo.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Contrasenha -->
+        <mat-form-field [color]="isValidField('contrasenha').color">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="contrasenha" />
+          <mat-hint align="end">
+            {{
+              usuarioForm.value.contrasenha
+                ? usuarioForm.value.contrasenha.length
+                : 0
+            }}/20
+          </mat-hint>
+          <mat-slide-toggle
+            matSuffix
+            matTooltip="Nueva Contraseña"
+            matTooltipPosition="below"
+            formControlName="newContrasenha"
+            (change)="onSlideToggle(usuarioForm.value)"
+            [color]="
+              usuarioForm.value.autoContrasenha
+                ? 'accent'
+                : isValidField('contrasenha').color
+            "
+          >
+          </mat-slide-toggle>
+
+          <mat-checkbox
+            matPrefix
+            formControlName="autoContrasenha"
+            matTooltip="Generar Contraseña"
+            matTooltipPosition="below"
+            (change)="onCheckBox(usuarioForm.value)"
+          >
+          </mat-checkbox>
+
+          <mat-error *ngIf="usuarioForm.get('contrasenha').errors?.required">
+            Ingrese una contraseña.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('contrasenha').errors?.minlength">
+            Debe contener
+            {{
+              usuarioForm.get("contrasenha").errors?.minlength?.requiredLength
+            }}
+            digitos como minimo.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('contrasenha').errors?.maxlength">
+            Debe contener
+            {{
+              usuarioForm.get("contrasenha").errors?.maxlength?.requiredLength
+            }}
+            digitos como maximo.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Correo -->
+        <mat-form-field
+          class="full-width full-column"
+          [color]="isValidField('correo').color"
+        >
+          <mat-label>Correo</mat-label>
+          <input matInput formControlName="correo" />
+          <mat-icon matSuffix [color]="isValidField('correo').color">
+            {{ isValidField("correo").icon }}
+          </mat-icon>
+          <mat-error *ngIf="usuarioForm.get('correo').errors?.required">
+            Por favor ingrese el correo.
+          </mat-error>
+          <mat-error *ngIf="usuarioForm.get('correo').errors?.pattern">
+            Por favor ingrese un correo valido.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- *Direccion -->
+        <mat-form-field
+          class="full-width full-column"
+          [color]="isValidField('direccion').color"
+        >
+          <mat-label>Direccion</mat-label>
+          <textarea
+            matInput
+            placeholder="Ex. Avenida Segunda"
+            formControlName="direccion"
+          ></textarea>
+          <mat-hint align="end">
+            {{
+              usuarioForm.value.direccion
+                ? usuarioForm.value.direccion.length
+                : 0
+            }}/200
+          </mat-hint>
+          <mat-icon
+            matSuffix
+            [color]="isValidField('direccion').color"
+            *ngIf="usuarioForm.value.direccion"
+          >
+            {{ isValidField("direccion").icon }}
+          </mat-icon>
+          <mat-error *ngIf="usuarioForm.get('direccion').errors?.maxlength">
+            Debe contener
+            {{ usuarioForm.get("direccion").errors?.maxlength?.requiredLength }}
+            digitos como maximo.
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          type="submit"
+          class="btn-success full-width full-column"
+          mat-button
+          (click)="onEditUser(this.usuarioForm.value)"
+        >
+          Actualizar
+        </button>
+      </form>
+    </div>
+
+    <div class="history">
+      <div class="whish-list">whish list</div>
+      <mat-divider></mat-divider>
+      <div class="shopping">
+        shopping history Lorem ipsum dolor, sit amet consectetur adipisicing
+        elit. Beatae adipisci quae numquam maxime minus suscipit consequuntur
+        ullam fugiat. Dolorem quaerat laboriosam repudiandae consequuntur id in
+        rem sint quod voluptatum quam! Optio assumenda sequi quaerat placeat
+        officiis animi nam unde beatae quod, dignissimos quas qui iusto,
+        reiciendis nesciunt veniam repellat! Nesciunt, labore sit saepe
+        reiciendis illum at nulla atque repellat eveniet? Dolorem, facere
+        dolore. Iure, at inventore, veniam dignissimos odit impedit in beatae
+        dolorem commodi ipsam quidem doloribus. Reprehenderit, earum ipsa rerum
+        ipsum dolore ab officiis repellendus! Soluta nisi dolorum explicabo.
+        Nesciunt deserunt autem necessitatibus officia eveniet ut nostrum
+        soluta, odit deleniti! Ratione, tempora aliquam. Asperiores. Lorem ipsum
+        dolor, sit amet consectetur adipisicing elit. Consequatur aspernatur
+        est, tempora amet quia, neque voluptatum voluptate modi, dolores numquam
+        totam eos enim voluptatem nulla minus explicabo laborum officia
+        nesciunt? Labore rerum unde alias esse itaque laboriosam voluptate error
+        libero animi nostrum ullam ratione nesciunt sapiente quasi, odit dolor
+        dignissimos maiores obcaecati earum explicabo. Quibusdam esse laudantium
+        reprehenderit a iure. Nulla ex in nihil eos, recusandae sequi officia
+        repudiandae sit totam dicta neque iure illo exercitationem aut
+        repellendus, at perspiciatis doloremque quia vel! Sapiente
+        necessitatibus ex dolore. Amet, placeat eligendi? Fugiat quod pariatur
+        quam eligendi velit numquam, harum rem corrupti nihil dolore nulla vitae
+        id. Quaerat aperiam repellendus, illo odit dolor quae asperiores tempora
+        molestiae libero velit nobis dolores impedit. Odit dolores debitis
+        tempora deleniti, expedita quia quas rerum esse ad consequatur quod
+        facere ea ut voluptatum possimus corporis iste amet accusamus voluptates
+        totam modi consequuntur adipisci, nisi maxime! Numquam. Velit aut dolore
+        ipsam commodi ad dignissimos architecto delectus rerum dolorem
+        laudantium, voluptatum facere, at ab vel impedit. Quaerat accusantium
+        quas vero reiciendis, fugiat molestias voluptatibus placeat et fugit
+        quos! Velit deleniti vitae necessitatibus eaque! Cupiditate nesciunt
+        dolorum voluptatem, velit similique at libero consequuntur quia
+        voluptates explicabo asperiores hic esse! Odio quod distinctio ipsam
+        ducimus perferendis obcaecati vero non eos. Velit, esse recusandae!
+        Beatae obcaecati rem, labore sunt nemo tempora, doloremque voluptatem
+        fugiat facilis cum autem maiores consequuntur itaque quis adipisci at.
+        Eius enim corrupti architecto nam tempore error placeat? Fugiat
+        dignissimos officiis quas corrupti cumque sapiente repellat inventore!
+        Atque ipsa nobis ipsum? Explicabo expedita itaque, eos impedit, aliquam
+        provident optio esse debitis numquam reiciendis sed aperiam sequi minus
+        laborum! Labore, harum? Iste obcaecati animi, molestias culpa quam
+        pariatur unde inventore deserunt doloribus consequuntur corporis quis
+        porro veritatis eos ducimus ex sit esse. Mollitia possimus vel provident
+        facere, eligendi saepe.
+      </div>
+    </div>
+  </div>
+</div>

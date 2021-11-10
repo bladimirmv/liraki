@@ -10,10 +10,12 @@ import { Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr'
 import { catchError, finalize } from 'rxjs/operators';
 import { LoaderService } from '@services/loader.service'
+import { AuthService } from '../services/auth/auth.service';
 @Injectable()
 export class RolInterceptor implements HttpInterceptor {
 
   constructor(private toastrSvc: ToastrService,
+    private authSvc: AuthService,
     private loader: LoaderService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -21,10 +23,10 @@ export class RolInterceptor implements HttpInterceptor {
 
     this.loader.isLoading.next(true);
 
-    // const authToken = this.authSvc.userTokenValue;
+    const authToken = this.authSvc.userTokenValue;
     const authRequest = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${'authToken'}`
+        Authorization: `Bearer ${authToken}`
       }
     });
 
@@ -40,7 +42,7 @@ export class RolInterceptor implements HttpInterceptor {
           if (typeof httpError.error.message === 'string') {
             switch (httpError.status) {
               case 401:
-                // this.authSvc.logout();
+                this.authSvc.logout();
                 this.toastrSvc.warning('La sesion ha expirado, porfavor inicia sesion nuevamente', 'Sesion Expirada!', {
                   timeOut: 7000
                 });
