@@ -1,0 +1,130 @@
+<h2 align="center" mat-dialog-title>Nuevo Comentario</h2>
+<mat-dialog-content>
+  <form class="new-form" [formGroup]="comentarioForm">
+    <div class="full-column" align="center">
+      <button
+        mat-icon-button
+        [class]="stars[0] ? 'star-rate' : 'void-star'"
+        (click)="starButton(1)"
+      >
+        <mat-icon>star</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [class]="stars[1] ? 'star-rate' : 'void-star'"
+        (click)="starButton(2)"
+      >
+        <mat-icon>star</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [class]="stars[2] ? 'star-rate' : 'void-star'"
+        (click)="starButton(3)"
+      >
+        <mat-icon>star</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [class]="stars[3] ? 'star-rate' : 'void-star'"
+        (click)="starButton(4)"
+      >
+        <mat-icon>star</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [class]="stars[4] ? 'star-rate' : 'void-star'"
+        (click)="starButton(5)"
+      >
+        <mat-icon>star</mat-icon>
+      </button>
+
+      <!-- {{ comentarioForm.value | json }} -->
+    </div>
+
+    <!-- *titulo -->
+    <mat-form-field
+      class="full-width full-column"
+      [color]="isValidField('titulo').color"
+    >
+      <mat-label>Titulo</mat-label>
+      <input matInput formControlName="titulo" autocomplete="off" />
+      <mat-hint align="end">
+        {{
+          comentarioForm.value.titulo ? comentarioForm.value.titulo.length : 0
+        }}/100
+      </mat-hint>
+      <mat-icon matSuffix [color]="isValidField('titulo').color">
+        {{ isValidField("titulo").icon }}
+      </mat-icon>
+      <mat-error *ngIf="comentarioForm.get('titulo').errors?.required">
+        Ingrese un titulo.
+      </mat-error>
+      <mat-error *ngIf="comentarioForm.get('titulo').errors?.maxlength">
+        Debe contener
+        {{ comentarioForm.get("titulo").errors?.maxlength?.requiredLength }}
+        digitos como maximo.
+      </mat-error>
+    </mat-form-field>
+    <!-- *Descripcion -->
+    <mat-form-field
+      class="full-width full-column"
+      [color]="isValidField('descripcion').color"
+    >
+      <mat-label>Descripcion</mat-label>
+      <textarea
+        matInput
+        placeholder="Ex. Nueva Descripcion"
+        formControlName="descripcion"
+      ></textarea>
+      <mat-hint align="end">
+        {{
+          comentarioForm.value.descripcion
+            ? comentarioForm.value.descripcion.length
+            : 0
+        }}/ 500
+      </mat-hint>
+      <mat-icon
+        matSuffix
+        [color]="isValidField('descripcion').color"
+        *ngIf="comentarioForm.value.descripcion"
+      >
+        {{ isValidField("descripcion").icon === "done" ? "" : "close" }}
+      </mat-icon>
+      <mat-error *ngIf="comentarioForm.get('descripcion').errors?.maxlength">
+        Debe contener
+        {{
+          comentarioForm.get("descripcion").errors?.maxlength?.requiredLength
+        }}
+        digitos como maximo.
+      </mat-error>
+
+      <mat-error *ngIf="comentarioForm.get('descripcion').errors?.minlength">
+        Debe contener
+        {{
+          comentarioForm.get("descripcion").errors?.minlength?.requiredLength
+        }}
+        digitos como minimo.
+      </mat-error>
+      <mat-error *ngIf="comentarioForm.get('descripcion').errors?.required">
+        Ingrese una descripcion.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button
+    mat-button
+    [mat-dialog-close]="false"
+    class="mat-btn-secondary full-width"
+  >
+    Cancelar
+  </button>
+  <button
+    mat-button
+    (click)="newComentario(comentarioForm.value)"
+    class="mat-btn-success"
+    [disabled]="!comentarioForm.valid"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>

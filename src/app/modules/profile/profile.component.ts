@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr'
 import { AuthService } from '@services/auth/auth.service';
 import { Usuario } from '@app/shared/models/usuario.interface';
 import { takeUntil } from 'rxjs/operators';
+import { ShowContrasenhaComponent } from './components/show-contrasenha/show-contrasenha.component';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 export class ProfileComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<any>();
 
+  public empty: boolean = false;
   public usuarioForm: FormGroup;
   public celularString: string;
   public usuario: Usuario = {};
@@ -31,16 +33,34 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
     this.getUsuario();
-
   }
   ngOnDestroy(): void {
     this.destroy$.next({});
     this.destroy$.complete();
   }
 
+
+
+  // ============> onInitForm
+  private initForm(): void {
+    this.usuarioForm = this.fb.group({
+
+      nombre: [this.usuario.nombre, [Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-z\s]+$/)]],
+      apellidoPaterno: [this.usuario.apellidoPaterno, [Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-z\s]+$/)]],
+      apellidoMaterno: [this.usuario.apellidoMaterno, [Validators.maxLength(50), Validators.pattern(/^[a-z\s]+$/)]],
+      celular: [this.usuario.celular === 0 ? '' : this.usuario.celular, [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern(/^[0-9]*$/)]],
+      direccion: [this.usuario.direccion, [Validators.maxLength(200)]],
+      correo: [this.usuario.correo, [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
+      username: [this.usuario.username, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
+      contrasenha: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
+      autoUsuario: [false],
+      autoContrasenha: [{ value: false, disabled: true }],
+      rol: [this.usuario.rol, [Validators.required]],
+      newContrasenha: [false]
+    });
+  }
+
   private getUsuario(): void {
-
-
     this.authSvc
       .usuario$
       .pipe(takeUntil(this.destroy$))
@@ -55,8 +75,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
   // ===========> oneditUser
   onEditUser(usuario: Usuario): void {
     usuario.uuid = this.usuario.uuid;
@@ -65,17 +83,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .updateUsuario(usuario.uuid, usr)
       .subscribe(usr => {
         if (usr) {
-          this.toastSvc.success('El usuario se ha editado correctamente 😀', 'Usuario Editado', {
+          this.toastSvc.success('Tus datos se han editado correctamente 😀', 'Usuario Editado', {
             timeOut: 2000,
             progressBar: true,
             progressAnimation: 'increasing'
           });
+          this.getUsuario();
           if (newContrasenha) {
-            // this.matDialog.open(ShowContrasenhaComponent, { data: usr });
+            this.matDialog.open(ShowContrasenhaComponent, { data: usr });
           }
         }
       });
   }
+
   // ===========> onCheckBox
   onCheckBox(usr: { newContrasenha: boolean } & Usuario): void {
     // *check autoUsuario
@@ -102,29 +122,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       this.usuarioForm.controls.autoContrasenha.disable();
       this.usuarioForm.controls.contrasenha.disable();
-
     }
-
-  }
-
-
-  // ============> onInitForm
-  private initForm(): void {
-    this.usuarioForm = this.fb.group({
-
-      nombre: [this.usuario.nombre, [Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-z\s]+$/)]],
-      apellidoPaterno: [this.usuario.apellidoPaterno, [Validators.required, Validators.maxLength(50), Validators.pattern(/^[a-z\s]+$/)]],
-      apellidoMaterno: [this.usuario.apellidoMaterno, [Validators.maxLength(50), Validators.pattern(/^[a-z\s]+$/)]],
-      celular: [this.usuario.celular === 0 ? '' : this.usuario.celular, [Validators.required, Validators.minLength(7), Validators.maxLength(8), Validators.pattern(/^[0-9]*$/)]],
-      direccion: [this.usuario.direccion, [Validators.maxLength(200)]],
-      correo: [this.usuario.correo, [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)]],
-      username: [this.usuario.username, [Validators.required, Validators.minLength(8), Validators.maxLength(10)]],
-      contrasenha: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]],
-      autoUsuario: [false],
-      autoContrasenha: [{ value: false, disabled: true }],
-      rol: [this.usuario.rol, [Validators.required]],
-      newContrasenha: [false]
-    });
   }
 
   // ===========> isValidField
@@ -139,5 +137,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
   // ===========> getString
   getString(num: number): string {
     return String(num);
+  }
+
+  // ===================> clearForm
+  public clearForm(): void {
+    this.usuarioForm.reset();
+    this.empty = true;
+  }
+  // =====================>
+  public fillOutForm(): void {
+    this.initForm();
+    this.empty = false;
   }
 }

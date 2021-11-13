@@ -4,6 +4,8 @@
 
   display: grid;
   grid-template-columns: minmax(auto, 1fr) 1fr;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-form {
@@ -13,6 +15,9 @@
   padding: 10px;
   position: sticky;
   top: 70px;
+
+  max-width: 745px;
+
   mat-slide-toggle,
   mat-checkbox {
     margin-right: 5px;
@@ -21,7 +26,7 @@
 
 .btn-success {
   width: 100%;
-  background-color: var(--primary);
+  background-color: var(--success);
   color: white;
   font-size: 18px;
   border-radius: 25px;
@@ -30,12 +35,40 @@
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 3.5px 3.5px var(--primary);
+    box-shadow: 0 0 3.5px 3.5px var(--success);
+  }
+}
+
+.btn-secondary {
+  width: 100%;
+  background-color: var(--secondary);
+  color: white;
+  font-size: 18px;
+  border-radius: 25px;
+  padding: 5px 0;
+  margin: 20px 0;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 3.5px 3.5px var(--secondary);
   }
 }
 
 .full-column {
   grid-column: 1 / 3;
+}
+
+.circle-name {
+  background-color: var(--primary);
+  width: 50px;
+  height: 50px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 30px;
 }
 
 @media screen and (max-width: 625px) {
@@ -50,15 +83,8 @@
     grid-column: 1;
   }
 }
-.circle-name {
-  background-color: var(--primary);
-  width: 50px;
-  height: 50px;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 5px;
-  font-size: 30px;
+@media screen and (max-width: 1000px) {
+  .profile-container {
+    grid-template-columns: minmax(100%, 1fr);
+  }
 }

@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
+import { NewComentarioComponent } from './components/new-comentario/new-comentario.component';
 
 @Component({
   selector: 'app-product',
@@ -74,7 +75,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         ? `⏳ Solo queda uno!`
         : stock < 1
           ? `⛔ Agotado!`
-          : `  Disponible: ${stock}`
+          : `Disponible: ${stock}`
   }
 
   public modalPreview(e: Event, foto: FotoProducto): void {
@@ -92,5 +93,19 @@ export class ProductComponent implements OnInit, OnDestroy {
     return stock > 3
       ? 'info-stock'
       : 'warn-stock'
+  }
+
+  public newComentario(): void {
+    const dialogRef = this.dialog.open(NewComentarioComponent, {
+      data: this.producto
+    });
+
+
+    // dialogRef.afterClosed()
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((res) => {
+
+    //   });
+
   }
 }

@@ -162,6 +162,21 @@
   }
 }
 
+.btn-comentario {
+  width: auto;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 25px;
+  width: 100%;
+  // font-size: 18px;
+  // padding: 5px 0;
+  // margin: 20px 0;
+
+  &:hover {
+    box-shadow: 0 0 3.5px 3.5px var(--primary);
+  }
+}
+
 .wish-list {
   text-align: center;
   text-decoration: none;
@@ -266,6 +281,14 @@
   .content-rm .product-rating {
     position: relative;
     top: 0;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+
+    .btn-comentario {
+      width: auto;
+    }
   }
 
   // .list-stars .star-progress {

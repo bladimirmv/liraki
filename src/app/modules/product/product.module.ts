@@ -5,14 +5,18 @@ import { ProductRoutingModule } from './product-routing.module';
 import { ProductComponent } from './product.component';
 import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
 import { MaterialModule } from '@app/material.module';
+import { NewComentarioComponent } from './components/new-comentario/new-comentario.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [ProductComponent, ImgPreviewComponent],
+  declarations: [ProductComponent, ImgPreviewComponent, NewComentarioComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class ProductModule { }

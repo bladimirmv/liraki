@@ -2,12 +2,6 @@
   <div class="profile-container">
     <div class="data-user">
       <form class="user-form" [formGroup]="usuarioForm">
-        <!-- <div class="full-column" align="center">
-          <span class="circle-name">
-            {{ usuario.nombre.substr(0, 1) | titlecase }}
-          </span>
-        </div> -->
-
         <!-- *Nombre -->
         <mat-form-field
           class="full-width"
@@ -284,8 +278,15 @@
         </mat-form-field>
 
         <button
+          mat-button
+          class="btn-secondary full-width"
+          (click)="empty ? fillOutForm() : clearForm()"
+        >
+          {{ empty ? "Cancelar" : "Limpiar" }}
+        </button>
+        <button
           type="submit"
-          class="btn-success full-width full-column"
+          class="btn-success full-width"
           mat-button
           (click)="onEditUser(this.usuarioForm.value)"
         >
@@ -295,54 +296,24 @@
     </div>
 
     <div class="history">
-      <div class="whish-list">whish list</div>
-      <mat-divider></mat-divider>
-      <div class="shopping">
-        shopping history Lorem ipsum dolor, sit amet consectetur adipisicing
-        elit. Beatae adipisci quae numquam maxime minus suscipit consequuntur
-        ullam fugiat. Dolorem quaerat laboriosam repudiandae consequuntur id in
-        rem sint quod voluptatum quam! Optio assumenda sequi quaerat placeat
-        officiis animi nam unde beatae quod, dignissimos quas qui iusto,
-        reiciendis nesciunt veniam repellat! Nesciunt, labore sit saepe
-        reiciendis illum at nulla atque repellat eveniet? Dolorem, facere
-        dolore. Iure, at inventore, veniam dignissimos odit impedit in beatae
-        dolorem commodi ipsam quidem doloribus. Reprehenderit, earum ipsa rerum
-        ipsum dolore ab officiis repellendus! Soluta nisi dolorum explicabo.
-        Nesciunt deserunt autem necessitatibus officia eveniet ut nostrum
-        soluta, odit deleniti! Ratione, tempora aliquam. Asperiores. Lorem ipsum
-        dolor, sit amet consectetur adipisicing elit. Consequatur aspernatur
-        est, tempora amet quia, neque voluptatum voluptate modi, dolores numquam
-        totam eos enim voluptatem nulla minus explicabo laborum officia
-        nesciunt? Labore rerum unde alias esse itaque laboriosam voluptate error
-        libero animi nostrum ullam ratione nesciunt sapiente quasi, odit dolor
-        dignissimos maiores obcaecati earum explicabo. Quibusdam esse laudantium
-        reprehenderit a iure. Nulla ex in nihil eos, recusandae sequi officia
-        repudiandae sit totam dicta neque iure illo exercitationem aut
-        repellendus, at perspiciatis doloremque quia vel! Sapiente
-        necessitatibus ex dolore. Amet, placeat eligendi? Fugiat quod pariatur
-        quam eligendi velit numquam, harum rem corrupti nihil dolore nulla vitae
-        id. Quaerat aperiam repellendus, illo odit dolor quae asperiores tempora
-        molestiae libero velit nobis dolores impedit. Odit dolores debitis
-        tempora deleniti, expedita quia quas rerum esse ad consequatur quod
-        facere ea ut voluptatum possimus corporis iste amet accusamus voluptates
-        totam modi consequuntur adipisci, nisi maxime! Numquam. Velit aut dolore
-        ipsam commodi ad dignissimos architecto delectus rerum dolorem
-        laudantium, voluptatum facere, at ab vel impedit. Quaerat accusantium
-        quas vero reiciendis, fugiat molestias voluptatibus placeat et fugit
-        quos! Velit deleniti vitae necessitatibus eaque! Cupiditate nesciunt
-        dolorum voluptatem, velit similique at libero consequuntur quia
-        voluptates explicabo asperiores hic esse! Odio quod distinctio ipsam
-        ducimus perferendis obcaecati vero non eos. Velit, esse recusandae!
-        Beatae obcaecati rem, labore sunt nemo tempora, doloremque voluptatem
-        fugiat facilis cum autem maiores consequuntur itaque quis adipisci at.
-        Eius enim corrupti architecto nam tempore error placeat? Fugiat
-        dignissimos officiis quas corrupti cumque sapiente repellat inventore!
-        Atque ipsa nobis ipsum? Explicabo expedita itaque, eos impedit, aliquam
-        provident optio esse debitis numquam reiciendis sed aperiam sequi minus
-        laborum! Labore, harum? Iste obcaecati animi, molestias culpa quam
-        pariatur unde inventore deserunt doloribus consequuntur corporis quis
-        porro veritatis eos ducimus ex sit esse. Mollitia possimus vel provident
-        facere, eligendi saepe.
+      <div class="whish-list" align="center">
+        <h2 class="font-head gradient-text" align="center">
+          Lista de Deseados
+        </h2>
+        <img src="./assets/wish_list.svg" width="200" align="center" alt="" />
+      </div>
+
+      <br />
+      <!-- <mat-divider></mat-divider> -->
+
+      <div class="shopping" align="center">
+        <h2 class="font-head gradient-text" align="center">
+          Historial de Compras
+        </h2>
+
+        <div>
+          <img src="./assets/cart_empty.svg" width="200" alt="" />
+        </div>
       </div>
     </div>
   </div>

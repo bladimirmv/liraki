@@ -33,29 +33,27 @@ export class ProductoService {
 
     let errorMessage = '';
     if (httpError.error.message) {
-      if (typeof httpError.error.message === 'string') {
-        errorMessage = `${httpError.error.message}`;
-      } else if (httpError.error.message.errno) {
+      if (httpError.error.message.errno) {
         switch (httpError.error.message.errno) {
           case 1451:
             errorMessage = 'No se puede eliminar por que este producto esta relacionado con uno o mas tablas. 🙁';
+            this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
+              timeOut: 7000,
+              enableHtml: true
+            });
+
             break;
           case 1062:
             errorMessage = 'Ya existe un producto con ese mismo nombre, porfavor igrese uno nuevo en su lugar. 🙁';
-            break;
-          default:
-            errorMessage = `
-            Error: ${httpError.statusText}</br>
-            Status: ${httpError.status}`;
+            this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
+              timeOut: 7000,
+              enableHtml: true
+            });
             break;
         }
       }
     }
     console.log('this error', httpError);
-    this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
-      timeOut: 7000,
-      enableHtml: true
-    });
 
 
     return throwError(httpError);

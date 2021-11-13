@@ -94,7 +94,6 @@
       <div class="list-stars">
         <div class="star-progress">
           <span>5 estrellas</span>
-
           <span>
             <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
           </span>
@@ -121,13 +120,29 @@
           <span>70%</span>
         </div>
       </div>
+
+      <mat-divider></mat-divider>
+
+      <h3 class="text-center">
+        📝
+        <span class="font-head gradient-text">
+          Escribir comentario de este producto
+        </span>
+      </h3>
+
+      <p>Comparte tu opinión con otros clientes</p>
+
+      <button mat-button class="btn-comentario" (click)="newComentario()">
+        Añadir Comentario
+      </button>
     </div>
 
     <div class="product-comment">
       <h3 class="full-column-pc text-center">
-        📜<span class="gradient-text font-head"> Comentarios </span>
+        📄<span class="gradient-text font-head"> Comentarios </span>
       </h3>
-      <div class="comment">
+
+      <!-- <div class="comment">
         <div class="user-comment full-column-pc">
           <span class="user-circle">B</span>
           <span>Bladimir Medrano Vargas</span>
@@ -152,9 +167,11 @@
           removable. Would have been nice to have a removable cable that you
           could swap out with a longer one if you need to.
         </p>
-      </div>
+      </div> -->
 
-      <div class="full-column-pc text-center">Sin commentarios</div>
+      <div class="full-column-pc text-center">
+        <img src="./assets/reviews.svg" width="70%" alt="reviews image" />
+      </div>
     </div>
   </div>
 </div>

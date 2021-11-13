@@ -47,11 +47,31 @@ export class RolInterceptor implements HttpInterceptor {
                   timeOut: 7000
                 });
                 break;
+              default:
+                errorMessage = `
+                Error: ${httpError.statusText}</br>
+                Status: ${httpError.status}`;
+                errorMessage = `${httpError.error.message}`;
+                this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
+                  timeOut: 7000,
+                  enableHtml: true
+                });
+                break;
             }
           } else if (httpError.error.message.errno) {
             switch (httpError.error.message.errno) {
               case -111:
                 errorMessage = 'No se ha podido establecer una conexion con la base de datos. 🙁';
+                this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
+                  timeOut: 7000,
+                  enableHtml: true
+                });
+                break;
+              default:
+                errorMessage = `
+                Error: ${httpError.statusText}</br>
+                Status: ${httpError.status}`;
+                errorMessage = `${httpError.error.message}`;
                 this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
                   timeOut: 7000,
                   enableHtml: true

@@ -1,0 +1,68 @@
+.content {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.section-credentials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  place-items: center;
+  grid-gap: 15px;
+  // padding: 0 20px;
+
+  .message-credentials {
+    border-radius: 5px;
+    padding: 5px;
+    max-width: 500px;
+    text-align: justify;
+  }
+}
+
+mat-dialog-actions {
+  display: grid;
+  place-items: center;
+
+  button {
+    width: 100%;
+  }
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+  overflow: auto;
+}
+
+td,
+th {
+  padding: 5px 0;
+}
+
+th {
+  background-color: var(--secondary);
+  color: white;
+  font-weight: bold;
+}
+
+.full-column {
+  grid-column: span 2;
+}
+
+.full-width {
+  width: 100%;
+}
+
+a {
+  cursor: pointer;
+  color: var(--secondary);
+
+  &:hover {
+    color: var(--primary);
+    border-bottom: 1px solid var(--primary);
+  }
+}
