@@ -94,9 +94,9 @@ $mendozarq-theme: mat-light-theme(
     var(--green-light),
     var(--green-dark) 85%
   );
+  --background: var(--gray0);
   --background: var(--gray4);
   // color: var(--gray1);
-  --background: var(--gray0);
 
   --background-opacity: rgba(18, 24, 27, 0.58);
   --text-color: var(--secondary);
@@ -212,6 +212,8 @@ body {
   width: 98%;
   max-width: 1490px;
   margin: 20px auto;
+  height: auto;
+  position: relative;
 }
 .text-center {
   text-align: center;

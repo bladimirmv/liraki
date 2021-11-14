@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ProductoService } from '@app/core/services/liraki/producto.service';
+import { OpinionProducto } from '@app/shared/models/liraki/opinion.producto.interface';
 import { FotoProducto, ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
-import { NewComentarioComponent } from './components/new-comentario/new-comentario.component';
+import { NewOpinionComponent } from './components/new-opinion/new-opinion.component';
 
 @Component({
   selector: 'app-product',
@@ -22,7 +23,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   private fotos: FotoProducto[];
   private API_URL = environment.API_URL;
   public currentFoto: FotoProducto = {} as FotoProducto;
-
+  public Opiniones: OpinionProducto[] = [];
+  public stars: number[] = [0, 0, 0, 0, 0];
 
   constructor(
     private activateRoute: ActivatedRoute,
@@ -60,7 +62,19 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.fotos = producto.fotos;
         this.producto = producto;
         this.producto.fotos = this.producto.fotos.filter((foto, index) => index !== 0);
+        this.getOpinion();
       });
+  }
+
+  private getOpinion(): void {
+    this.productoSvc
+      .getAllOpinion(this.producto.uuid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((opiniones: OpinionProducto[]) => {
+        this.Opiniones = opiniones;
+
+        this.stars = this.productoSvc.ratingProducto(opiniones);
+      })
   }
 
 
@@ -96,16 +110,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   public newComentario(): void {
-    const dialogRef = this.dialog.open(NewComentarioComponent, {
+    this.dialog.open(NewOpinionComponent, {
       data: this.producto
     });
-
-
-    // dialogRef.afterClosed()
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((res) => {
-
-    //   });
-
   }
 }

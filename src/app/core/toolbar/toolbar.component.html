@@ -243,10 +243,11 @@
         </mat-menu>
       </ul>
     </mat-toolbar>
+
     <mat-progress-bar
       class="loader"
-      mode="indeterminate"
       *ngIf="loader.isLoading | async"
+      mode="indeterminate"
       color="primary"
       style="z-index: inherit"
     ></mat-progress-bar>

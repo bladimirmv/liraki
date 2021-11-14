@@ -1,6 +1,6 @@
-<h2 align="center" mat-dialog-title>Nuevo Comentario</h2>
+<h2 align="center" mat-dialog-title>Mi Opinión</h2>
 <mat-dialog-content>
-  <form class="new-form" [formGroup]="comentarioForm">
+  <form class="new-form" [formGroup]="opinionForm">
     <div class="full-column" align="center">
       <button
         mat-icon-button
@@ -38,7 +38,7 @@
         <mat-icon>star</mat-icon>
       </button>
 
-      <!-- {{ comentarioForm.value | json }} -->
+      <!-- {{ opinionForm.value | json }} -->
     </div>
 
     <!-- *titulo -->
@@ -49,19 +49,17 @@
       <mat-label>Titulo</mat-label>
       <input matInput formControlName="titulo" autocomplete="off" />
       <mat-hint align="end">
-        {{
-          comentarioForm.value.titulo ? comentarioForm.value.titulo.length : 0
-        }}/100
+        {{ opinionForm.value.titulo ? opinionForm.value.titulo.length : 0 }}/100
       </mat-hint>
       <mat-icon matSuffix [color]="isValidField('titulo').color">
         {{ isValidField("titulo").icon }}
       </mat-icon>
-      <mat-error *ngIf="comentarioForm.get('titulo').errors?.required">
+      <mat-error *ngIf="opinionForm.get('titulo').errors?.required">
         Ingrese un titulo.
       </mat-error>
-      <mat-error *ngIf="comentarioForm.get('titulo').errors?.maxlength">
+      <mat-error *ngIf="opinionForm.get('titulo').errors?.maxlength">
         Debe contener
-        {{ comentarioForm.get("titulo").errors?.maxlength?.requiredLength }}
+        {{ opinionForm.get("titulo").errors?.maxlength?.requiredLength }}
         digitos como maximo.
       </mat-error>
     </mat-form-field>
@@ -78,34 +76,30 @@
       ></textarea>
       <mat-hint align="end">
         {{
-          comentarioForm.value.descripcion
-            ? comentarioForm.value.descripcion.length
+          opinionForm.value.descripcion
+            ? opinionForm.value.descripcion.length
             : 0
         }}/ 500
       </mat-hint>
       <mat-icon
         matSuffix
         [color]="isValidField('descripcion').color"
-        *ngIf="comentarioForm.value.descripcion"
+        *ngIf="opinionForm.value.descripcion"
       >
         {{ isValidField("descripcion").icon === "done" ? "" : "close" }}
       </mat-icon>
-      <mat-error *ngIf="comentarioForm.get('descripcion').errors?.maxlength">
+      <mat-error *ngIf="opinionForm.get('descripcion').errors?.maxlength">
         Debe contener
-        {{
-          comentarioForm.get("descripcion").errors?.maxlength?.requiredLength
-        }}
+        {{ opinionForm.get("descripcion").errors?.maxlength?.requiredLength }}
         digitos como maximo.
       </mat-error>
 
-      <mat-error *ngIf="comentarioForm.get('descripcion').errors?.minlength">
+      <mat-error *ngIf="opinionForm.get('descripcion').errors?.minlength">
         Debe contener
-        {{
-          comentarioForm.get("descripcion").errors?.minlength?.requiredLength
-        }}
+        {{ opinionForm.get("descripcion").errors?.minlength?.requiredLength }}
         digitos como minimo.
       </mat-error>
-      <mat-error *ngIf="comentarioForm.get('descripcion').errors?.required">
+      <mat-error *ngIf="opinionForm.get('descripcion').errors?.required">
         Ingrese una descripcion.
       </mat-error>
     </mat-form-field>
@@ -121,9 +115,9 @@
   </button>
   <button
     mat-button
-    (click)="newComentario(comentarioForm.value)"
+    (click)="newOpinion(opinionForm.value)"
     class="mat-btn-success"
-    [disabled]="!comentarioForm.valid"
+    [disabled]="!opinionForm.valid"
   >
     Guardar
   </button>

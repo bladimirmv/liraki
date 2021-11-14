@@ -2,9 +2,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, throwError } from 'rxjs';
+import { Observable, ObservableLike, throwError } from 'rxjs';
 import { ProductoView } from '@models/liraki/producto.interface'
 import { catchError, map } from 'rxjs/operators';
+import { OpinionProducto } from '@app/shared/models/liraki/opinion.producto.interface';
 
 
 @Injectable({
@@ -26,6 +27,42 @@ export class ProductoService {
     return this.http
       .get<ProductoView>(`${this.API_URL}/api/producto/${uuid}`)
       .pipe(catchError(error => this.handdleError(error)));
+  }
+
+  public addOpinion(opinion: OpinionProducto): Observable<OpinionProducto> {
+    return this.http
+      .post<OpinionProducto>(`${this.API_URL}/api/opinionProducto`, opinion)
+      .pipe(catchError(error => this.handdleError(error)));
+  }
+
+  public getAllOpinion(uuid: string): Observable<OpinionProducto[]> {
+    return this.http
+      .get<OpinionProducto[]>(`${this.API_URL}/api/opinionProducto/${uuid}`)
+      .pipe(catchError(error => this.handdleError(error)));
+  }
+
+  public ratingProducto(opiniones: OpinionProducto[]): number[] {
+    const stars: Array<number> = [0, 0, 0, 0, 0];
+    const rate: number = 0;
+
+    opiniones.forEach((opinion: OpinionProducto, index: number) => {
+      stars[opinion.puntuacion - 1]++;
+
+
+    });
+
+    stars.forEach((n: number, index: number) => {
+      stars[index] = (n * 100) / opiniones.length;
+    });
+
+
+
+    stars.forEach((n: number, index: number) => {
+      // rate += (n * 100) / opiniones.length
+    });
+
+
+    return stars;
   }
 
   // ====================> handdleError
