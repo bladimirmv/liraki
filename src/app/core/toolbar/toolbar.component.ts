@@ -16,6 +16,9 @@ import { AuthService } from '../services/auth/auth.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
+
+
+
   public modeSidenav = 'side';
   public breakpoint: boolean;
   private destroy$: Subject<any> = new Subject<any>();

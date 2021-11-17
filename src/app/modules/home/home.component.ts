@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import Swiper from 'swiper';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     keyboard: true,
     scrollbar: false,
-    navigation: false,
+    navigation: true,
     pagination: false,
     autoplay: {
       delay: 3000
@@ -61,6 +62,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
     //     el: '.swiper-scrollbar',
     //   },
     // });
+
+    var swiper = new Swiper(".mySwiper", {
+
+      keyboard: true,
+      scrollbar: false,
+      navigation: false,
+      pagination: false,
+      autoplay: {
+        delay: 3000
+      },
+      loop: true,
+    });
   }
 
 

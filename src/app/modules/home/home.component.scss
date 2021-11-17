@@ -3,21 +3,18 @@
   width: 100%;
   height: 600px;
 
-  padding: 0;
-  margin: 0;
-
-  max-width: calc(100vw - 6px) !important;
+  padding: 0 !important;
+  margin: 0 !important;
 
   .swiper-slide {
     width: 100%;
-    max-width: 100%;
     height: 100%;
+    max-width: 100%;
   }
 
   .img-slider {
     width: 100%;
     height: 100%;
-    // height: 600px;
     background: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0) 50%,
@@ -27,11 +24,10 @@
     z-index: -1 !important;
   }
   .img-slider img {
+    display: block;
     width: 100%;
-    max-width: 100%;
     height: 100%;
     object-fit: cover;
-    position: relative;
     z-index: -1 !important;
   }
 }
@@ -192,7 +188,7 @@
     grid-template-columns: repeat(2, minmax(100px, 200px));
   }
   .content {
-    top: -120px;
+    top: -100px;
   }
   .swiper {
     height: 200px !important;
@@ -209,11 +205,11 @@
 }
 
 @media screen and(max-width:336px) {
-  .content {
-    top: -110px;
-  }
   .swiper {
     height: 170px !important;
+  }
+  .content {
+    top: -80px;
   }
 }
 
@@ -332,34 +328,57 @@
 
 @import "~swiper/swiper.scss";
 @import "~swiper/modules/navigation/navigation.scss";
-.swiper {
-  width: 100%;
-  height: 600px;
-}
 
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
+// .swiper-slide {
+//   text-align: center;
+//   font-size: 18px;
+//   background: #fff;
 
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-}
+//   /* Center slide text vertically */
+//   display: -webkit-box;
+//   display: -ms-flexbox;
+//   display: -webkit-flex;
+//   display: flex;
+//   -webkit-box-pack: center;
+//   -ms-flex-pack: center;
+//   -webkit-justify-content: center;
+//   justify-content: center;
+//   -webkit-box-align: center;
+//   -ms-flex-align: center;
+//   -webkit-align-items: center;
+//   align-items: center;
+// }'
 
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+// .swiper {
+//   width: 100%;
+//   height: 300px;
+
+//   max-width: 100%;
+// }
+
+// .swiper-slide img {
+//   display: block;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
+
+// .swiper-slide {
+//   text-align: center;
+//   font-size: 18px;
+//   background: #fff;
+
+//   /* Center slide text vertically */
+//   display: -webkit-box;
+//   display: -ms-flexbox;
+//   display: -webkit-flex;
+//   display: flex;
+//   -webkit-box-pack: center;
+//   -ms-flex-pack: center;
+//   -webkit-justify-content: center;
+//   justify-content: center;
+//   -webkit-box-align: center;
+//   -ms-flex-align: center;
+//   -webkit-align-items: center;
+//   align-items: center;
+// }
