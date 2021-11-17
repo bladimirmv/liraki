@@ -76,7 +76,8 @@ const matModules = [
       timeOut: 2000,
       positionClass: 'toast-top-right',
       preventDuplicates: true
-    })
+    }),
+    // SwiperModule
   ],
   exports: [matModules, ToastrModule]
 })

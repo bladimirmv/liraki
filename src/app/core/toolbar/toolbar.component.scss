@@ -156,7 +156,7 @@ mat-sidenav-content {
 mat-toolbar {
   position: sticky;
   top: 0;
-  z-index: inherit;
+  z-index: 1000;
 
   display: flex;
   flex-flow: row nowrap;

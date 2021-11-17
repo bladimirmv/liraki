@@ -4,10 +4,16 @@
 @import "~ngx-toastr/toastr";
 @import "./styles/table.scss";
 @import "./styles/toast.custom.scss";
-
 @import url("http://fonts.cdnfonts.com/css/cubano");
-
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,600,700);
+
+// @import "~swiper/swiper.scss";
+// @import "~swiper/scss/navigation";
+// @import "~swiper/scss/pagination";
+// @import "~swiper/swiper-bundle.css";
+
+// @import "~swiper/dist/css/swiper.min.css";
+
 @include mat-core();
 // hue. Available color palettes: https://material.io/design/color/
 $mendozarq-primary: mat-palette($mat-orange, 600);
@@ -31,10 +37,12 @@ $mendozarq-theme: mat-light-theme(
 * {
   font-family: quicksand, sans-serif;
   font-weight: 600;
+  --swiper-theme-color: var(--primary);
 }
 
-:root,
-* {
+
+
+:root {
   --primary: #ff6e00;
   --secondary: #425066;
   // --secondary: #677284;

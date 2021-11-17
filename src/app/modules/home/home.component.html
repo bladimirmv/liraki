@@ -1,7 +1,32 @@
 <div class="max-content">
-  <div class="img-slider">
+  <!-- <div class="img-slider">
     <img src="./assets/banner_1.png" alt="" />
-  </div>
+  </div> -->
+
+  <swiper
+    class="swiper"
+    fxFlex="auto"
+    [config]="config"
+    (indexChange)="onIndexChange($event)"
+  >
+    <div class="swiper-slide" data-swiper-parallax="-1000">
+      <div class="img-slider">
+        <img src="./assets/banner_1.png" alt="" />
+      </div>
+    </div>
+
+    <div class="swiper-slide" data-swiper-parallax="-100">
+      <div class="img-slider">
+        <img src="./assets/banner_2.png" alt="" />
+      </div>
+    </div>
+
+    <div class="swiper-slide" data-swiper-parallax="-100">
+      <div class="img-slider">
+        <img src="./assets/banner_3.png" alt="" />
+      </div>
+    </div>
+  </swiper>
 
   <div class="content">
     <div class="top-categorias">
@@ -67,7 +92,6 @@
     </div>
 
     <div class="novedades mat-elevation-z2">
-      <!-- <div class="arrows-card"> -->
       <button
         class="btn-arrow btn-back"
         id="btn-left-prev"
@@ -89,7 +113,6 @@
       >
         <mat-icon class="mat-18"> arrow_forward </mat-icon>
       </button>
-      <!-- </div> -->
 
       <div class="card-header">
         <h2>Novedades</h2>
@@ -121,61 +144,9 @@
         <div class="novedad">
           <img src="./assets/images/vitrina.jpg" alt="" />
         </div>
-
-        <!-- <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div> -->
       </div>
     </div>
-    <div class="novedades mat-elevation-z2">
-      <div class="card-header">
-        <h2 (click)="back('gg')">Novedades</h2>
 
-        <a (click)="next('gg')">Ver más</a>
-      </div>
-      <div class="list-novedades" id="gg">
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/banner_1.png" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/banner_1.png" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-
-        <!-- <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div> -->
-      </div>
-    </div>
     <div class="ofertas">ofertas</div>
     <div class="populares">populares</div>
     <div class="populares">Nuestros productos favoritos</div>
@@ -183,3 +154,31 @@
     <div class="less-than">productos por menos de 300bs</div>
   </div>
 </div>
+<!--
+<div class="content">
+  <swiper
+    class="swiper"
+    fxFlex="auto"
+    [config]="config"
+    (indexChange)="onIndexChange($event)"
+  >
+    <div class="swiper-slide" data-swiper-parallax="-100">
+      <img
+        src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+        alt="First slide"
+      />
+    </div>
+  </swiper>
+</div> -->
+
+<!-- <swiper [navigation]="true" class="mySwiper">
+  <ng-template swiperSlide>Slide 1</ng-template
+  ><ng-template swiperSlide>Slide 2</ng-template
+  ><ng-template swiperSlide>Slide 3</ng-template
+  ><ng-template swiperSlide>Slide 4</ng-template
+  ><ng-template swiperSlide>Slide 5</ng-template
+  ><ng-template swiperSlide>Slide 6</ng-template
+  ><ng-template swiperSlide>Slide 7</ng-template
+  ><ng-template swiperSlide>Slide 8</ng-template
+  ><ng-template swiperSlide>Slide 9</ng-template>
+</swiper> -->
