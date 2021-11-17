@@ -230,13 +230,13 @@ body {
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-  background-color: var(--gray1);
+  // background-color: var(--gray1);
 }
 
 ::-webkit-scrollbar-thumb {
   background: rgb(212, 212, 212);
   border-radius: 25px;
-  background: var(--primary);
+  background: var(--gray1);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(197, 196, 196);

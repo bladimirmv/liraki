@@ -15,13 +15,16 @@ export class HomeComponent implements OnInit {
   }
 
 
-  next(): void {
-
-    document.querySelector('.list-novedades').scrollBy(170 * 7, 0)
+  next(id: string): void {
+    const gap: number = 0;
+    const width: number = document.querySelector(`#${id}`).getBoundingClientRect().width + gap;
+    document.querySelector(`#${id}`).scrollBy(width, 0)
   }
 
-  back(): void {
-    document.querySelector('.list-novedades').scrollBy(-170 * 7, 0)
+  back(id: string): void {
+    const gap: number = 0;
+    const width: number = document.querySelector(`#${id}`).getBoundingClientRect().width + gap;
+    document.querySelector(`#${id}`).scrollBy(-width, 0)
 
   }
 }

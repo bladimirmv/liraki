@@ -67,12 +67,79 @@
     </div>
 
     <div class="novedades mat-elevation-z2">
-      <div class="card-header">
-        <h2 (click)="back()">Novedades</h2>
+      <!-- <div class="arrows-card"> -->
+      <button
+        class="btn-arrow btn-back"
+        id="btn-left-prev"
+        mat-icon-button
+        matTooltip="Atras"
+        matTooltipPosition="below"
+        (click)="back('list-novedades')"
+      >
+        <mat-icon class="mat-18"> arrow_back </mat-icon>
+      </button>
 
-        <a (click)="next()">Ver más</a>
+      <button
+        class="btn-arrow btn-forward"
+        id="btn-right-prev"
+        mat-icon-button
+        matTooltip="Siguiente"
+        matTooltipPosition="below"
+        (click)="next('list-novedades')"
+      >
+        <mat-icon class="mat-18"> arrow_forward </mat-icon>
+      </button>
+      <!-- </div> -->
+
+      <div class="card-header">
+        <h2>Novedades</h2>
+
+        <a>Ver más</a>
       </div>
-      <div class="list-novedades">
+      <div class="list-novedades" id="list-novedades">
+        <div class="novedad" routerLink="/products">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+
+        <!-- <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div>
+        <div class="novedad">
+          <img src="./assets/images/vitrina.jpg" alt="" />
+        </div> -->
+      </div>
+    </div>
+    <div class="novedades mat-elevation-z2">
+      <div class="card-header">
+        <h2 (click)="back('gg')">Novedades</h2>
+
+        <a (click)="next('gg')">Ver más</a>
+      </div>
+      <div class="list-novedades" id="gg">
         <div class="novedad">
           <img src="./assets/images/vitrina.jpg" alt="" />
         </div>
@@ -109,7 +176,6 @@
         </div> -->
       </div>
     </div>
-
     <div class="ofertas">ofertas</div>
     <div class="populares">populares</div>
     <div class="populares">Nuestros productos favoritos</div>
