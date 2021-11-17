@@ -94,8 +94,8 @@ $mendozarq-theme: mat-light-theme(
     var(--green-light),
     var(--green-dark) 85%
   );
-  --background: var(--gray0);
   --background: var(--gray4);
+  --background: var(--gray0);
   // color: var(--gray1);
 
   --background-opacity: rgba(18, 24, 27, 0.58);
@@ -113,7 +113,7 @@ $mendozarq-theme: mat-light-theme(
   --nav-border: 2px dashed var(--text-color);
   --card-border: 1px solid var(--nav-bg);
   --card-radius: 0.25em;
-  transition: all 0.3s ease;
+  // transition: all 0.3s ease;
 }
 
 .light-theme {
@@ -172,7 +172,6 @@ $mendozarq-theme: mat-light-theme(
 body {
   font-size: 1em;
 }
-
 html,
 body {
   height: 100%;
@@ -180,7 +179,6 @@ body {
   padding: 0;
   margin: 0;
 }
-
 .mat-divider {
   // border-top-style: dashed !important;
 }
@@ -210,11 +208,21 @@ body {
 
 .content {
   width: 98%;
-  max-width: 1490px;
-  margin: 20px auto;
+  max-width: 1480px;
+  margin: auto;
   height: auto;
   position: relative;
 }
+
+.max-content {
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
+  height: auto;
+  // height: 600px;
+  position: relative;
+}
+
 .text-center {
   text-align: center;
 }
