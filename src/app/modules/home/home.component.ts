@@ -10,6 +10,18 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+
   }
 
+
+  next(): void {
+
+    document.querySelector('.list-novedades').scrollBy(170 * 7, 0)
+  }
+
+  back(): void {
+    document.querySelector('.list-novedades').scrollBy(-170 * 7, 0)
+
+  }
 }
