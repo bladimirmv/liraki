@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     direction: 'horizontal',
     // slidesPerView: 1,
     // slideToClickedSlide: true,
-    // watchSlidesProgress: true,
+    watchSlidesProgress: true,
     // centeredSlides: true,
     // roundLengths: true,
     // loop: true,
@@ -22,11 +22,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     keyboard: true,
     scrollbar: false,
-    navigation: true,
-    pagination: false,
-    autoplay: {
-      delay: 3000
+    navigation: {
+      nextEl: '.sp-btn-next',
+      prevEl: '.sp-btn-prev'
     },
+    pagination: false,
+    autoplay: true,
     loop: true,
 
   };
@@ -41,39 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    // const swiper = new Swiper('.swiper', {
-    //   // Optional parameters
-    //   direction: 'vertical',
-    //   loop: true,
 
-    //   // If we need pagination
-    //   pagination: {
-    //     el: '.swiper-pagination',
-    //   },
-
-    //   // Navigation arrows
-    //   navigation: {
-    //     nextEl: '.swiper-button-next',
-    //     prevEl: '.swiper-button-prev',
-    //   },
-
-    //   // And if we need scrollbar
-    //   scrollbar: {
-    //     el: '.swiper-scrollbar',
-    //   },
-    // });
-
-    var swiper = new Swiper(".mySwiper", {
-
-      keyboard: true,
-      scrollbar: false,
-      navigation: false,
-      pagination: false,
-      autoplay: {
-        delay: 3000
-      },
-      loop: true,
-    });
   }
 
 

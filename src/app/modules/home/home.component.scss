@@ -1,3 +1,26 @@
+.swiper-container {
+  position: relative;
+
+  .btn-sp {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    z-index: 2;
+
+    width: 100%;
+    display: none;
+    justify-content: space-between;
+  }
+
+  .btn-sp button {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: var(--secondary);
+  }
+
+  &:hover .btn-sp {
+    display: flex;
+  }
+}
 .swiper {
   z-index: 1 !important;
   width: 100%;

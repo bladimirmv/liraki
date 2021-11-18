@@ -1,28 +1,50 @@
 <div class="max-content">
-  <swiper
-    class="swiper"
-    fxFlex="auto"
-    [config]="config"
-    (indexChange)="onIndexChange($event)"
-  >
-    <div class="swiper-slide" data-swiper-parallax="-1000">
-      <div class="img-slider">
-        <img src="./assets/banner_1.png" alt="" />
-      </div>
+  <div class="swiper-container">
+    <div class="btn-sp">
+      <button
+        class="sp-btn-prev"
+        mat-icon-button
+        matTooltip="Atras"
+        matTooltipPosition="below"
+      >
+        <mat-icon class="mat-18"> arrow_back </mat-icon>
+      </button>
+
+      <button
+        class="sp-btn-next"
+        mat-icon-button
+        matTooltip="Siguiente"
+        matTooltipPosition="below"
+      >
+        <mat-icon class="mat-18"> arrow_forward </mat-icon>
+      </button>
     </div>
 
-    <div class="swiper-slide" data-swiper-parallax="-100">
-      <div class="img-slider">
-        <img src="./assets/banner_2.png" alt="" />
+    <swiper
+      class="swiper"
+      fxFlex="auto"
+      [config]="config"
+      (indexChange)="onIndexChange($event)"
+    >
+      <div class="swiper-slide">
+        <div class="img-slider">
+          <img src="./assets/banner_1.png" alt="" />
+        </div>
       </div>
-    </div>
 
-    <div class="swiper-slide" data-swiper-parallax="-100">
-      <div class="img-slider">
-        <img src="./assets/banner_3.png" alt="" />
+      <div class="swiper-slide">
+        <div class="img-slider">
+          <img src="./assets/banner_2.png" alt="" />
+        </div>
       </div>
-    </div>
-  </swiper>
+
+      <div class="swiper-slide">
+        <div class="img-slider">
+          <img src="./assets/banner_3.png" alt="" />
+        </div>
+      </div>
+    </swiper>
+  </div>
 
   <div class="content">
     <div class="top-categorias">
