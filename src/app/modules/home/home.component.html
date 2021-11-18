@@ -27,19 +27,19 @@
       (indexChange)="onIndexChange($event)"
     >
       <div class="swiper-slide">
-        <div class="img-slider">
+        <div class="img-slider with-gradient">
           <img src="./assets/banner_1.png" alt="" />
         </div>
       </div>
 
       <div class="swiper-slide">
-        <div class="img-slider">
+        <div class="img-slider with-gradient">
           <img src="./assets/banner_2.png" alt="" />
         </div>
       </div>
 
       <div class="swiper-slide">
-        <div class="img-slider">
+        <div class="img-slider with-gradient">
           <img src="./assets/banner_3.png" alt="" />
         </div>
       </div>
@@ -109,93 +109,11 @@
       </div>
     </div>
 
-    <div class="novedades mat-elevation-z2">
-      <button
-        class="btn-arrow btn-back"
-        id="btn-left-prev"
-        mat-icon-button
-        matTooltip="Atras"
-        matTooltipPosition="below"
-        (click)="back('list-novedades')"
-      >
-        <mat-icon class="mat-18"> arrow_back </mat-icon>
-      </button>
-
-      <button
-        class="btn-arrow btn-forward"
-        id="btn-right-prev"
-        mat-icon-button
-        matTooltip="Siguiente"
-        matTooltipPosition="below"
-        (click)="next('list-novedades')"
-      >
-        <mat-icon class="mat-18"> arrow_forward </mat-icon>
-      </button>
-
-      <div class="card-header">
-        <h2>Novedades</h2>
-
-        <a>Ver más</a>
-      </div>
-      <div class="list-novedades" id="list-novedades">
-        <div class="novedad" routerLink="/products">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-        <div class="novedad">
-          <img src="./assets/images/vitrina.jpg" alt="" />
-        </div>
-      </div>
-    </div>
-
-    <div class="ofertas">ofertas</div>
-    <div class="populares">populares</div>
-    <div class="populares">Nuestros productos favoritos</div>
-
-    <div class="less-than">productos por menos de 300bs</div>
+    <app-card-slider
+      [title]="'Ofertas'"
+      [id]="'ofertas'"
+      [products]="productos"
+    ></app-card-slider>
+    <app-card-slider [title]="'Novedades'" [id]="'novedades'"></app-card-slider>
   </div>
 </div>
-
-<!-- <div class="max-content"> -->
-<!--
-<swiper [config]="config" class="swiper">
-  <div swiperSlide class="swiper-slide">
-    <img
-      src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-    />
-  </div>
-</swiper> -->
-<!-- </div> -->
-
-<!-- <div class="max-content">
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-      <div class="swiper-slide">Slide 4</div>
-      <div class="swiper-slide">Slide 5</div>
-      <div class="swiper-slide">Slide 6</div>
-      <div class="swiper-slide">Slide 7</div>
-      <div class="swiper-slide">Slide 8</div>
-      <div class="swiper-slide">Slide 9</div>
-    </div>
-  </div>
-</div> -->

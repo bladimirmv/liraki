@@ -1,0 +1,89 @@
+
+// novedades
+.novedades {
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: white;
+  max-width: 100%;
+  overflow: hidden;
+  transition: 0.3s ease;
+  position: relative;
+
+  .card-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-header h2 {
+    margin: 0;
+  }
+
+  .card-header a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-top: 5px;
+    font-weight: bold;
+  }
+  .card-header a:hover {
+    color: var(--primary);
+  }
+
+  .btn-back {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+  }
+
+  .btn-forward {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 0;
+  }
+}
+
+.list-novedades {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  .novedad {
+    background-color: white;
+
+    min-width: 200px;
+    min-height: 200px;
+
+max-width: 200px;
+    max-height: 200px;
+
+
+
+    margin-bottom: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .novedad img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+}
+
+.novedades:hover .btn-arrow {
+  display: block;
+  background-color: white;
+}

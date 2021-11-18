@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { ProductoService } from '@app/core/services/liraki/producto.service';
+import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import Swiper from 'swiper';
@@ -9,6 +11,12 @@ import Swiper from 'swiper';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+
+  public productos: ProductoView[] = [];
+
+
+  title: string = 'fdf';
+
   config: SwiperConfigInterface = {
     // a11y: true,
     direction: 'horizontal',
@@ -27,17 +35,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
       prevEl: '.sp-btn-prev'
     },
     pagination: false,
-    autoplay: true,
+    autoplay: {
+      delay: 3500
+    },
     loop: true,
 
   };
 
+  constructor(private productSvc: ProductoService) { }
+
   onIndexChange(e): void {
-    console.log(e);
 
   }
   ngOnInit(): void {
-
+    this.productSvc.getAllProductos()
+      .subscribe((productos: ProductoView[]) => {
+        this.productos = productos;
+      })
   }
 
 
@@ -46,16 +60,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 
-  next(id: string): void {
-    const gap: number = 0;
-    const width: number = document.querySelector(`#${id}`).getBoundingClientRect().width + gap;
-    document.querySelector(`#${id}`).scrollBy(width, 0)
-  }
 
-  back(id: string): void {
-    const gap: number = 0;
-    const width: number = document.querySelector(`#${id}`).getBoundingClientRect().width + gap;
-    document.querySelector(`#${id}`).scrollBy(-width, 0)
 
-  }
 }

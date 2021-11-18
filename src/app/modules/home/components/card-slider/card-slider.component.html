@@ -1,0 +1,72 @@
+<div class="novedades mat-elevation-z2">
+  <button
+    class="btn-arrow btn-back"
+    id="btn-left-prev"
+    mat-icon-button
+    matTooltip="Atras"
+    matTooltipPosition="below"
+    (click)="back()"
+  >
+    <mat-icon class="mat-18"> arrow_back </mat-icon>
+  </button>
+
+  <button
+    class="btn-arrow btn-forward"
+    id="btn-right-prev"
+    mat-icon-button
+    matTooltip="Siguiente"
+    matTooltipPosition="below"
+    (click)="next()"
+  >
+    <mat-icon class="mat-18"> arrow_forward </mat-icon>
+  </button>
+
+  <div class="card-header">
+    <h2>{{ title }}</h2>
+
+    <a>Ver más</a>
+  </div>
+  <div class="list-novedades" [id]="id" *ngIf="!products.length">
+    <div class="novedad" routerLink="/products">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+    <div class="novedad">
+      <img src="./assets/images/vitrina.jpg" alt="" />
+    </div>
+  </div>
+
+  <div class="list-novedades" [id]="id" *ngIf="products.length">
+    <div
+      class="novedad"
+      routerLink="/products"
+      *ngFor="let product of products"
+    >
+      <img
+        [src]="
+          product.fotos.length
+            ? getImage(product.fotos[0].keyName)
+            : './assets/no-image.svg'
+        "
+        alt=""
+      />
+    </div>
+  </div>
+</div>
