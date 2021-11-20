@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FilterParams } from '@app/modules/products/products.component';
 import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { environment } from '@env/environment';
 
@@ -13,6 +14,8 @@ export class CardSliderComponent implements OnInit {
   @Input() public title: string = '';
   @Input() public id: string = '';
   @Input() public products: ProductoView[] = [];
+  @Input() public qParams: FilterParams = {};
+
 
 
   constructor() { }

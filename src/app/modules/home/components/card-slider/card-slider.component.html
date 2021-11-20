@@ -23,8 +23,12 @@
 
   <div class="card-header">
     <h2>{{ title }}</h2>
-
-    <a>Ver más</a>
+    <a
+      [routerLink]="['/products']"
+      [queryParams]="qParams"
+      queryParamsHandling="merge"
+      >Ver más</a
+    >
   </div>
   <div class="list-novedades" [id]="id" *ngIf="!products.length">
     <div class="novedad" routerLink="/products">

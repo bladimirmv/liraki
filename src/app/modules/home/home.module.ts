@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 
+
+
 // import { SwiperModule } from "swiper/angular";
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { CardSliderComponent } from './components/card-slider/card-slider.component';

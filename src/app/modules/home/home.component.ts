@@ -18,16 +18,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   title: string = 'fdf';
 
   config: SwiperConfigInterface = {
-    // a11y: true,
+
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    },
+
+
     direction: 'horizontal',
-    // slidesPerView: 1,
-    // slideToClickedSlide: true,
-    watchSlidesProgress: true,
-    // centeredSlides: true,
-    // roundLengths: true,
-    // loop: true,
-
-
     keyboard: true,
     scrollbar: false,
     navigation: {

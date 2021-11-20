@@ -110,10 +110,15 @@
     </div>
 
     <app-card-slider
-      [title]="'Ofertas'"
-      [id]="'ofertas'"
+      [title]="'En descuento'"
+      [id]="'en-descuento'"
       [products]="productos"
+      [qParams]="{ order: 'en_descuento' }"
     ></app-card-slider>
-    <app-card-slider [title]="'Novedades'" [id]="'novedades'"></app-card-slider>
+    <app-card-slider
+      [title]="'Recientemente agregados'"
+      [id]="'recientemente-agregados'"
+      [qParams]="{ order: 'recientemente_agregados' }"
+    ></app-card-slider>
   </div>
 </div>
