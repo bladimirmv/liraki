@@ -7,6 +7,7 @@ import { ProductoService } from '@services/liraki/producto.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+
 export interface FilterParams {
   order?: string;
   disponibilidad?: boolean | string;
@@ -22,9 +23,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
   public productos: ProductoView[] = [];
   params: FilterParams = {} as FilterParams;
-  isChecked: boolean | string;
 
-  private router: string = '';
 
   constructor(
     private productoSvc: ProductoService,
@@ -34,13 +33,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.route.queryParams
       .subscribe(params => {
         this.params = params;
-        this.isChecked = this.params.disponibilidad;
       }
       );
+
   }
-  // [queryParams]="{
-  //         disponibilidad: isChecked ? 'false' : 'true'
-  //       }"
+
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -70,5 +67,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   getValueParam(): any {
     this.params.disponibilidad
   }
+
+
+
+
+
+
+
+
 
 }

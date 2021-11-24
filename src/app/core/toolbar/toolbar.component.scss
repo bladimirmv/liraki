@@ -70,7 +70,7 @@ mat-sidenav-container {
   margin-top: 10px;
 
   mat-icon {
-    color: var(--secondary);
+    color: var(--text-color);
     margin: 0 16px;
     font-size: 22px;
   }
@@ -80,7 +80,7 @@ mat-sidenav-container {
   }
 
   button {
-    color: var(--secondary);
+    color: var(--text-color);
 
     font-family: "cubano", sans-serif;
 
@@ -165,7 +165,7 @@ mat-toolbar {
   justify-content: space-between;
   height: 60px;
   overflow: hidden;
-  background-color: white;
+  background-color: var(--nav-bg);
 
   ul {
     list-style: none;
@@ -179,7 +179,7 @@ mat-toolbar {
     li a {
       text-decoration: none;
       font-size: 18px;
-      color: var(--secondary);
+      color: var(--text-color);
     }
 
     li a:hover {
@@ -198,7 +198,7 @@ mat-toolbar {
     }
 
     button {
-      color: var(--secondary);
+      color: var(--text-color);
     }
   }
 
@@ -214,6 +214,10 @@ mat-toolbar {
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
+  }
+  mat-autocomplete .autocomplete-option {
+    background: red !important;
+    color: var(--text-color) !important;
   }
 }
 
@@ -235,8 +239,8 @@ mat-toolbar {
   span {
     margin-left: 10px;
     font-size: 1.5em;
+    color: var(--text-color);
     // font-weight: bolder;
-    color: var(--secondary);
     // font-family: var(--font-head);
   }
 
@@ -291,7 +295,8 @@ mat-toolbar {
     border-radius: 20px;
     outline: none;
     border: 2px solid var(--primary);
-    background-color: white;
+    background-color: var(--nav-bg);
+    color: var(--text-color);
   }
 
   .icon,

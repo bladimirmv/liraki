@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<mat-sidenav-container class="dark-them">
   <mat-sidenav mode="over" [opened]="false" #drawer class="sidenav-container">
     <img class="wave" src="./assets/wave-2.svg" alt="" />
     <div class="sidenav-container">
@@ -139,6 +139,7 @@
 
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option
+          class="autocomplete-option"
           (click)="search(product.nombre)"
           *ngFor="let product of filteredProducts"
           [value]="product.nombre"
