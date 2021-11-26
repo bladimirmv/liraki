@@ -73,7 +73,10 @@ export class ProductComponent implements OnInit, OnDestroy {
       .subscribe((opiniones: OpinionProducto[]) => {
         this.Opiniones = opiniones;
 
-        this.stars = this.productoSvc.ratingProducto(opiniones);
+        if (opiniones.length) {
+          this.stars = this.productoSvc.ratingProducto(opiniones);
+        }
+
       })
   }
 
