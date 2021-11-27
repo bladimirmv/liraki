@@ -29,8 +29,6 @@ $mendozarq-theme: mat-light-theme(
 
 * {
   font-family: "quicksand", sans-serif;
-
-  font-weight: 600;
   --swiper-theme-color: var(--primary);
 }
 
@@ -200,9 +198,12 @@ body {
 //   }
 // }
 
+.font-icon {
+  font-weight: normal !important;
+}
+
 .font-head {
   font-family: var(--font-head) !important;
-  font-weight: normal;
 }
 
 .full-width {

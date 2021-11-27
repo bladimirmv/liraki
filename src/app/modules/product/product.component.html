@@ -50,12 +50,15 @@
           </mat-chip>
         </mat-chip-list>
       </div>
-      <h2 class="price full-column font-head">
-        <span *ngIf="producto.descuento > 0">💸</span>
+
+      <h2 class="full-column font-head">
+        <span class="font-icon" *ngIf="producto.descuento > 0">💸</span>
         <span class="antes-price font-head" *ngIf="producto.descuento > 0">
           Bs. {{ producto.precio }}</span
         >
-        Bs. {{ producto.descuento > 0 ? getDescuento() : producto.precio }}
+        <span class="font-head">
+          Bs. {{ producto.descuento > 0 ? getDescuento() : producto.precio }}
+        </span>
       </h2>
 
       <div class="categories full-column">
@@ -86,8 +89,8 @@
   <div class="content-rm">
     <div class="product-rating">
       <h3 class="text-center">
-        ⭐
-        <span class="font-head gradient-text"
+        <span class="font-icon"> ⭐ </span>
+        <span class="gradient-text font-head"
           >Calificaciones del Producto
         </span>
       </h3>
@@ -99,7 +102,7 @@
           <span>
             <mat-progress-bar
               mode="determinate"
-              [value]="stars[4] "
+              [value]="stars[4]"
             ></mat-progress-bar>
           </span>
           <span>{{ stars[4] }}%</span>
@@ -141,7 +144,8 @@
       <mat-divider></mat-divider>
 
       <h3 class="text-center">
-        📝
+        <span class="font-icon"> 📝 </span>
+
         <span class="font-head gradient-text">
           Escribir opinión de este producto
         </span>
@@ -156,7 +160,9 @@
 
     <div class="product-comment">
       <h3 class="full-column-pc text-center">
-        📄<span class="gradient-text font-head"> Opiniones de clientes </span>
+        <span class="font-icon"> 📄 </span>
+
+        <span class="gradient-text font-head"> Opiniones de clientes </span>
       </h3>
 
       <!-- <div class="comment">
