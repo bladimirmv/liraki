@@ -113,8 +113,19 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   public newComentario(): void {
-    this.dialog.open(NewOpinionComponent, {
+    const dialoRef = this.dialog.open(NewOpinionComponent, {
       data: this.producto
     });
+
+
+    dialoRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: boolean) => {
+        if (res) {
+          this.getOpinion();
+        }
+      });
+
   }
 }

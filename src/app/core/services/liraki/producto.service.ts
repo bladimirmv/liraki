@@ -52,7 +52,7 @@ export class ProductoService {
     });
 
     stars.forEach((n: number, index: number) => {
-      stars[index] = (n * 100) / opiniones.length;
+      stars[index] = ((n * 100) / opiniones.length).toFixed(1);
     });
 
 
