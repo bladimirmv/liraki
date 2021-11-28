@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, ObservableLike, throwError } from 'rxjs';
 import { ProductoView } from '@models/liraki/producto.interface'
 import { catchError, map } from 'rxjs/operators';
-import { OpinionProducto } from '@app/shared/models/liraki/opinion.producto.interface';
+import { OpinionProducto, OpinionProductoView } from '@app/shared/models/liraki/opinion.producto.interface';
 
 
 @Injectable({
@@ -35,9 +35,9 @@ export class ProductoService {
       .pipe(catchError(error => this.handdleError(error)));
   }
 
-  public getAllOpinion(uuid: string): Observable<OpinionProducto[]> {
+  public getAllOpinionByUuid(uuid: string): Observable<OpinionProductoView[]> {
     return this.http
-      .get<OpinionProducto[]>(`${this.API_URL}/api/opinionProducto/${uuid}`)
+      .get<OpinionProductoView[]>(`${this.API_URL}/api/opinionProducto/${uuid}`)
       .pipe(catchError(error => this.handdleError(error)));
   }
 
@@ -52,7 +52,7 @@ export class ProductoService {
     });
 
     stars.forEach((n: number, index: number) => {
-      stars[index] = ((n * 100) / opiniones.length).toFixed(1);
+      stars[index] = Number(((n * 100) / opiniones.length).toFixed(1));
     });
 
 

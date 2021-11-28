@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { ProductoService } from '@app/core/services/liraki/producto.service';
-import { OpinionProducto } from '@app/shared/models/liraki/opinion.producto.interface';
+import { OpinionProducto, OpinionProductoView } from '@app/shared/models/liraki/opinion.producto.interface';
 import { FotoProducto, ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
@@ -23,7 +23,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   private fotos: FotoProducto[];
   private API_URL = environment.API_URL;
   public currentFoto: FotoProducto = {} as FotoProducto;
-  public Opiniones: OpinionProducto[] = [];
+  public Opiniones: OpinionProductoView[] = [];
   public stars: number[] = [0, 0, 0, 0, 0];
 
   constructor(
@@ -68,9 +68,9 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   private getOpinion(): void {
     this.productoSvc
-      .getAllOpinion(this.producto.uuid)
+      .getAllOpinionByUuid(this.producto.uuid)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((opiniones: OpinionProducto[]) => {
+      .subscribe((opiniones: OpinionProductoView[]) => {
         this.Opiniones = opiniones;
 
         if (opiniones.length) {

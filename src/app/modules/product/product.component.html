@@ -40,7 +40,7 @@
           <mat-icon class="star-checked"> star </mat-icon>
           <mat-icon class="star-checked"> star </mat-icon>
           <mat-icon class="star-checked"> star </mat-icon>
-          <mat-icon class="star-middle"> star </mat-icon>
+          <mat-icon class="star-checked"> star </mat-icon>
         </div>
       </div>
       <div class="availability">
@@ -165,34 +165,59 @@
         <span class="gradient-text font-head"> Opiniones de clientes </span>
       </h3>
 
-      <!-- <div class="comment">
+      <div class="comment" *ngFor="let opinion of Opiniones">
         <div class="user-comment full-column-pc">
-          <span class="user-circle">B</span>
-          <span>Bladimir Medrano Vargas</span>
+          <span class="user-circle">
+            {{ opinion.usuario.nombre.slice(0, 1) | titlecase }}</span
+          >
+          <span>{{
+            opinion.usuario.nombre +
+              " " +
+              opinion.usuario.apellidoPaterno +
+              " " +
+              opinion.usuario.apellidoMaterno | titlecase
+          }}</span>
         </div>
         <div class="star-rating">
           <div class="stars">
-            <mat-icon class="star-checked"> star </mat-icon>
-            <mat-icon class="star-checked"> star </mat-icon>
-            <mat-icon class="star-checked"> star </mat-icon>
-            <mat-icon class="star-checked"> star </mat-icon>
-            <mat-icon class="star-middle"> star </mat-icon>
+            <mat-icon
+              [class]="opinion.puntuacion >= 1 ? 'star-checked' : 'empty-star'"
+            >
+              star
+            </mat-icon>
+            <mat-icon
+              [class]="opinion.puntuacion >= 2 ? 'star-checked' : 'empty-star'"
+            >
+              star
+            </mat-icon>
+            <mat-icon
+              [class]="opinion.puntuacion >= 3 ? 'star-checked' : 'empty-star'"
+            >
+              star
+            </mat-icon>
+            <mat-icon
+              [class]="opinion.puntuacion >= 4 ? 'star-checked' : 'empty-star'"
+            >
+              star
+            </mat-icon>
+            <mat-icon
+              [class]="opinion.puntuacion === 5 ? 'star-checked' : 'empty-star'"
+            >
+              star
+            </mat-icon>
           </div>
         </div>
-        <h4 class="font-head">Fine for Low Powered Devices Fine</h4>
-        <span class="full-column-pc date-comment">07/05/2021 03:30 pm.</span>
+        <h4 class="font-head">{{ opinion.titulo }}</h4>
+        <span class="full-column-pc date-comment">{{
+          opinion.creadoEn | date: "short"
+        }}</span>
         <span class="full-column-pc compra-verificada">Compra Verificada</span>
         <p class="full-column-pc">
-          This is a decent, well constructed USB-C to USB3 hub. The biggest
-          issue with the hub is that it's not powered and has no option to be
-          externally powered which docked off 1 star. I docked another star
-          because the cable is attached and only about 20" long and not
-          removable. Would have been nice to have a removable cable that you
-          could swap out with a longer one if you need to.
+          {{ opinion.descripcion }}
         </p>
-      </div> -->
+      </div>
 
-      <div class="full-column-pc text-center">
+      <div class="full-column-pc text-center" *ngIf="!Opiniones">
         <img src="./assets/reviews.svg" width="70%" alt="reviews image" />
       </div>
     </div>
