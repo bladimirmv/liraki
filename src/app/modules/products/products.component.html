@@ -1,11 +1,11 @@
-<div class="bg-products">
-  <div class="content">
-    <div class="products-container">
-      <div class="filter-mobile">
-        <!-- <div class="active-filter"> -->
-        <div class="active-filters">
-          <div>Todos</div>
-          <!-- <div>100bs a 200bs.</div>
+<!-- <div class="bg-products"> -->
+<div class="content">
+  <div class="products-container">
+    <div class="filter-mobile">
+      <!-- <div class="active-filter"> -->
+      <div class="active-filters">
+        <div>Todos</div>
+        <!-- <div>100bs a 200bs.</div>
         <div>Marcos de Puerta</div>
         <div>cat 3</div>
         <div>cat 1</div>
@@ -15,205 +15,200 @@
         <div>cat 3</div>
         <div>cat 1</div>
         <div>cat 4</div> -->
-        </div>
-        <!-- </div> -->
-
-        <button
-          class="mat-btn-primary"
-          mat-button
-          [matMenuTriggerFor]="animals"
-        >
-          Filtrar
-        </button>
-        <mat-menu #animals="matMenu">
-          <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
-            <span class="gradient-text font-head"> Nuevo y Ofertas</span>
-          </button>
-
-          <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
-            <span class="gradient-text font-head">Categorias</span>
-          </button>
-
-          <button mat-menu-item [matMenuTriggerFor]="price">
-            <span class="gradient-text font-head">Precio</span>
-          </button>
-
-          <button mat-menu-item>
-            <section class="example-section">
-              <mat-checkbox color="primary" class="example-margin"
-                >Sólo en Existencias</mat-checkbox
-              >
-            </section>
-          </button>
-        </mat-menu>
-
-        <mat-menu #Nuevo_Ofertas="matMenu">
-          <button mat-menu-item>Recientemente agregados</button>
-          <button mat-menu-item>En descuento</button>
-        </mat-menu>
-
-        <mat-menu #Nuevo_Ofertas="matMenu">
-          <button mat-menu-item>cat name</button>
-        </mat-menu>
-
-        <mat-menu #price="matMenu">
-          <button
-            mat-menu-item
-            [routerLink]="['/products']"
-            [queryParams]="{ order: 'catName' }"
-          >
-            {{ "menos de 100Bs." }}
-          </button>
-
-          <button
-            mat-menu-item
-            [routerLink]="['/products']"
-            [queryParams]="{ order: 'catName' }"
-          >
-            {{ "100bs. a 200Bs." }}
-          </button>
-          <button
-            mat-menu-item
-            [routerLink]="['/products']"
-            [queryParams]="{ order: 'catName' }"
-          >
-            {{ "200bs. a 300Bs." }}
-          </button>
-
-          <button
-            mat-menu-item
-            [routerLink]="['/products']"
-            [queryParams]="{ order: 'catName' }"
-          >
-            {{ "300bs. a 500bs." }}
-          </button>
-
-          <button
-            mat-menu-item
-            [routerLink]="['/products']"
-            [queryParams]="{ order: 'catName' }"
-          >
-            {{ "500bs. y más" }}
-          </button>
-        </mat-menu>
       </div>
+      <!-- </div> -->
 
-      <div class="cotegory-side-container mat-elevation-z">
-        <img class="img-reset" src="./assets/wave-2.svg" alt="" />
+      <button class="mat-btn-primary" mat-button [matMenuTriggerFor]="animals">
+        Filtrar
+      </button>
+      <mat-menu #animals="matMenu">
+        <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
+          <span class="gradient-text font-head"> Nuevo y Ofertas</span>
+        </button>
+
+        <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
+          <span class="gradient-text font-head">Categorias</span>
+        </button>
+
+        <button mat-menu-item [matMenuTriggerFor]="price">
+          <span class="gradient-text font-head">Precio</span>
+        </button>
+
+        <button mat-menu-item>
+          <section class="example-section">
+            <mat-checkbox color="primary" class="example-margin"
+              >Sólo en Existencias</mat-checkbox
+            >
+          </section>
+        </button>
+      </mat-menu>
+
+      <mat-menu #Nuevo_Ofertas="matMenu">
+        <button mat-menu-item>Recientemente agregados</button>
+        <button mat-menu-item>En descuento</button>
+      </mat-menu>
+
+      <mat-menu #Nuevo_Ofertas="matMenu">
+        <button mat-menu-item>cat name</button>
+      </mat-menu>
+
+      <mat-menu #price="matMenu">
         <button
-          class="btn-reset"
-          mat-icon-button
+          mat-menu-item
           [routerLink]="['/products']"
-          [queryParams]="{}"
+          [queryParams]="{ order: 'catName' }"
         >
-          <mat-icon>restart_alt</mat-icon>
+          {{ "menos de 100Bs." }}
         </button>
-        <ul class="list-category">
-          ⭐⭐⭐⭐⭐⭐⭐⭐
-          <h3 class="gradient-text font-head" style="margin-top: 0">
-            Nuevo y Ofertas
-          </h3>
 
-          <li class="category">
-            <a
-              routerLink="/products"
-              queryParamsHandling="merge"
-              [queryParams]="{ order: 'recientemente_agregados' }"
-              [class.filter-active]="
-                isLinkActive({ order: 'recientemente_agregados' })
-              "
-              >{{ "Recientemente agregados" }}</a
-            >
-          </li>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ order: 'en_descuento' }"
-              [class.filter-active]="isLinkActive({ order: 'en_descuento' })"
-            >
-              {{ "En descuento" }}</a
-            >
-          </li>
+        <button
+          mat-menu-item
+          [routerLink]="['/products']"
+          [queryParams]="{ order: 'catName' }"
+        >
+          {{ "100bs. a 200Bs." }}
+        </button>
+        <button
+          mat-menu-item
+          [routerLink]="['/products']"
+          [queryParams]="{ order: 'catName' }"
+        >
+          {{ "200bs. a 300Bs." }}
+        </button>
 
-          <h3 class="gradient-text font-head">Precio</h3>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ price: 'menos_de_100bs' }"
-              [class.filter-active]="isLinkActive({ price: 'menos_de_100bs' })"
-              >{{ "Menos de 100Bs." }}</a
-            >
-          </li>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ price: '100bs_200bs' }"
-              [class.filter-active]="isLinkActive({ price: '100bs_200bs' })"
-              >{{ "100bs. a 200Bs." }}</a
-            >
-          </li>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ price: '200bs_300bs' }"
-              [class.filter-active]="isLinkActive({ price: '200bs_300bs' })"
-              >{{ "200bs. a 300Bs." }}</a
-            >
-          </li>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ price: '300bs_500bs' }"
-              [class.filter-active]="isLinkActive({ price: '300bs_500bs' })"
-              >{{ "300bs. a 500bs." }}</a
-            >
-          </li>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ price: '500bs_mas' }"
-              [class.filter-active]="isLinkActive({ price: '500bs_mas' })"
-              >{{ "500bs. y más" }}</a
-            >
-          </li>
-          <h3 class="gradient-text font-head">Categorias</h3>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{ categoria: 'catName' }"
-              [class.filter-active]="isLinkActive({ categoria: 'catName' })"
-              >{{ "category Name" | titlecase }}</a
-            >
-          </li>
+        <button
+          mat-menu-item
+          [routerLink]="['/products']"
+          [queryParams]="{ order: 'catName' }"
+        >
+          {{ "300bs. a 500bs." }}
+        </button>
 
-          <h3 class="gradient-text font-head">Disponibilidad</h3>
-          <li class="category">
-            <a
-              [routerLink]="['/products']"
-              queryParamsHandling="merge"
-              [queryParams]="{
-                disponibilidad: true
-              }"
-              [class.filter-active]="isLinkActive({ disponibilidad: 'true' })"
-            >
-              Sólo en Existencias
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="list-item">
-        <app-card-product
-          *ngFor="let producto of productos"
-          [producto]="producto"
-        ></app-card-product>
-      </div>
+        <button
+          mat-menu-item
+          [routerLink]="['/products']"
+          [queryParams]="{ order: 'catName' }"
+        >
+          {{ "500bs. y más" }}
+        </button>
+      </mat-menu>
+    </div>
+
+    <div class="cotegory-side-container mat-elevation-z">
+      <img class="img-reset" src="./assets/wave-2.svg" alt="" />
+      <button
+        class="btn-reset"
+        mat-icon-button
+        [routerLink]="['/products']"
+        [queryParams]="{}"
+      >
+        <mat-icon>restart_alt</mat-icon>
+      </button>
+      <ul class="list-category">
+        <h3 class="gradient-text font-head" style="margin-top: 0">
+          Nuevo y Ofertas
+        </h3>
+
+        <li class="category">
+          <a
+            routerLink="/products"
+            queryParamsHandling="merge"
+            [queryParams]="{ order: 'recientemente_agregados' }"
+            [class.filter-active]="
+              isLinkActive({ order: 'recientemente_agregados' })
+            "
+            >{{ "Recientemente agregados" }}</a
+          >
+        </li>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ order: 'en_descuento' }"
+            [class.filter-active]="isLinkActive({ order: 'en_descuento' })"
+          >
+            {{ "En descuento" }}</a
+          >
+        </li>
+
+        <h3 class="gradient-text font-head">Precio</h3>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ price: 'menos_de_100bs' }"
+            [class.filter-active]="isLinkActive({ price: 'menos_de_100bs' })"
+            >{{ "Menos de 100Bs." }}</a
+          >
+        </li>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ price: '100bs_200bs' }"
+            [class.filter-active]="isLinkActive({ price: '100bs_200bs' })"
+            >{{ "100bs. a 200Bs." }}</a
+          >
+        </li>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ price: '200bs_300bs' }"
+            [class.filter-active]="isLinkActive({ price: '200bs_300bs' })"
+            >{{ "200bs. a 300Bs." }}</a
+          >
+        </li>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ price: '300bs_500bs' }"
+            [class.filter-active]="isLinkActive({ price: '300bs_500bs' })"
+            >{{ "300bs. a 500bs." }}</a
+          >
+        </li>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ price: '500bs_mas' }"
+            [class.filter-active]="isLinkActive({ price: '500bs_mas' })"
+            >{{ "500bs. y más" }}</a
+          >
+        </li>
+        <h3 class="gradient-text font-head">Categorias</h3>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{ categoria: 'catName' }"
+            [class.filter-active]="isLinkActive({ categoria: 'catName' })"
+            >{{ "category Name" | titlecase }}</a
+          >
+        </li>
+
+        <h3 class="gradient-text font-head">Disponibilidad</h3>
+        <li class="category">
+          <a
+            [routerLink]="['/products']"
+            queryParamsHandling="merge"
+            [queryParams]="{
+              disponibilidad: true
+            }"
+            [class.filter-active]="isLinkActive({ disponibilidad: 'true' })"
+          >
+            Sólo en Existencias
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="list-item">
+      <app-card-product
+        *ngFor="let producto of productos"
+        [producto]="producto"
+      ></app-card-product>
     </div>
   </div>
 </div>
+<!-- </div> -->

@@ -245,12 +245,12 @@
       </ul>
     </mat-toolbar>
 
+    <!-- class="loader" -->
     <mat-progress-bar
-      class="loader"
       *ngIf="loader.isLoading | async"
       mode="indeterminate"
       color="primary"
-      style="z-index: inherit"
+      style="z-index: 9999; position: absolute; top: 60px; height: 6px"
     ></mat-progress-bar>
 
     <ng-content></ng-content>
