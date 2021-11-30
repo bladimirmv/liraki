@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '@app/core/services/liraki/producto.service';
 import { OpinionProducto, OpinionProductoView } from '@app/shared/models/liraki/opinion.producto.interface';
 import { FotoProducto, ProductoView } from '@app/shared/models/liraki/producto.interface';
@@ -29,7 +29,8 @@ export class ProductComponent implements OnInit, OnDestroy {
   constructor(
     private activateRoute: ActivatedRoute,
     private productoSvc: ProductoService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private router: Router) {
     this.uuidProducto = this.activateRoute.snapshot.params.uuid;
 
   }
@@ -112,6 +113,8 @@ export class ProductComponent implements OnInit, OnDestroy {
       : 'warn-stock'
   }
 
+
+
   public newComentario(): void {
     const dialoRef = this.dialog.open(NewOpinionComponent, {
       data: this.producto
@@ -127,5 +130,15 @@ export class ProductComponent implements OnInit, OnDestroy {
         }
       });
 
+  }
+
+
+  public paypal(): void {
+    this.productoSvc.paypal().subscribe((res: any) => {
+      console.log(res.links[1].href);
+
+      window.location.href = res.links[1].href;
+
+    });
   }
 }

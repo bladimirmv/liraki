@@ -41,6 +41,12 @@ export class ProductoService {
       .pipe(catchError(error => this.handdleError(error)));
   }
 
+  public paypal(): Observable<any> {
+    return this.http
+      .post<any>(`${this.API_URL}/api/paypal/create-order`, {})
+      .pipe(catchError(error => this.handdleError(error)));
+  }
+
   public ratingProducto(opiniones: OpinionProducto[]): number[] {
     const stars: Array<number> = [0, 0, 0, 0, 0];
     const rate: number = 0;
