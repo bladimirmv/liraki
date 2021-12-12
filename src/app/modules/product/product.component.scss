@@ -231,13 +231,20 @@
   }
 }
 
+.product-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .product-comment .comment {
-  display: grid;
   grid-template-columns: auto 1fr;
   justify-content: center;
   align-items: center;
   vertical-align: center;
-
+  background-color: var(--card-bg);
+  border-radius: 5px;
+  padding: 5px;
   h4 {
     margin: 5px;
   }

@@ -76,7 +76,7 @@
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content>
+  <mat-sidenav-content id="mat-sidenav-content">
     <mat-toolbar class="mat-elevation-z3">
       <button class="btn-menu" mat-icon-button (click)="drawer.toggle()">
         <mat-icon> menu </mat-icon>
@@ -244,14 +244,23 @@
         </mat-menu>
       </ul>
     </mat-toolbar>
-
-    <!-- class="loader" -->
-    <mat-progress-bar
+    <!-- <mat-progress-bar
       *ngIf="loader.isLoading | async"
       mode="indeterminate"
       color="primary"
-      style="z-index: 9999; position: absolute; top: 60px; height: 6px"
-    ></mat-progress-bar>
+      style="z-index: 9999; position: fixed; top: 0px; height: 6px"
+    ></mat-progress-bar> -->
+
+    <div class="spinner-container" *ngIf="loader.isLoading | async">
+      <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+      </div>
+    </div>
 
     <ng-content></ng-content>
   </mat-sidenav-content>
@@ -274,3 +283,34 @@
     <ng-content></ng-content>
   </mat-sidenav-content>
 </mat-sidenav-container> -->
+
+<!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto provident esse
+eaque totam, delectus aut nobis incidunt officia impedit nihil expedita
+repudiandae similique officiis perferendis dolore quisquam, laboriosam doloribus
+voluptatum? Esse, veniam delectus nobis at voluptate, reprehenderit dolorum, est
+rerum voluptatem itaque laudantium repellendus quos. Error hic voluptate id ex
+amet earum corrupti rem! Alias maxime dolore eveniet reiciendis enim. Eligendi
+excepturi explicabo distinctio magnam corporis nesciunt beatae quaerat amet
+debitis. Et distinctio, sequi, ea odit modi nobis iusto vero numquam nulla
+debitis magnam odio voluptatibus in placeat autem. Quo! Ipsum, nobis, aspernatur
+deserunt tenetur reiciendis dolorum quas excepturi praesentium facilis,
+cupiditate fugit culpa ipsa quos similique. Nobis, ipsum velit autem quis fuga
+recusandae fugiat, quaerat numquam soluta repellendus ratione. Ipsam tempore
+quidem totam ad, vel quam optio eius asperiores aspernatur id est qui, delectus
+minima consequatur, similique odio necessitatibus tempora veritatis! Beatae
+porro et esse perspiciatis nulla sequi debitis. Eveniet molestiae velit facere
+eaque sunt quam architecto omnis fugit odit nihil a laborum cum quibusdam
+doloribus officiis asperiores itaque deserunt porro rem ut, quisquam recusandae
+aliquid impedit? Recusandae, sint! Laudantium obcaecati necessitatibus dolor,
+quam dolorum reiciendis veniam, voluptatem ea iure illum voluptas. Debitis,
+praesentium aperiam. Sit sunt aliquam dolores, esse quaerat laboriosam incidunt?
+Tenetur quia numquam officia eius illo. Blanditiis itaque possimus incidunt
+autem suscipit labore asperiores fuga dolor quisquam, libero beatae? Vitae,
+voluptates officia, eaque eius alias natus veritatis amet reiciendis expedita
+tempore repellat facilis nostrum cum ea. Neque officia suscipit accusantium
+corrupti voluptatum in earum deserunt non beatae ab tenetur expedita
+consequuntur nisi, dolor quia officiis quidem maiores eum ipsam at fuga quam
+consequatur. Velit, corrupti earum. Omnis laudantium similique at officiis
+numquam provident, enim quas autem atque dolores eos ad ipsam unde aliquam quia
+perferendis cumque perspiciatis quidem doloremque corporis repellat consectetur?
+Ipsum illo neque architecto. -->

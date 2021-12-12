@@ -7,7 +7,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { CardProductComponent } from './components/card-product/card-product.component';
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [ProductsComponent, CardProductComponent, SearchComponent],
@@ -15,10 +16,11 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     ProductsRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    InfiniteScrollModule,
   ],
   exports: [
     // [SearchComponent]
-  ]
+  ],
 })
-export class ProductsModule { }
+export class ProductsModule {}

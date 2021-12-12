@@ -1,6 +1,6 @@
 import { map, shareReplay, startWith, takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
@@ -13,11 +13,10 @@ import { AuthService } from '../services/auth/auth.service';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
-
-
+  public gg: any;
 
   public modeSidenav = 'side';
   public breakpoint: boolean;
@@ -25,27 +24,34 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   public hideSearch: boolean = false;
 
-
-
-
-
   public control = new FormControl();
   public productos: ProductoView[] = [];
   filteredProducts: ProductoView[];
 
-  constructor(private breakpointObserver: BreakpointObserver,
+  constructor(
+    private breakpointObserver: BreakpointObserver,
     private productoSvc: ProductoService,
     private router: Router,
     public loader: LoaderService,
-    public authSvc: AuthService) { }
+    public authSvc: AuthService
+  ) {}
+
+  // @HostListener('window:wheel', ['$event'])
+  // onScroll($event: Event): void {
+  //   if ($event) {
+  //     console.log($event);
+  //   }
+  // }
 
   ngOnInit(): void {
-    this.breakpointObserver.observe('(max-width: 540px)')
+    this.breakpointObserver
+      .observe('(max-width: 540px)')
       .pipe(
         takeUntil(this.destroy$),
-        map(res => res.matches),
+        map((res) => res.matches),
         shareReplay()
-      ).subscribe((res: boolean) => {
+      )
+      .subscribe((res: boolean) => {
         this.breakpoint = res;
         if (res === false) {
           this.hideSearch = false;
@@ -70,14 +76,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       });
   }
 
-
-
   public onKey(value): void {
     this.filteredProducts = this._filter(value);
-    if (value === '')
-      this.router.navigate(['/products']);
+    if (value === '') this.router.navigate(['/products']);
   }
-
 
   public search(value: string): void {
     this.router.navigate(['/search/', value]);
@@ -85,11 +87,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   private _filter(value: string): ProductoView[] {
     const filterValue = this._normalizeValue(value);
-    return this.productos.filter((product: ProductoView) => this._normalizeValue(product.nombre).includes(filterValue));
+    return this.productos.filter((product: ProductoView) =>
+      this._normalizeValue(product.nombre).includes(filterValue)
+    );
   }
 
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
   }
-
 }
