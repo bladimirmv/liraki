@@ -27,12 +27,12 @@
       [routerLink]="['/products']"
       [queryParams]="qParams"
       queryParamsHandling="merge"
-      >Ver más</a
-    >
+      >Ver más
+    </a>
   </div>
-  <div class="list-novedades" [id]="id" *ngIf="!products.length">
+  <!-- <div class="list-novedades" [id]="id" *ngIf="!products.length">
     <div class="novedad" routerLink="/products">
-      <img src="./assets/images/vitrina.jpg" alt="" />
+      <img src="./assets/images/" alt="" />
     </div>
     <div class="novedad">
       <img src="./assets/images/vitrina.jpg" alt="" />
@@ -55,7 +55,7 @@
     <div class="novedad">
       <img src="./assets/images/vitrina.jpg" alt="" />
     </div>
-  </div>
+  </div> -->
 
   <div class="list-novedades" [id]="id" *ngIf="products.length">
     <div

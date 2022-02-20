@@ -5,36 +5,32 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '@services/auth/auth.service';
-import { UsuarioResponse } from '@app/shared/models/usuario.interface';
+import { UsuarioResponse } from '@app/shared/models/auth/usuario.interface';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
   hide = true;
   public loginForm: FormGroup = new FormGroup({
     username: new FormControl('blado959', Validators.required),
-    contrasenha: new FormControl('bmvmendo123', Validators.required)
+    contrasenha: new FormControl('bmvmendo123', Validators.required),
   });
 
   public registerForm: FormGroup = new FormGroup({
-    docid: new FormControl('', Validators.required)
+    docid: new FormControl('', Validators.required),
   });
 
   constructor(
     private router: Router,
     private authSvc: AuthService,
-    private toastrSvc: ToastrService,
-  ) {
-  }
+    private toastrSvc: ToastrService
+  ) {}
 
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.destroy$.next({});
@@ -42,12 +38,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public onLogIn(usr: any): void {
-    this.authSvc.login(usr)
+    this.authSvc
+      .login(usr)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: UsuarioResponse) => {
         if (res) {
           this.authSvc.roleNavigate(res.body);
         }
-      })
+      });
   }
 }

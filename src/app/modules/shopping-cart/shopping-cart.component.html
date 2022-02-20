@@ -1,0 +1,183 @@
+<div class="content">
+  <div class="cart-container">
+    <div class="order-cart">
+      <mat-horizontal-stepper
+        linear
+        #stepper
+        class="mat-elevation-z2 cart-stepper"
+      >
+        <mat-step [editable]="true" [stepControl]="carritoForm">
+          <ng-template matStepLabel>Carrito</ng-template>
+
+          <div class="order" *ngIf="carritoProducto">
+            <header class="order-header">
+              <span class="order-title">
+                <mat-icon> shopping_cart </mat-icon>
+                Resumen del pedido
+              </span>
+              <button mat-button class="btn-remove-all">Eliminar todo</button>
+            </header>
+
+            <div class="order-list">
+              <section class="order-item">
+                <div class="product">
+                  <picture class="picture">
+                    <img src="./assets/images/escaleras/escalera.jpg" alt="" />
+                  </picture>
+
+                  <div class="product-detail">
+                    <a>{{
+                      "title ipsum dolor sit amet consectetur adipisicing elit."
+                        | titlecase
+                    }}</a>
+                    <span
+                      >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Veritatis enim iusto dolorem vero accusantium assumenda
+                      nobis quae ullam amet aperiam odit in, ipsum harum? Enim
+                      corporis architecto consectetur iure distinctio</span
+                    >
+                  </div>
+                </div>
+
+                <div class="product-options">
+                  <div class="product-quantity">
+                    <span class="no-select text-bold" style="min-width: 80px"
+                      >Bs. 560.00
+                    </span>
+                    <button mat-icon-button>
+                      <mat-icon> remove </mat-icon>
+                    </button>
+                    <span
+                      style="min-width: 25px; text-align: center"
+                      class="no-select"
+                    >
+                      100
+                    </span>
+
+                    <button mat-icon-button>
+                      <mat-icon> add </mat-icon>
+                    </button>
+                  </div>
+
+                  <button mat-icon-button color="warn">
+                    <mat-icon> delete </mat-icon>
+                  </button>
+                </div>
+              </section>
+
+              <section class="order-item">
+                <div class="product">
+                  <picture class="picture">
+                    <img src="./assets/images/escaleras/escalera.jpg" alt="" />
+                  </picture>
+
+                  <div class="product-detail">
+                    <a>{{
+                      "title ipsum dolor sit amet consectetur adipisicing elit."
+                        | titlecase
+                    }}</a>
+                    <span
+                      >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Veritatis enim iusto dolorem vero accusantium assumenda
+                      nobis quae ullam amet aperiam odit in, ipsum harum? Enim
+                      corporis architecto consectetur iure distinctio</span
+                    >
+                  </div>
+                </div>
+
+                <div class="product-options">
+                  <div class="product-quantity">
+                    <span class="no-select text-bold" style="min-width: 80px"
+                      >Bs. 560.00
+                    </span>
+                    <button mat-icon-button>
+                      <mat-icon> remove </mat-icon>
+                    </button>
+                    <span
+                      style="min-width: 25px; text-align: center"
+                      class="no-select"
+                    >
+                      100
+                    </span>
+
+                    <button mat-icon-button>
+                      <mat-icon> add </mat-icon>
+                    </button>
+                  </div>
+
+                  <button mat-icon-button color="warn">
+                    <mat-icon> delete </mat-icon>
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div
+            style="display: flex; justify-content: flex-end"
+            *ngIf="carritoProducto"
+          >
+            <button mat-button class="mat-btn-primary" matStepperNext>
+              Continuar
+            </button>
+          </div>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Datos Personales</ng-template>
+            <mat-form-field appearance="fill">
+              <mat-label>Address</mat-label>
+              <input
+                matInput
+                formControlName="secondCtrl"
+                placeholder="Ex. 1 Main St, New York, NY"
+                required
+              />
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Metodo de Pago</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+
+    <div class="payment-summary mat-elevation-z2">
+      <div class="summary">
+        <h4>Total:</h4>
+        <h1>Bs. 40.30</h1>
+      </div>
+
+      <br />
+
+      <h2 class="cart-title gradient-text">
+        Area de envios gratuito en Cochabamba
+      </h2>
+
+      <!-- <iframe
+        style="border-radius: 25px"
+        src="https://www.google.com/maps/d/u/3/embed?mid=1d_wL-Rg4055dy4rzSRz4VoQ_rOgcrDqg&ehbc=2E312F"
+        width="100%"
+        height="400"
+      ></iframe> -->
+    </div>
+  </div>
+
+  <app-card-slider
+    [title]="'Recientemente agregados'"
+    [id]="'recientemente-agregados'"
+    [products]="productos"
+    [qParams]="{ order: 'recientemente_agregados' }"
+  ></app-card-slider>
+
+  <br />
+</div>

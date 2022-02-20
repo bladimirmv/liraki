@@ -8,13 +8,13 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { RoleValidator } from '@core/helpers/roleValidator';
-import { Usuario } from '@app/shared/models/usuario.interface';
-import { UsuarioResponse } from '@shared/models/usuario.interface';
+import { Usuario } from '@app/shared/models/auth/usuario.interface';
+import { UsuarioResponse } from '@app/shared/models/auth/usuario.interface';
 import { environment } from '@env/environment';
 import { Router } from '@angular/router';
 const helper = new JwtHelperService();
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService extends RoleValidator {
   private API_URL = environment.API_URL;
@@ -23,7 +23,11 @@ export class AuthService extends RoleValidator {
   public usuario$: Observable<Usuario> = this.usuario.asObservable();
   private usuarioToken = new BehaviorSubject<string>(null);
   // ====================================================================
-  constructor(private http: HttpClient, private toastrSvc: ToastrService, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private toastrSvc: ToastrService,
+    private router: Router
+  ) {
     super();
     this.checkToken();
   }
@@ -37,7 +41,8 @@ export class AuthService extends RoleValidator {
   }
   // ====================================================================
   public login(authData: Usuario): Observable<UsuarioResponse | void> {
-    return this.http.post<UsuarioResponse>(`${this.API_URL}/api/auth/login`, authData)
+    return this.http
+      .post<UsuarioResponse>(`${this.API_URL}/api/auth/login`, authData)
       .pipe(
         map((usuario: UsuarioResponse) => {
           this.usuario.next(usuario.body);
@@ -48,7 +53,6 @@ export class AuthService extends RoleValidator {
         }),
         catchError((err) => this.handdleError(err))
       );
-
   }
   // ====================================================================
   public registerUsuario(usuario: Usuario): Observable<UsuarioResponse> {
@@ -62,7 +66,8 @@ export class AuthService extends RoleValidator {
           this.usuarioToken.next(usuario.token);
           return usuario;
         }),
-        catchError(error => this.handdleError(error)));
+        catchError((error) => this.handdleError(error))
+      );
   }
   // ====================================================================
   public logout(): void {
@@ -81,9 +86,13 @@ export class AuthService extends RoleValidator {
 
       if (isExpired) {
         this.logout();
-        this.toastrSvc.warning('La sesion ha expirado, porfavor inicia sesion nuevamente', 'Sesion Expirada!', {
-          timeOut: 7000
-        });
+        this.toastrSvc.warning(
+          'La sesion ha expirado, porfavor inicia sesion nuevamente',
+          'Sesion Expirada!',
+          {
+            timeOut: 7000,
+          }
+        );
       } else {
         this.loggedIn.next(true);
         this.usuarioToken.next(usuarioToken);
@@ -110,7 +119,8 @@ export class AuthService extends RoleValidator {
       } else if (httpError.error.message.errno) {
         switch (httpError.error.message.errno) {
           case -111:
-            errorMessage = 'No se ha podido establecer una conexion con la base de datos. 🙁';
+            errorMessage =
+              'No se ha podido establecer una conexion con la base de datos. 🙁';
             break;
 
           default:
@@ -124,10 +134,9 @@ export class AuthService extends RoleValidator {
     console.log('this error', httpError);
     this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
       timeOut: 7000,
-      enableHtml: true
+      enableHtml: true,
     });
     return throwError(httpError);
   }
   // ====================================================================
-
 }

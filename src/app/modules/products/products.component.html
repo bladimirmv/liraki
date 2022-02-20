@@ -204,11 +204,15 @@
       </ul>
     </div>
     <!-- style="max-height: 500px; overflow-y: auto" -->
-    <div class="list-item" infiniteScroll (scrolled)="onScrollDown()">
-      <app-card-product
-        *ngFor="let producto of productos"
-        [producto]="producto"
-      ></app-card-product>
+
+    <div class="products">
+      <div class="list-item" infiniteScroll (scrolled)="onScrollDown()">
+        <app-card-product
+          *ngFor="let producto of productos"
+          [producto]="producto"
+          [empty]="productos.length ? false : true"
+        ></app-card-product>
+      </div>
     </div>
   </div>
 </div>

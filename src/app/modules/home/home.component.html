@@ -110,6 +110,13 @@
     </div>
 
     <app-card-slider
+      [title]="'Novedades'"
+      [id]="'novedades'"
+      [products]="productos"
+      [qParams]="{ order: 'novedades' }"
+    ></app-card-slider>
+
+    <app-card-slider
       [title]="'En descuento'"
       [id]="'en-descuento'"
       [products]="productos"

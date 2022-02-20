@@ -1,3 +1,4 @@
+import { CdkStepperModule } from '@angular/cdk/stepper';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -31,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatListModule } from '@angular/material/list';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { ToastrModule } from 'ngx-toastr';
 const matModules = [
@@ -63,9 +65,11 @@ const matModules = [
   MatChipsModule,
   MatSlideToggleModule,
   MatAutocompleteModule,
-  MatListModule
-];
+  MatListModule,
+  MatStepperModule,
 
+  CdkStepperModule,
+];
 
 @NgModule({
   declarations: [],
@@ -75,10 +79,10 @@ const matModules = [
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',
-      preventDuplicates: true
+      preventDuplicates: true,
     }),
     // SwiperModule
   ],
-  exports: [matModules, ToastrModule]
+  exports: [matModules, ToastrModule],
 })
-export class MaterialModule { }
+export class MaterialModule {}

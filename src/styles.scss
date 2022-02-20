@@ -7,32 +7,47 @@
 @import url("http://fonts.cdnfonts.com/css/cubano");
 @import url(https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,600,700);
 
-@include mat-core();
+$custom-typography: mat-typography-config(
+  $font-family: "quicksand",
+);
+
+@include mat-core($custom-typography);
+
 // hue. Available color palettes: https://material.io/design/color/
 $mendozarq-primary: mat-palette($mat-orange, 600);
-// $mendozarq-accent: mat-palette($mat-pink, A200, A100, A400);
 $mendozarq-accent: mat-palette($mat-green);
 $mendozarq-success: mat-palette($mat-green);
 $mendozarq-warn: mat-palette($mat-red);
 
 $mendozarq-theme: mat-light-theme(
-  (
-    color: (
-      primary: $mendozarq-primary,
-      accent: $mendozarq-accent,
-      warn: $mendozarq-warn,
-      success: $mendozarq-success,
-    ),
-  )
+  $mendozarq-primary,
+  $mendozarq-accent,
+  $mendozarq-warn
 );
 @include angular-material-theme($mendozarq-theme);
 
+$mendozarq-primary-dark: mat-palette($mat-orange, 600);
+$mendozarq-accent-dark: mat-palette($mat-green);
+$mendozarq-warn-dark: mat-palette($mat-red);
+
+$mendozarq-theme-dark: mat-dark-theme(
+  $mendozarq-primary-dark,
+  $mendozarq-accent-dark,
+  $mendozarq-warn-dark
+);
+
+.dark-theme-mode {
+  @include angular-material-theme($mendozarq-theme-dark);
+}
+
 * {
-  font-family: "quicksand", sans-serif;
+  // font-family: "quicksand", sans-serif;
   --swiper-theme-color: var(--primary);
 }
 
 :root {
+  font-family: "quicksand", sans-serif;
+
   --primary: #ff6e00;
   --secondary: #425066;
   // --secondary: #677284;
@@ -92,7 +107,7 @@ $mendozarq-theme: mat-light-theme(
     var(--green-light),
     var(--green-dark) 85%
   );
-  --background: var(--gray4);
+  --background: var(--gray6);
   --background: var(--gray0);
   // color: var(--gray1);
 
@@ -356,4 +371,19 @@ mat-hint {
     color: white;
     box-shadow: 0 0 2px 2px var(--secondary);
   }
+}
+
+.emoji {
+  font-weight: 100;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: white;
+  background: var(--primary);
+}
+
+::selection {
+  color: white;
+  background: var(--primary);
 }

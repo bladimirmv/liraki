@@ -1,4 +1,4 @@
-import { Usuario } from './../../shared/models/usuario.interface';
+import { Usuario } from '../../shared/models/auth/usuario.interface';
 
 export class RoleValidator {
   isAdmin(usr: Usuario): boolean {

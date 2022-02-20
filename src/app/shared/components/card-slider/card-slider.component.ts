@@ -6,7 +6,7 @@ import { environment } from '@env/environment';
 @Component({
   selector: 'app-card-slider',
   templateUrl: './card-slider.component.html',
-  styleUrls: ['./card-slider.component.scss']
+  styleUrls: ['./card-slider.component.scss'],
 })
 export class CardSliderComponent implements OnInit {
   private API_URL = environment.API_URL;
@@ -16,24 +16,22 @@ export class CardSliderComponent implements OnInit {
   @Input() public products: ProductoView[] = [];
   @Input() public qParams: FilterParams = {};
 
+  constructor() {}
 
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   next(): void {
     const gap: number = 0;
-    const width: number = document.querySelector(`#${this.id}`).getBoundingClientRect().width + gap;
-    document.querySelector(`#${this.id}`).scrollBy(width, 0)
+    const width: number =
+      document.querySelector(`#${this.id}`).getBoundingClientRect().width + gap;
+    document.querySelector(`#${this.id}`).scrollBy(width, 0);
   }
 
   back(): void {
     const gap: number = 0;
-    const width: number = document.querySelector(`#${this.id}`).getBoundingClientRect().width + gap;
-    document.querySelector(`#${this.id}`).scrollBy(-width, 0)
-
+    const width: number =
+      document.querySelector(`#${this.id}`).getBoundingClientRect().width + gap;
+    document.querySelector(`#${this.id}`).scrollBy(-width, 0);
   }
 
   public getImage(keyName: string): string {

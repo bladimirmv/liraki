@@ -69,16 +69,11 @@
 .content {
   position: relative;
   margin-top: -300px;
-
   z-index: 2 !important;
-
-  // z-index: 1000;
 }
 
 .top-categorias {
   width: 100%;
-  // padding: 20px 0;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-content: center;
@@ -91,7 +86,7 @@
 
     padding: 20px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 25px;
     background-color: white;
     background-color: var(--card-bg);
     color: var(--text-color);

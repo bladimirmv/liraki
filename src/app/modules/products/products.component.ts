@@ -50,7 +50,7 @@ export interface FilterParams {
 })
 export class ProductsComponent implements OnInit, OnDestroy, AfterViewInit {
   private destroy$: Subject<any> = new Subject<any>();
-  public productos: ProductoView[] = [];
+  public productos: ProductoView[] = [] as ProductoView[];
   params: FilterParams = {} as FilterParams;
 
   constructor(
