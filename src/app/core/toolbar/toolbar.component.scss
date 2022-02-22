@@ -221,6 +221,10 @@ mat-toolbar {
   }
 }
 
+.linkBadgeActive {
+  color: var(--primary) !important;
+}
+
 .btn-menu,
 .m-btn-search {
   display: none;

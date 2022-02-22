@@ -29,6 +29,7 @@ export class ShoppingCartResolverService
           .getOneCarritoProducto(usr.uuid)
           .pipe(take(1))
           .subscribe((carrito) => {
+            this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
             obs.next(carrito.length ? carrito : null);
             obs.complete();
           });

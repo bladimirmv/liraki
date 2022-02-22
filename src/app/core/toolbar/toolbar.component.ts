@@ -1,14 +1,16 @@
+import { Usuario } from '@shared/models/auth/usuario.interface';
 import { map, shareReplay, startWith, takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
 import { ProductoView } from '@app/shared/models/liraki/producto.interface';
-import { ProductoService } from '../services/liraki/producto.service';
-import { Router } from '@angular/router';
-import { LoaderService } from '../services/loader.service';
-import { AuthService } from '../services/auth/auth.service';
+import { ProductoService } from '@services/liraki/producto.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LoaderService } from '@services/loader.service';
+import { AuthService } from '@services/auth/auth.service';
+import { CarritoProyectoService } from '@services/liraki/carrito-proyecto.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,34 +18,31 @@ import { AuthService } from '../services/auth/auth.service';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
-  public gg: any;
-
   public modeSidenav = 'side';
   public breakpoint: boolean;
-  private destroy$: Subject<any> = new Subject<any>();
-
   public hideSearch: boolean = false;
-
   public control = new FormControl();
   public productos: ProductoView[] = [];
-  filteredProducts: ProductoView[];
+  public filteredProducts: ProductoView[];
+  public totalCart: number;
+  public usuario: Usuario;
+
+  private destroy$: Subject<any> = new Subject<any>();
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private productoSvc: ProductoService,
     private router: Router,
+    private carritoSvc: CarritoProyectoService,
     public loader: LoaderService,
+    private activateRoute: ActivatedRoute,
     public authSvc: AuthService
   ) {}
 
-  // @HostListener('window:wheel', ['$event'])
-  // onScroll($event: Event): void {
-  //   if ($event) {
-  //     console.log($event);
-  //   }
-  // }
-
   ngOnInit(): void {
+    this.usuario = this.activateRoute.snapshot.data['usuario'];
+    console.log(this.usuario);
+
     this.breakpointObserver
       .observe('(max-width: 540px)')
       .pipe(
@@ -59,6 +58,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       });
 
     this.getProducts();
+
+    this.carritoSvc.totalCart$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((total: number) => {
+        this.totalCart = total;
+      });
   }
 
   ngOnDestroy(): void {

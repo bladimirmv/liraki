@@ -1,20 +1,27 @@
+import { CarritoProducto } from '@app/shared/models/liraki/carrito.producto.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CarritoProductoView } from '@models/liraki/carrito.producto.interface';
-import { CarritoProducto } from '@models/liraki/carrito.producto.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarritoProyectoService {
   private API_URL = environment.API_URL;
+  private carrito: BehaviorSubject<CarritoProductoView[] | null> =
+    new BehaviorSubject<CarritoProductoView[] | null>(null);
+  private totalCart: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public carrito$: Observable<CarritoProductoView[] | null> =
+    this.carrito.asObservable();
+  public totalCart$: Observable<number> = this.totalCart.asObservable();
+
   constructor(private http: HttpClient, private toastrSvc: ToastrService) {}
 
   public addCarritoProducto(
@@ -46,6 +53,15 @@ export class CarritoProyectoService {
     return this.http
       .delete(`${this.API_URL}/api/carrito/${uuid}`)
       .pipe(catchError((error) => this.handdleError(error)));
+  }
+
+  public addCarritoStore(CarritoProducto: CarritoProductoView[] | null): void {
+    let total: number = 0;
+    if (CarritoProducto !== null) {
+      CarritoProducto.forEach((carrito) => (total += carrito.cantidad));
+    }
+    this.carrito.next(CarritoProducto);
+    this.totalCart.next(total);
   }
   // ====================> handdleError
   public handdleError(httpError: HttpErrorResponse | any): Observable<never> {

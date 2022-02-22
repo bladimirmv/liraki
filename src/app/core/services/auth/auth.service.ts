@@ -1,3 +1,4 @@
+import { CarritoProyectoService } from '@app/core/services/liraki/carrito-proyecto.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
@@ -26,7 +27,8 @@ export class AuthService extends RoleValidator {
   constructor(
     private http: HttpClient,
     private toastrSvc: ToastrService,
-    private router: Router
+    private router: Router,
+    private carritoSvc: CarritoProyectoService
   ) {
     super();
     this.checkToken();
@@ -75,6 +77,7 @@ export class AuthService extends RoleValidator {
     this.loggedIn.next(false);
     this.usuario.next(null);
     this.usuarioToken.next(null);
+    this.carritoSvc.addCarritoStore([]);
 
     if (navigate) {
       this.router.navigate(['/']);

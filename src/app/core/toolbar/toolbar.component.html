@@ -194,9 +194,15 @@
           class="btn-shop"
           *ngIf="!hideSearch"
           routerLink="shoppingCart"
-          routerLinkActive="linkActive"
         >
-          <mat-icon> shopping_cart </mat-icon>
+          <mat-icon
+            routerLinkActive="linkBadgeActive"
+            [matBadge]="totalCart"
+            [matBadgeColor]="totalCart ? 'warn' : 'none'"
+            [matBadgeHidden]="!totalCart"
+          >
+            shopping_cart
+          </mat-icon>
         </button>
 
         <button
@@ -250,12 +256,6 @@
         </mat-menu>
       </ul>
     </mat-toolbar>
-    <!-- <mat-progress-bar
-      *ngIf="loader.isLoading | async"
-      mode="indeterminate"
-      color="primary"
-      style="z-index: 9999; position: fixed; top: 0px; height: 6px"
-    ></mat-progress-bar> -->
 
     <div class="spinner-container" *ngIf="loader.isLoading | async">
       <div class="sk-chase">

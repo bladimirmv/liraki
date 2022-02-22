@@ -29,7 +29,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   private API_URL = environment.API_URL;
   public carritoForm: FormGroup;
 
-  public carritoProducto: CarritoProductoView[];
+  public carritoProducto: CarritoProductoView[] | null;
   public usuario: Usuario;
   constructor(
     private productSvc: ProductoService,
@@ -41,7 +41,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.carritoProducto = this.route.snapshot.data['carrito'];
-
     this.usuario = this.route.snapshot.data['usuario'];
 
     this.firstFormGroup = this._formBuilder.group({
@@ -68,6 +67,17 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  private initCarritoProducto(): void {
+    this.carritoSvc
+      .getOneCarritoProducto(this.usuario.uuid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((carrito) => {
+        this.carritoProducto = carrito.length ? carrito : null;
+        this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
+        console.log(this.carritoProducto);
+      });
+  }
+
   public getImage(keyName: string): string {
     return `${this.API_URL}/api/file/${keyName}`;
   }
@@ -88,6 +98,24 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
             '😀 Se ha agregado correctamente',
             'Producto Agregado'
           );
+          this.initCarritoProducto();
+        }
+      });
+  }
+
+  public deleteCarritoProducto(uuid: string): void {
+    console.log(uuid);
+
+    this.carritoSvc
+      .deleteCarritoProducto(uuid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (res) {
+          this.toastrSvc.success(
+            '😀 El carrito se ha eliminado correctamente',
+            'Carrito Eliminado'
+          );
+          this.initCarritoProducto();
         }
       });
   }

@@ -33,6 +33,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatListModule } from '@angular/material/list';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { ToastrModule } from 'ngx-toastr';
 const matModules = [
@@ -67,7 +68,7 @@ const matModules = [
   MatAutocompleteModule,
   MatListModule,
   MatStepperModule,
-
+  MatBadgeModule,
   CdkStepperModule,
 ];
 

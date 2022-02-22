@@ -15,7 +15,13 @@
                 <mat-icon> shopping_cart </mat-icon>
                 Resumen del pedido
               </span>
-              <button mat-button class="btn-remove-all">Eliminar todo</button>
+              <button
+                mat-button
+                class="btn-remove-all"
+                (click)="deleteCarritoProducto(carritoProducto[0].uuidCliente)"
+              >
+                Eliminar todo
+              </button>
             </header>
 
             <div class="order-list">

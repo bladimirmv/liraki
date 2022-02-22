@@ -154,6 +154,15 @@ export class ProductComponent implements OnInit, OnDestroy {
     });
   }
 
+  private getCarritoProducto(): void {
+    this.carritoSvc
+      .getOneCarritoProducto(this.usuario.uuid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((carrito) => {
+        this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
+      });
+  }
+
   public addCarritoProducto(): void {
     if (!this.producto.stock) {
       this.dialog.open(WarningModalComponent);
@@ -184,9 +193,10 @@ export class ProductComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res) {
           this.toastrSvc.success(
-            '😀 Se ha agregado correctamente',
+            '😀 El producto se ha agregado correctamente al carrito',
             'Producto Agregado'
           );
+          this.getCarritoProducto();
         }
       });
   }

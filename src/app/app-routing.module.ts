@@ -11,6 +11,10 @@ import { SearchComponent } from './modules/products/components/search/search.com
 const routes: Routes = [
   {
     path: '',
+    resolve: {
+      carrito: ShoppingCartResolverService,
+      usuario: AuthResolverService,
+    },
     component: AppContainerComponent,
     children: [
       {
