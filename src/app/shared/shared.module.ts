@@ -9,6 +9,6 @@ import { CardSliderComponent } from './components/card-slider/card-slider.compon
 @NgModule({
   declarations: [WarningModalComponent, CardSliderComponent],
   imports: [CommonModule, MaterialModule, FormsModule, RouterModule],
-  exports: [CardSliderComponent],
+  exports: [CardSliderComponent, WarningModalComponent],
 })
 export class SharedModule {}

@@ -1,3 +1,4 @@
+import { AuthResolverService } from './core/resolvers/auth-resolver.service';
 import { ShoppingCartResolverService } from './core/resolvers/shopping-cart-resolver.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -43,6 +44,9 @@ const routes: Routes = [
       },
       {
         path: 'product/:uuid',
+        resolve: {
+          usuario: AuthResolverService,
+        },
         loadChildren: () =>
           import('./modules/product/product.module').then(
             (m) => m.ProductModule
@@ -62,6 +66,7 @@ const routes: Routes = [
       {
         path: 'shoppingCart',
         resolve: {
+          usuario: AuthResolverService,
           carrito: ShoppingCartResolverService,
         },
         loadChildren: () =>

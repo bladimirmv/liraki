@@ -17,9 +17,19 @@ export class CarritoProyectoService {
   private API_URL = environment.API_URL;
   constructor(private http: HttpClient, private toastrSvc: ToastrService) {}
 
-  public getOneCarritoProducto(uuid: string): Observable<CarritoProductoView> {
+  public addCarritoProducto(
+    carritoProducto: CarritoProducto
+  ): Observable<CarritoProducto> {
     return this.http
-      .get<CarritoProductoView>(`${this.API_URL}/api/carrito/${uuid}`)
+      .post<CarritoProducto>(`${this.API_URL}/api/carrito`, carritoProducto)
+      .pipe(catchError((error) => this.handdleError(error)));
+  }
+
+  public getOneCarritoProducto(
+    uuid: string
+  ): Observable<CarritoProductoView[]> {
+    return this.http
+      .get<CarritoProductoView[]>(`${this.API_URL}/api/carrito/${uuid}`)
       .pipe(catchError((error) => this.handdleError(error)));
   }
 

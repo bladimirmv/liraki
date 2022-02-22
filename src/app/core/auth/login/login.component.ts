@@ -13,6 +13,7 @@ import { UsuarioResponse } from '@app/shared/models/auth/usuario.interface';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  public year: number = new Date().getUTCFullYear();
   private destroy$: Subject<any> = new Subject<any>();
   hide = true;
   public loginForm: FormGroup = new FormGroup({

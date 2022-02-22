@@ -19,30 +19,25 @@
             </header>
 
             <div class="order-list">
-              <section class="order-item">
+              <section
+                class="order-item"
+                *ngFor="let carrito of carritoProducto"
+              >
                 <div class="product">
                   <picture class="picture">
-                    <img src="./assets/images/escaleras/escalera.jpg" alt="" />
+                    <img [src]="getImage(carrito.producto.keyName)" alt="" />
                   </picture>
 
                   <div class="product-detail">
-                    <a>{{
-                      "title ipsum dolor sit amet consectetur adipisicing elit."
-                        | titlecase
-                    }}</a>
-                    <span
-                      >Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Veritatis enim iusto dolorem vero accusantium assumenda
-                      nobis quae ullam amet aperiam odit in, ipsum harum? Enim
-                      corporis architecto consectetur iure distinctio</span
-                    >
+                    <a>{{ carrito.producto.nombre | titlecase }}</a>
+                    <span>{{ carrito.producto.descripcion }}</span>
                   </div>
                 </div>
 
                 <div class="product-options">
                   <div class="product-quantity">
                     <span class="no-select text-bold" style="min-width: 80px"
-                      >Bs. 560.00
+                      >Bs. {{ carrito.producto.precio }}
                     </span>
                     <button mat-icon-button>
                       <mat-icon> remove </mat-icon>
@@ -51,56 +46,13 @@
                       style="min-width: 25px; text-align: center"
                       class="no-select"
                     >
-                      100
+                      {{ carrito.cantidad }}
                     </span>
 
-                    <button mat-icon-button>
-                      <mat-icon> add </mat-icon>
-                    </button>
-                  </div>
-
-                  <button mat-icon-button color="warn">
-                    <mat-icon> delete </mat-icon>
-                  </button>
-                </div>
-              </section>
-
-              <section class="order-item">
-                <div class="product">
-                  <picture class="picture">
-                    <img src="./assets/images/escaleras/escalera.jpg" alt="" />
-                  </picture>
-
-                  <div class="product-detail">
-                    <a>{{
-                      "title ipsum dolor sit amet consectetur adipisicing elit."
-                        | titlecase
-                    }}</a>
-                    <span
-                      >Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Veritatis enim iusto dolorem vero accusantium assumenda
-                      nobis quae ullam amet aperiam odit in, ipsum harum? Enim
-                      corporis architecto consectetur iure distinctio</span
+                    <button
+                      mat-icon-button
+                      (click)="addCarritoProducto(carrito.producto.uuid)"
                     >
-                  </div>
-                </div>
-
-                <div class="product-options">
-                  <div class="product-quantity">
-                    <span class="no-select text-bold" style="min-width: 80px"
-                      >Bs. 560.00
-                    </span>
-                    <button mat-icon-button>
-                      <mat-icon> remove </mat-icon>
-                    </button>
-                    <span
-                      style="min-width: 25px; text-align: center"
-                      class="no-select"
-                    >
-                      100
-                    </span>
-
-                    <button mat-icon-button>
                       <mat-icon> add </mat-icon>
                     </button>
                   </div>
@@ -113,14 +65,46 @@
             </div>
           </div>
 
-          <div
-            style="display: flex; justify-content: flex-end"
-            *ngIf="carritoProducto"
-          >
+          <div class="btn-stepper" *ngIf="carritoProducto">
             <button mat-button class="mat-btn-primary" matStepperNext>
               Continuar
             </button>
           </div>
+
+          <section class="empty_cart" *ngIf="!carritoProducto">
+            <img src="./assets/empty_cart.svg" alt="" width="300px" />
+            <br />
+            <span>Tu carrito esta vacio 🙁 </span>
+            <br />
+            <button
+              mat-button
+              class="mat-btn-primary"
+              routerLink="/products"
+              *ngIf="usuario && !carritoProducto"
+            >
+              Ver productos
+            </button>
+
+            <div>
+              <button
+                mat-button
+                class="mat-btn-primary"
+                routerLink="/login"
+                *ngIf="!usuario"
+              >
+                Iniciar sesión
+              </button>
+              &nbsp;
+              <button
+                mat-button
+                class="mat-btn-secondary"
+                routerLink="/register"
+                *ngIf="!usuario"
+              >
+                Regístrarse ahora
+              </button>
+            </div>
+          </section>
         </mat-step>
         <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
           <form [formGroup]="secondFormGroup">
@@ -152,23 +136,21 @@
     </div>
 
     <div class="payment-summary mat-elevation-z2">
-      <div class="summary">
+      <div class="summary" *ngIf="carritoProducto">
         <h4>Total:</h4>
-        <h1>Bs. 40.30</h1>
+        <h1>Bs. 0.00</h1>
       </div>
-
-      <br />
 
       <h2 class="cart-title gradient-text">
         Area de envios gratuito en Cochabamba
       </h2>
 
-      <!-- <iframe
+      <iframe
         style="border-radius: 25px"
         src="https://www.google.com/maps/d/u/3/embed?mid=1d_wL-Rg4055dy4rzSRz4VoQ_rOgcrDqg&ehbc=2E312F"
         width="100%"
         height="400"
-      ></iframe> -->
+      ></iframe>
     </div>
   </div>
 

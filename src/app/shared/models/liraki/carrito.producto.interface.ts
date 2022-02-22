@@ -1,6 +1,6 @@
 import { Producto } from './producto.interface';
 export interface CarritoProducto {
-  uuid: string;
+  uuid?: string;
   creadoEn?: Date;
   uuidProducto: string;
   uuidCliente: string;
@@ -8,5 +8,5 @@ export interface CarritoProducto {
 }
 
 export interface CarritoProductoView extends CarritoProducto {
-  producto: Producto;
+  producto: { keyName: string } & Producto;
 }

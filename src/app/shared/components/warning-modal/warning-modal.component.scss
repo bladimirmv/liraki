@@ -1,0 +1,59 @@
+mat-dialog-content {
+  display: grid;
+  place-items: center;
+  max-width: 300px;
+
+  h3 {
+    word-wrap: break-word;
+    margin: 0;
+    color: var(--secondary);
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--warn);
+  }
+}
+
+mat-icon {
+  font-size: 150px;
+  color: var(--warn);
+  width: auto;
+  height: auto;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  display: grid;
+  grid-template-areas: "secondary success";
+  grid-template-columns: repeat(2, auto);
+  place-items: 🇨enter;
+  grid-gap: 10px;
+
+  .mat-btn-success {
+    grid-area: success;
+  }
+
+  .mat-btn-secondary {
+    grid-area: secondary;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  mat-dialog-actions {
+    margin: 0;
+    padding: 0;
+    grid-template-columns: auto;
+    grid-gap: 10px;
+    grid-template-areas:
+      "success"
+      "secondary";
+
+    .mat-btn-success {
+      margin: 0;
+    }
+  }
+}

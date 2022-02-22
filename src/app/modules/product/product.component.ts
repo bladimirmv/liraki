@@ -1,11 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
+import { Usuario } from '@app/shared/models/auth/usuario.interface';
+import { WarningModalComponent } from './../../shared/components/warning-modal/warning-modal.component';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '@app/core/services/liraki/producto.service';
-import {
-  OpinionProducto,
-  OpinionProductoView,
-} from '@app/shared/models/liraki/opinion.producto.interface';
+import { OpinionProductoView } from '@app/shared/models/liraki/opinion.producto.interface';
 import {
   FotoProducto,
   ProductoView,
@@ -15,8 +15,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ImgPreviewComponent } from './components/img-preview/img-preview.component';
 import { NewOpinionComponent } from './components/new-opinion/new-opinion.component';
+import { CarritoProyectoService } from '@app/core/services/liraki/carrito-proyecto.service';
 
 import * as moment from 'moment';
+import { CarritoProducto } from '@app/shared/models/liraki/carrito.producto.interface';
 
 @Component({
   selector: 'app-product',
@@ -32,17 +34,21 @@ export class ProductComponent implements OnInit, OnDestroy {
   public currentFoto: FotoProducto = {} as FotoProducto;
   public Opiniones: OpinionProductoView[] = [];
   public stars: number[] = [0, 0, 0, 0, 0];
+  public usuario: Usuario;
 
   constructor(
     private activateRoute: ActivatedRoute,
     private productoSvc: ProductoService,
     private dialog: MatDialog,
-    private router: Router
+    private carritoSvc: CarritoProyectoService,
+    private toastrSvc: ToastrService
   ) {
     this.uuidProducto = this.activateRoute.snapshot.params.uuid;
   }
 
   ngOnInit(): void {
+    this.usuario = this.activateRoute.snapshot.data['usuario'];
+
     moment.locale('es');
     this.getProducto();
   }
@@ -146,5 +152,42 @@ export class ProductComponent implements OnInit, OnDestroy {
 
       window.location.href = res.links[1].href;
     });
+  }
+
+  public addCarritoProducto(): void {
+    if (!this.producto.stock) {
+      this.dialog.open(WarningModalComponent);
+      return;
+    }
+
+    if (!this.usuario) {
+      this.toastrSvc.info(
+        `😀 Por favor <a href="/login" routerLink="/login">inicie sesión</a> para agregar un producto al carrito`,
+        'No se ha Iniciado Sesión',
+        {
+          timeOut: 7000,
+          enableHtml: true,
+        }
+      );
+      return;
+    }
+
+    const carrito: CarritoProducto = {
+      uuidCliente: this.usuario.uuid,
+      uuidProducto: this.producto.uuid,
+      cantidad: 1,
+    };
+
+    this.carritoSvc
+      .addCarritoProducto(carrito)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (res) {
+          this.toastrSvc.success(
+            '😀 Se ha agregado correctamente',
+            'Producto Agregado'
+          );
+        }
+      });
   }
 }
