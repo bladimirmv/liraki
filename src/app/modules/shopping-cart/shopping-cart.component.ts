@@ -1,4 +1,5 @@
-import { takeUntil } from 'rxjs/operators';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { takeUntil, map, shareReplay } from 'rxjs/operators';
 import { CarritoProyectoService } from './../../core/services/liraki/carrito-proyecto.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
@@ -28,6 +29,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   isEditable = false;
   private API_URL = environment.API_URL;
   public carritoForm: FormGroup;
+  public breakpoint: boolean;
 
   public carritoProducto: CarritoProductoView[] | null;
   public usuario: Usuario;
@@ -36,10 +38,22 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private carritoSvc: CarritoProyectoService,
-    private toastrSvc: ToastrService
+    private toastrSvc: ToastrService,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
+    this.breakpointObserver
+      .observe('(max-width: 590px)')
+      .pipe(
+        takeUntil(this.destroy$),
+        map((res) => res.matches),
+        shareReplay()
+      )
+      .subscribe((res: boolean) => {
+        this.breakpoint = res;
+      });
+
     this.carritoProducto = this.route.snapshot.data['carrito'];
     this.usuario = this.route.snapshot.data['usuario'];
 
@@ -114,6 +128,21 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
           this.toastrSvc.success(
             '😀 El carrito se ha eliminado correctamente',
             'Carrito Eliminado'
+          );
+          this.initCarritoProducto();
+        }
+      });
+  }
+
+  public deleteOneProducoFromCarrito(uuid: string): void {
+    this.carritoSvc
+      .deleteCarritoProducto(uuid)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        if (res) {
+          this.toastrSvc.success(
+            '😀 El producto se ha eliminado correctamente del carrito',
+            'Producto Eliminado'
           );
           this.initCarritoProducto();
         }

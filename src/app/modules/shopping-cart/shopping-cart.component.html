@@ -2,9 +2,11 @@
   <div class="cart-container">
     <div class="order-cart">
       <mat-horizontal-stepper
+        labelPosition="bottom"
+        orientation="vertical"
         linear
         #stepper
-        class="mat-elevation-z2 cart-stepper"
+        class="mat-elevation-z1 cart-stepper"
       >
         <mat-step [editable]="true" [stepControl]="carritoForm">
           <ng-template matStepLabel>Carrito</ng-template>
@@ -35,7 +37,11 @@
                   </picture>
 
                   <div class="product-detail">
-                    <a>{{ carrito.producto.nombre | titlecase }}</a>
+                    <a
+                      href="#"
+                      [routerLink]="['/product', carrito.producto.uuid]"
+                      >{{ carrito.producto.nombre | titlecase }}</a
+                    >
                     <span>{{ carrito.producto.descripcion }}</span>
                   </div>
                 </div>
@@ -63,7 +69,11 @@
                     </button>
                   </div>
 
-                  <button mat-icon-button color="warn">
+                  <button
+                    mat-icon-button
+                    color="warn"
+                    (click)="deleteOneProducoFromCarrito(carrito.uuid)"
+                  >
                     <mat-icon> delete </mat-icon>
                   </button>
                 </div>
@@ -73,6 +83,7 @@
 
           <div class="btn-stepper" *ngIf="carritoProducto">
             <button mat-button class="mat-btn-primary" matStepperNext>
+              <mat-icon> last_page </mat-icon>
               Continuar
             </button>
           </div>
@@ -91,7 +102,7 @@
               Ver productos
             </button>
 
-            <div>
+            <div class="no-user-actions">
               <button
                 mat-button
                 class="mat-btn-primary"
@@ -100,7 +111,6 @@
               >
                 Iniciar sesión
               </button>
-              &nbsp;
               <button
                 mat-button
                 class="mat-btn-secondary"
@@ -112,7 +122,11 @@
             </div>
           </section>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
+        <mat-step
+          [stepControl]="secondFormGroup"
+          [editable]="isEditable"
+          errorMessage="Name is required."
+        >
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Datos Personales</ng-template>
             <mat-form-field appearance="fill">
@@ -141,18 +155,18 @@
       </mat-horizontal-stepper>
     </div>
 
-    <div class="payment-summary mat-elevation-z2">
-      <div class="summary" *ngIf="carritoProducto">
+    <div class="payment-summary mat-elevation-z1">
+      <!-- <div class="summary" *ngIf="carritoProducto">
         <h4>Total:</h4>
         <h1>Bs. 0.00</h1>
-      </div>
+      </div> -->
 
       <h2 class="cart-title gradient-text">
         Area de envios gratuito en Cochabamba
       </h2>
 
       <iframe
-        style="border-radius: 25px"
+        style="border-radius: 10px"
         src="https://www.google.com/maps/d/u/3/embed?mid=1d_wL-Rg4055dy4rzSRz4VoQ_rOgcrDqg&ehbc=2E312F"
         width="100%"
         height="400"
