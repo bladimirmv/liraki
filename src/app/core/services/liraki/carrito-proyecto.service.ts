@@ -55,6 +55,12 @@ export class CarritoProyectoService {
       .pipe(catchError((error) => this.handdleError(error)));
   }
 
+  public deleteProductoFromCarrito(uuid: string): Observable<any> {
+    return this.http
+      .delete(`${this.API_URL}/api/carrito/producto/${uuid}`)
+      .pipe(catchError((error) => this.handdleError(error)));
+  }
+
   public addCarritoStore(CarritoProducto: CarritoProductoView[] | null): void {
     let total: number = 0;
     if (CarritoProducto !== null) {

@@ -41,7 +41,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.usuario = this.activateRoute.snapshot.data['usuario'];
-    console.log(this.usuario);
 
     this.breakpointObserver
       .observe('(max-width: 540px)')

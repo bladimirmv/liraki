@@ -24,7 +24,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
 
   public productos: ProductoView[] = [];
-  firstFormGroup: FormGroup;
+  public datosPersonales: FormGroup;
   secondFormGroup: FormGroup;
   isEditable = false;
   private API_URL = environment.API_URL;
@@ -57,7 +57,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.carritoProducto = this.route.snapshot.data['carrito'];
     this.usuario = this.route.snapshot.data['usuario'];
 
-    this.firstFormGroup = this._formBuilder.group({
+    this.datosPersonales = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
@@ -88,7 +88,6 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .subscribe((carrito) => {
         this.carritoProducto = carrito.length ? carrito : null;
         this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
-        console.log(this.carritoProducto);
       });
   }
 
@@ -107,19 +106,17 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .addCarritoProducto(carrito)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
-        if (res) {
-          this.toastrSvc.success(
-            '😀 Se ha agregado correctamente',
-            'Producto Agregado'
-          );
-          this.initCarritoProducto();
-        }
+        // if (res) {
+        //   this.toastrSvc.success(
+        //     '😀 Se ha agregado correctamente',
+        //     'Producto Agregado'
+        //   );
+        // }
+        this.initCarritoProducto();
       });
   }
 
   public deleteCarritoProducto(uuid: string): void {
-    console.log(uuid);
-
     this.carritoSvc
       .deleteCarritoProducto(uuid)
       .pipe(takeUntil(this.destroy$))
@@ -136,7 +133,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   public deleteOneProducoFromCarrito(uuid: string): void {
     this.carritoSvc
-      .deleteCarritoProducto(uuid)
+      .deleteProductoFromCarrito(uuid)
       .pipe(takeUntil(this.destroy$))
       .subscribe((res) => {
         if (res) {
@@ -146,6 +143,23 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
           );
           this.initCarritoProducto();
         }
+      });
+  }
+
+  public reduceProductoCarrito(carrito: CarritoProductoView): void {
+    const { producto, ...rest } = carrito;
+
+    if (rest.cantidad < 2) {
+      this.deleteOneProducoFromCarrito(rest.uuid);
+      return;
+    }
+
+    rest.cantidad--;
+    this.carritoSvc
+      .updateCarritoProducto(rest.uuid, rest)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.initCarritoProducto();
       });
   }
 }

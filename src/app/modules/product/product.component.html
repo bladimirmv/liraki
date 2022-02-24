@@ -3,7 +3,7 @@
     <div class="product-view mat-elevation-z">
       <div class="product-view-content">
         <div
-          class="first-img mat-elevation-z2"
+          class="first-img mat-elevation-z1"
           (click)="currentFoto ? modalPreview($event, currentFoto) : ''"
         >
           <img
@@ -18,7 +18,7 @@
 
         <div class="thumbs">
           <div
-            class="img-thumb mat-elevation-z2"
+            class="img-thumb mat-elevation-z1"
             *ngFor="let foto of producto.fotos"
             (click)="modalPreview($event, foto)"
           >
@@ -170,7 +170,7 @@
         <span class="gradient-text font-head"> Opiniones de clientes </span>
       </h3>
 
-      <div class="comment mat-elevation-z2" *ngFor="let opinion of Opiniones">
+      <div class="comment mat-elevation-z1" *ngFor="let opinion of Opiniones">
         <div class="user-comment full-column-pc">
           <span class="user-circle">
             {{ opinion.usuario.nombre.slice(0, 1) | titlecase }}</span

@@ -26,11 +26,8 @@
               </button>
             </header>
 
-            <div class="order-list">
-              <section
-                class="order-item"
-                *ngFor="let carrito of carritoProducto"
-              >
+            <ul class="order-list">
+              <li class="order-item" *ngFor="let carrito of carritoProducto">
                 <div class="product">
                   <picture class="picture">
                     <img [src]="getImage(carrito.producto.keyName)" alt="" />
@@ -48,10 +45,13 @@
 
                 <div class="product-options">
                   <div class="product-quantity">
-                    <span class="no-select text-bold" style="min-width: 80px"
+                    <span class="no-select text-bold product-price"
                       >Bs. {{ carrito.producto.precio }}
                     </span>
-                    <button mat-icon-button>
+                    <button
+                      mat-icon-button
+                      (click)="reduceProductoCarrito(carrito)"
+                    >
                       <mat-icon> remove </mat-icon>
                     </button>
                     <span
@@ -77,8 +77,8 @@
                     <mat-icon> delete </mat-icon>
                   </button>
                 </div>
-              </section>
-            </div>
+              </li>
+            </ul>
           </div>
 
           <div class="btn-stepper" *ngIf="carritoProducto">
@@ -122,28 +122,33 @@
             </div>
           </section>
         </mat-step>
+
         <mat-step
           [stepControl]="secondFormGroup"
           [editable]="isEditable"
           errorMessage="Name is required."
         >
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Datos Personales</ng-template>
-            <mat-form-field appearance="fill">
-              <mat-label>Address</mat-label>
-              <input
-                matInput
-                formControlName="secondCtrl"
-                placeholder="Ex. 1 Main St, New York, NY"
-                required
-              />
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
+          <form class="new-user-form" [formGroup]="datosPersonales">
+            <!-- *Nombre -->
+            <!-- <mat-form-field
+              class="full-width"
+              [color]="isValidField('nombre').color"
+            >
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" autocomplete="no" />
+              <mat-icon matSuffix [color]="isValidField('nombre').color">
+                {{ isValidField("nombre").icon }}
+              </mat-icon>
+              <mat-error *ngIf="usuarioForm.get('nombre').errors?.required">
+                Ingrese un nombre.
+              </mat-error>
+              <mat-error *ngIf="usuarioForm.get('nombre').errors?.pattern">
+                Ingresa un nombre valido.
+              </mat-error>
+            </mat-form-field> -->
           </form>
         </mat-step>
+
         <mat-step>
           <ng-template matStepLabel>Metodo de Pago</ng-template>
           <p>You are now done.</p>
@@ -155,23 +160,19 @@
       </mat-horizontal-stepper>
     </div>
 
-    <div class="payment-summary mat-elevation-z1">
-      <!-- <div class="summary" *ngIf="carritoProducto">
-        <h4>Total:</h4>
-        <h1>Bs. 0.00</h1>
-      </div> -->
+    <section>
+      <div class="payment-summary mat-elevation-z1">
+        <h2 class="cart-title gradient-text">
+          Area de envios gratuito en Cochabamba
+        </h2>
 
-      <h2 class="cart-title gradient-text">
-        Area de envios gratuito en Cochabamba
-      </h2>
-
-      <iframe
-        style="border-radius: 10px"
-        src="https://www.google.com/maps/d/u/3/embed?mid=1d_wL-Rg4055dy4rzSRz4VoQ_rOgcrDqg&ehbc=2E312F"
-        width="100%"
-        height="400"
-      ></iframe>
-    </div>
+        <iframe
+          src="https://www.google.com/maps/d/u/3/embed?mid=1d_wL-Rg4055dy4rzSRz4VoQ_rOgcrDqg&ehbc=2E312F"
+          width="100%"
+          height="400"
+        ></iframe>
+      </div>
+    </section>
   </div>
 
   <app-card-slider

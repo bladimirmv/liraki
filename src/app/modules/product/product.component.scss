@@ -27,7 +27,7 @@
 .product-view {
   width: 100%;
   height: auto;
-  border-radius: 25px;
+  border-radius: 10px;
 
   .first-img {
     width: 100%;
@@ -39,7 +39,7 @@
     align-items: center;
     overflow: hidden;
 
-    border-radius: 25px;
+    border-radius: 10px;
     background-color: white;
   }
 
@@ -71,7 +71,7 @@
     height: 80px;
     background-color: white;
 
-    border-radius: 5px;
+    border-radius: 10px;
 
     display: flex;
     justify-content: center;
@@ -91,7 +91,7 @@
 }
 .product-detail {
   padding: 0px 20px;
-  border-radius: 25px;
+  border-radius: 10px;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -243,7 +243,7 @@
   align-items: center;
   vertical-align: center;
   background-color: var(--card-bg);
-  border-radius: 25px;
+  border-radius: 10px;
   padding: 5px;
   h4 {
     margin: 5px;

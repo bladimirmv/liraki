@@ -58,10 +58,7 @@
 }
 
 .order {
-  // background-color: var(--gray0);
   border-radius: 10px;
-  // padding: 40px 15px;
-  margin: 10px 0;
 
   .order-header {
     width: 100%;
@@ -90,7 +87,7 @@
   .order-list {
     display: flex;
     flex-direction: column;
-
+    padding: 0;
     margin-top: 30px;
     width: auto;
     gap: 15px;
@@ -106,7 +103,7 @@
   .product {
     display: flex;
     gap: 10px;
-    max-width: 550px;
+    max-width: 600px;
   }
 
   .product-detail {
@@ -188,10 +185,12 @@
   }
 
   .product-quantity mat-icon {
-    // height: 25px;
-    // width: 25px;
     font-size: 16px;
-    // line-height: 25px;
+  }
+
+  .product-price {
+    min-width: 80px;
+    white-space: nowrap;
   }
 }
 
@@ -202,7 +201,14 @@
   margin-top: 0.5em;
   display: grid;
   grid-template-columns: 1fr;
+  position: sticky;
+  top: 80px;
   // place-items: center;
+
+  iframe {
+    border-radius: 10px;
+    border: none;
+  }
 }
 
 .summary {
