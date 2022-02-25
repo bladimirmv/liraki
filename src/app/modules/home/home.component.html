@@ -48,22 +48,22 @@
 
   <div class="content">
     <div class="top-categorias">
-      <div class="mat-elevation-z1 categoria">
+      <div
+        class="mat-elevation-z1 categoria"
+        *ngFor="let categoria of categorias"
+      >
         <div class="card-header">
-          <h2 class="gradient-tex">Puertas de madera</h2>
+          <h2 class="gradient-tex">{{ categoria.nombre | titlecase }}</h2>
         </div>
         <div class="img-container">
-          <img
-            src="https://i.pinimg.com/564x/01/e6/93/01e69377f020918da0fa5f059c211962.jpg"
-            alt=""
-          />
+          <img [src]="getImage(categoria.keyName)" alt="" />
         </div>
         <div class="card-footer">
           <a href="#">Ver más</a>
         </div>
       </div>
 
-      <div class="mat-elevation-z1 categoria">
+      <!-- <div class="mat-elevation-z1 categoria">
         <div class="card-header">
           <h2 class="gradient-tex">Marcos</h2>
         </div>
@@ -106,7 +106,7 @@
         <div class="card-footer">
           <a href="#">Ver más</a>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <app-card-slider

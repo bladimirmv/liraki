@@ -34,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { ToastrModule } from 'ngx-toastr';
 const matModules = [
@@ -69,6 +70,7 @@ const matModules = [
   MatListModule,
   MatStepperModule,
   MatBadgeModule,
+  MatRadioModule,
   CdkStepperModule,
 ];
 

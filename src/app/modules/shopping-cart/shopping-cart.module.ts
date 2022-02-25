@@ -7,8 +7,9 @@ import { CommonModule } from '@angular/common';
 
 import { ShoppingCartRoutingModule } from './shopping-cart-routing.module';
 import { ShoppingCartComponent } from './shopping-cart.component';
+import { PedidoComponent } from './components/pedido/pedido.component';
 @NgModule({
-  declarations: [ShoppingCartComponent],
+  declarations: [ShoppingCartComponent, PedidoComponent],
   imports: [
     CommonModule,
     ShoppingCartRoutingModule,

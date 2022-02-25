@@ -10,7 +10,6 @@
       >
         <mat-step [editable]="true" [stepControl]="carritoForm">
           <ng-template matStepLabel>Carrito</ng-template>
-
           <div class="order" *ngIf="carritoProducto">
             <header class="order-header">
               <span class="order-title">
@@ -25,7 +24,6 @@
                 Eliminar todo
               </button>
             </header>
-
             <ul class="order-list">
               <li class="order-item" *ngFor="let carrito of carritoProducto">
                 <div class="product">
@@ -45,9 +43,29 @@
 
                 <div class="product-options">
                   <div class="product-quantity">
-                    <span class="no-select text-bold product-price"
-                      >Bs. {{ carrito.producto.precio }}
-                    </span>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        padding: 0 5px;
+                      "
+                    >
+                      <span
+                        class="antes-price no-select text-bold product-price"
+                        *ngIf="carrito.producto.descuento > 0"
+                        >💸 Bs. {{ carrito.producto.precio }}
+                      </span>
+
+                      <span class="no-select text-bold product-price"
+                        >Bs.{{
+                          carrito.producto.descuento > 0
+                            ? getDescuento(carrito.producto)
+                            : carrito.producto.precio
+                        }}
+                      </span>
+                    </div>
+
                     <button
                       mat-icon-button
                       (click)="reduceProductoCarrito(carrito)"
@@ -79,6 +97,11 @@
                 </div>
               </li>
             </ul>
+          </div>
+
+          <mat-divider *ngIf="carritoProducto"></mat-divider>
+          <div class="total-cart" *ngIf="carritoProducto">
+            <h1>Total: Bs. {{ getTotalPrice() }}</h1>
           </div>
 
           <div class="btn-stepper" *ngIf="carritoProducto">
@@ -128,29 +151,404 @@
           [editable]="isEditable"
           errorMessage="Name is required."
         >
-          <form class="new-user-form" [formGroup]="datosPersonales">
-            <!-- *Nombre -->
-            <!-- <mat-form-field
-              class="full-width"
-              [color]="isValidField('nombre').color"
-            >
-              <mat-label>Nombre</mat-label>
-              <input matInput formControlName="nombre" autocomplete="no" />
-              <mat-icon matSuffix [color]="isValidField('nombre').color">
-                {{ isValidField("nombre").icon }}
-              </mat-icon>
-              <mat-error *ngIf="usuarioForm.get('nombre').errors?.required">
-                Ingrese un nombre.
-              </mat-error>
-              <mat-error *ngIf="usuarioForm.get('nombre').errors?.pattern">
-                Ingresa un nombre valido.
-              </mat-error>
-            </mat-form-field> -->
+          <ng-template matStepLabel>Detalles</ng-template>
+
+          <form class="new-form" [formGroup]="pedidoCarrito">
+            <section>
+              <div class="pedido">
+                <h2 class="full-column text-center">Datos Personales</h2>
+
+                <!-- *Nombre -->
+                <mat-form-field
+                  class="full-width"
+                  [color]="isValidField('nombre').color"
+                >
+                  <mat-label>Nombre</mat-label>
+                  <input matInput formControlName="nombre" autocomplete="no" />
+                  <mat-icon matSuffix [color]="isValidField('nombre').color">
+                    {{ isValidField("nombre").icon }}
+                  </mat-icon>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('nombre').errors?.required"
+                  >
+                    Ingrese un nombre.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('nombre').errors?.pattern"
+                  >
+                    Ingresa un nombre valido.
+                  </mat-error>
+                </mat-form-field>
+
+                <!-- *Apellido Paterno -->
+                <mat-form-field
+                  class="full-width"
+                  [color]="isValidField('apellidoPaterno').color"
+                >
+                  <mat-label>Apellido Paterno</mat-label>
+                  <input
+                    matInput
+                    formControlName="apellidoPaterno"
+                    autocomplete="no"
+                  />
+                  <mat-icon
+                    matSuffix
+                    [color]="isValidField('apellidoPaterno').color"
+                  >
+                    {{ isValidField("apellidoPaterno").icon }}
+                  </mat-icon>
+                  <mat-error
+                    *ngIf="
+                      pedidoCarrito.get('apellidoPaterno').errors?.required
+                    "
+                  >
+                    Por favor ingrese el apellido paterno.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="
+                      pedidoCarrito.get('apellidoPaterno').errors?.maxlength
+                    "
+                  >
+                    Debe contener
+                    {{
+                      pedidoCarrito.get("apellidoPaterno").errors?.maxlength
+                        ?.requiredLength
+                    }}
+                    letras como maximo.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('apellidoPaterno').errors?.pattern"
+                  >
+                    Ingresa un apellido valido.
+                  </mat-error>
+                </mat-form-field>
+
+                <!-- *Apellido Materno -->
+                <mat-form-field
+                  class="full-width"
+                  [color]="isValidField('apellidoMaterno').color"
+                >
+                  <mat-label>Apellido Materno</mat-label>
+                  <mat-icon
+                    matSuffix
+                    [color]="isValidField('apellidoMaterno').color"
+                    *ngIf="pedidoCarrito.value.apellidoMaterno"
+                  >
+                    {{ isValidField("apellidoMaterno").icon }}
+                  </mat-icon>
+                  <input
+                    matInput
+                    formControlName="apellidoMaterno"
+                    autocomplete="no"
+                  />
+                  <mat-error
+                    *ngIf="
+                      pedidoCarrito.get('apellidoMaterno').errors?.maxlength
+                    "
+                  >
+                    Debe contener
+                    {{
+                      pedidoCarrito.get("apellidoMaterno").errors?.maxlength
+                        ?.requiredLength
+                    }}
+                    letras como maximo.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('apellidoMaterno').errors?.pattern"
+                  >
+                    Ingresa un apellido valido.
+                  </mat-error>
+                </mat-form-field>
+
+                <!-- *Celular -->
+                <mat-form-field
+                  class="full-width"
+                  [color]="isValidField('celular').color"
+                >
+                  <mat-label>Celular</mat-label>
+                  <span matPrefix>+591 &nbsp;</span>
+
+                  <input
+                    type="tel"
+                    matInput
+                    placeholder="69409749"
+                    formControlName="celular"
+                    autocomplete="off"
+                  />
+
+                  <mat-hint align="end">
+                    {{
+                      pedidoCarrito.value.celular
+                        ? getString(pedidoCarrito.value.celular).length
+                        : 0
+                    }}/8
+                  </mat-hint>
+                  <mat-icon matSuffix [color]="isValidField('celular').color">
+                    {{ isValidField("celular").icon }}
+                  </mat-icon>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('celular').errors?.required"
+                  >
+                    Ingrese el numero de celular o telefono.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="
+                      pedidoCarrito.get('celular').errors?.pattern;
+                      else min_maxLength
+                    "
+                  >
+                    Debe incluir solo numeros.
+                  </mat-error>
+                  <ng-template #min_maxLength>
+                    <mat-error
+                      *ngIf="pedidoCarrito.get('celular').errors?.minlength"
+                    >
+                      Debe contener
+                      {{
+                        pedidoCarrito.get("celular").errors?.minlength
+                          ?.requiredLength
+                      }}
+                      numeros como minimo.
+                    </mat-error>
+                    <mat-error
+                      *ngIf="pedidoCarrito.get('celular').errors?.maxlength"
+                    >
+                      Debe contener
+                      {{
+                        pedidoCarrito.get("celular").errors?.maxlength
+                          ?.requiredLength
+                      }}
+                      numeros como maximo.
+                    </mat-error>
+                  </ng-template>
+                </mat-form-field>
+
+                <!-- *Correo -->
+                <mat-form-field
+                  class="full-width full-column"
+                  [color]="isValidField('correo').color"
+                >
+                  <mat-label>Correo</mat-label>
+                  <input matInput formControlName="correo" />
+                  <mat-icon matSuffix [color]="isValidField('correo').color">
+                    {{ isValidField("correo").icon }}
+                  </mat-icon>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('correo').errors?.required"
+                  >
+                    Por favor ingrese el correo.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('correo').errors?.pattern"
+                  >
+                    Por favor ingrese un correo valido.
+                  </mat-error>
+                </mat-form-field>
+
+                <!-- *Direccion -->
+                <mat-form-field
+                  class="full-width full-column"
+                  [color]="isValidField('direccion').color"
+                >
+                  <mat-label>Direccion</mat-label>
+                  <textarea
+                    matInput
+                    placeholder="Ex. Avenida Segunda"
+                    formControlName="direccion"
+                  ></textarea>
+                  <mat-hint align="end">
+                    {{
+                      pedidoCarrito.value.direccion
+                        ? pedidoCarrito.value.direccion.length
+                        : 0
+                    }}/200
+                  </mat-hint>
+                  <mat-icon
+                    matSuffix
+                    [color]="isValidField('direccion').color"
+                    *ngIf="pedidoCarrito.value.direccion"
+                  >
+                    {{ isValidField("direccion").icon }}
+                  </mat-icon>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('direccion').errors?.maxlength"
+                  >
+                    Debe contener
+                    {{
+                      pedidoCarrito.get("direccion").errors?.maxlength
+                        ?.requiredLength
+                    }}
+                    digitos como maximo.
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field
+                  class="full-width"
+                  [color]="isValidField('nombreFactuta').color"
+                >
+                  <mat-label>Nombre para la Factura</mat-label>
+                  <input
+                    matInput
+                    formControlName="nombreFactuta"
+                    autocomplete="no"
+                  />
+                  <mat-icon
+                    matSuffix
+                    [color]="isValidField('nombreFactuta').color"
+                  >
+                    {{ isValidField("nombreFactuta").icon }}
+                  </mat-icon>
+                </mat-form-field>
+
+                <mat-form-field
+                  class="full-width"
+                  [color]="isValidField('nitCI').color"
+                >
+                  <mat-label>NIT o CI</mat-label>
+                  <input matInput formControlName="nitCI" autocomplete="no" />
+                  <mat-icon matSuffix [color]="isValidField('nitCI').color">
+                    {{ isValidField("nitCI").icon }}
+                  </mat-icon>
+                </mat-form-field>
+
+                <h2 class="full-column text-center">Mas Informacion</h2>
+                <p class="full-column no-margin">
+                  Si tienes algo mas que hacernos saber, sobre la direccion o
+                  algun dato extra puedes agregar una descripcion opcional aqui
+                  abajo.
+                </p>
+
+                <mat-form-field
+                  class="full-width full-column"
+                  [color]="isValidField('descripcion').color"
+                >
+                  <mat-label>Descripcion</mat-label>
+                  <textarea
+                    matInput
+                    placeholder="Ex. Añade una descripcion"
+                    formControlName="descripcion"
+                  ></textarea>
+                  <mat-hint align="end">
+                    {{
+                      pedidoCarrito.value.descripcion
+                        ? pedidoCarrito.value.descripcion.length
+                        : 0
+                    }}/500
+                  </mat-hint>
+                  <mat-icon
+                    matSuffix
+                    [color]="isValidField('direccion').color"
+                    *ngIf="pedidoCarrito.value.descripcion"
+                  >
+                    {{ isValidField("descripcion").icon }}
+                  </mat-icon>
+                  <mat-error
+                    *ngIf="pedidoCarrito.get('descripcion').errors?.maxlength"
+                  >
+                    Debe contener
+                    {{
+                      pedidoCarrito.get("descripcion").errors?.maxlength
+                        ?.requiredLength
+                    }}
+                    digitos como maximo.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </section>
+
+            <section>
+              <div class="detalle-pedido">
+                <h2 class="full-column text-center">Tipo de Envio</h2>
+
+                <mat-radio-group
+                  class="full-column full-width"
+                  formControlName="tipoEnvio"
+                >
+                  <mat-radio-button color="primary" value="carpinteria">
+                    <span style="white-space: normal">
+                      Recoger pedido en la carpinteria
+                    </span>
+                  </mat-radio-button>
+
+                  <mat-radio-button color="primary" value="delivery">
+                    <div style="white-space: normal">
+                      Envio a domicilo.
+                      <span class="text-bold">
+                        (Costo adicional fuera del area de envio gratuito)
+                      </span>
+                    </div>
+                  </mat-radio-button>
+                </mat-radio-group>
+
+                <h2 class="full-column text-center">Metodo de Pago</h2>
+
+                <mat-radio-group
+                  class="full-column full-width"
+                  formControlName="metodoDePago"
+                >
+                  <mat-radio-button color="primary" value="bnb">
+                    <div style="white-space: normal">
+                      Depósito Bancario o Pago QR
+                    </div>
+                  </mat-radio-button>
+                  <br />
+                  <mat-radio-button color="primary" value="fisico">
+                    <span style="white-space: normal">
+                      Pagar al recibir el pedido
+                    </span> </mat-radio-button
+                  ><br />
+
+                  <mat-radio-button color="primary" value="paypal">
+                    <div style="white-space: normal">
+                      Paypal
+                      <span class="text-bold"> (Beta) </span>
+                    </div>
+                  </mat-radio-button>
+
+                  <picture
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                    "
+                    *ngIf="pedidoCarrito.value.metodoDePago === 'bnb'"
+                  >
+                    <img src="./assets/bnb.jpeg" alt="" width="300px" />
+
+                    <div>
+                      <span class="text-bold">Banco:</span>
+                      BNB
+                    </div>
+                    <div>
+                      <span class="text-bold">Numero de Cuenta:</span>
+                      3502282572
+                    </div>
+                    <div>
+                      <span class="text-bold">Tipo de moneda:</span>
+                      Bolivianos
+                    </div>
+                    <br />
+                  </picture>
+                </mat-radio-group>
+              </div>
+            </section>
           </form>
+
+          <div class="btn-stepper">
+            <button
+              [disabled]="!(carritoProducto && pedidoCarrito.valid)"
+              mat-button
+              class="mat-btn-primary"
+              matStepperNext
+            >
+              <mat-icon> last_page </mat-icon>
+              Continuar
+            </button>
+          </div>
         </mat-step>
 
         <mat-step>
-          <ng-template matStepLabel>Metodo de Pago</ng-template>
+          <ng-template matStepLabel>Completado</ng-template>
           <p>You are now done.</p>
           <div>
             <button mat-button matStepperPrevious>Back</button>

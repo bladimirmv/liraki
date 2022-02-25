@@ -1,3 +1,4 @@
+import { Producto } from './../../shared/models/liraki/producto.interface';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil, map, shareReplay } from 'rxjs/operators';
 import { CarritoProyectoService } from './../../core/services/liraki/carrito-proyecto.service';
@@ -21,13 +22,13 @@ import { Subject } from 'rxjs';
   styleUrls: ['./shopping-cart.component.scss'],
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
+  private API_URL = environment.API_URL;
   private destroy$: Subject<any> = new Subject<any>();
 
   public productos: ProductoView[] = [];
-  public datosPersonales: FormGroup;
+  public pedidoCarrito: FormGroup;
   secondFormGroup: FormGroup;
-  isEditable = false;
-  private API_URL = environment.API_URL;
+  public isEditable = false;
   public carritoForm: FormGroup;
   public breakpoint: boolean;
 
@@ -56,10 +57,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
     this.carritoProducto = this.route.snapshot.data['carrito'];
     this.usuario = this.route.snapshot.data['usuario'];
+    this.initPedidoCarrito();
 
-    this.datosPersonales = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    });
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: [true, Validators.required],
     });
@@ -105,13 +104,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.carritoSvc
       .addCarritoProducto(carrito)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        // if (res) {
-        //   this.toastrSvc.success(
-        //     '😀 Se ha agregado correctamente',
-        //     'Producto Agregado'
-        //   );
-        // }
+      .subscribe(() => {
         this.initCarritoProducto();
       });
   }
@@ -148,12 +141,10 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   public reduceProductoCarrito(carrito: CarritoProductoView): void {
     const { producto, ...rest } = carrito;
-
     if (rest.cantidad < 2) {
       this.deleteOneProducoFromCarrito(rest.uuid);
       return;
     }
-
     rest.cantidad--;
     this.carritoSvc
       .updateCarritoProducto(rest.uuid, rest)
@@ -161,5 +152,99 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.initCarritoProducto();
       });
+  }
+
+  // !form pedido
+  private initPedidoCarrito(): void {
+    this.pedidoCarrito = this._formBuilder.group({
+      nombre: [
+        this.usuario ? this.usuario.nombre : '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern(
+            /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+          ),
+        ],
+      ],
+      apellidoPaterno: [
+        this.usuario ? this.usuario.apellidoPaterno : '',
+        [
+          Validators.required,
+          Validators.maxLength(50),
+          Validators.pattern(
+            /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+          ),
+        ],
+      ],
+      apellidoMaterno: [
+        this.usuario ? this.usuario.apellidoMaterno : '',
+        [
+          Validators.maxLength(50),
+          Validators.pattern(
+            /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+          ),
+        ],
+      ],
+      celular: [
+        this.usuario ? this.usuario.celular : '',
+        [
+          Validators.required,
+          Validators.minLength(7),
+          Validators.maxLength(8),
+          Validators.pattern(/^[0-9]*$/),
+        ],
+      ],
+      direccion: [
+        this.usuario ? this.usuario.direccion : '',
+        [Validators.maxLength(200)],
+      ],
+      correo: [
+        this.usuario ? this.usuario.correo : '',
+        [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)],
+      ],
+      nombreFactuta: [
+        this.usuario ? this.usuario.apellidoPaterno : '',
+        Validators.required,
+      ],
+      nitCI: ['', Validators.required],
+      tipoEnvio: ['carpinteria', Validators.required],
+      descripcion: ['', [Validators.maxLength(500)]],
+      metodoDePago: ['bnb', Validators.required],
+    });
+  }
+  // ===========> isValidField
+  public isValidField(field: string): {
+    color?: string;
+    status?: boolean;
+    icon?: string;
+  } {
+    const validateFIeld = this.pedidoCarrito.get(field);
+    return !validateFIeld.valid && validateFIeld.touched
+      ? { color: 'warn', status: false, icon: 'close' }
+      : validateFIeld.valid
+      ? { color: 'accent', status: true, icon: 'done' }
+      : {};
+  }
+  // ===========> getString
+  getString(num: number): string {
+    return String(num);
+  }
+  getTotalPrice(): number {
+    let total: number = 0;
+    this.carritoProducto.forEach((cart) => {
+      total += cart.cantidad * cart.producto.precio;
+    });
+
+    return total;
+  }
+
+  public getDescuento(producto: Producto): string {
+    let result: number = 0;
+    producto.descuento > 100 || producto.descuento < 0
+      ? (result = 0)
+      : (result =
+          producto.precio - (producto.precio * producto.descuento) / 100);
+    return result.toFixed(2);
   }
 }

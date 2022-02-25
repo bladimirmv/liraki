@@ -20,43 +20,12 @@
   }
 }
 
-@media screen and (max-width: 1070px) {
-  .cart-container {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-  }
-
-  .summary {
-    display: none;
-  }
-}
-
-@media screen and(max-width:560px) {
-  .order-item {
-    flex-direction: column;
-  }
-}
-
-@media screen and(max-width:460px) {
-  .order-header {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 20px;
-  }
-  .order-header > *:first-child {
-    align-self: center;
-  }
-}
-
 .cart-stepper {
   background-color: white;
   border-radius: 10px;
   position: sticky;
   top: 80px;
 }
-
 .order {
   border-radius: 10px;
 
@@ -192,6 +161,18 @@
     min-width: 80px;
     white-space: nowrap;
   }
+
+  .antes-price {
+    text-decoration: line-through;
+    color: var(--gray2) !important;
+  }
+}
+
+.total-cart {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .payment-summary {
@@ -203,8 +184,6 @@
   grid-template-columns: 1fr;
   position: sticky;
   top: 80px;
-  // place-items: center;
-
   iframe {
     border-radius: 10px;
     border: none;
@@ -285,4 +264,83 @@
 .btn-stepper {
   display: flex;
   justify-content: flex-end;
+}
+
+@media screen and (max-width: 1070px) {
+  .cart-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+  .summary {
+    display: none;
+  }
+}
+
+@media screen and(max-width:560px) {
+  .order-item {
+    flex-direction: column;
+  }
+}
+
+@media screen and(max-width:460px) {
+  .order-header {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+  }
+  .order-header > *:first-child {
+    align-self: center;
+  }
+}
+
+// !pedido form
+
+.new-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: -10px;
+}
+.pedido {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.detalle-pedido {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.full-column {
+  grid-column: span 2;
+}
+
+@media screen and (max-width: 530px) {
+  .pedido,
+  .detalle-pedido {
+    display: grid;
+    grid-template-columns: minmax(100%, 1fr);
+    grid-gap: 0;
+    padding: 0;
+  }
+
+  .full-column {
+    grid-column: 1;
+  }
+}
+
+.mat-radio-button {
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+@media screen and (max-width: 1250px) {
+  .new-form {
+    grid-template-columns: 1fr;
+  }
 }
