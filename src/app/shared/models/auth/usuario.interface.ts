@@ -1,4 +1,3 @@
-
 export type Roles = 'administrador' | 'arquitecto' | 'cliente' | 'vendedor';
 export interface Usuario {
   uuid?: string;
@@ -15,7 +14,6 @@ export interface Usuario {
   activo?: boolean;
   autoUsuario?: boolean;
   autoContrasenha?: boolean;
-
 }
 
 export interface UsuarioResponse {

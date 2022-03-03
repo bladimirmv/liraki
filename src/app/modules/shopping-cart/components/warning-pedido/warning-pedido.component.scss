@@ -1,37 +1,19 @@
-.warn {
-  --color: var(--warn) !important;
-}
-
-.accent {
-  --color: var(--accent) !important;
-}
-
 mat-dialog-content {
   display: grid;
   place-items: center;
+
   max-width: 300px;
 
-  h3 {
+  h2 {
     word-wrap: break-word;
-    margin: 0;
-    color: var(--secondary);
-  }
-
-  h1 {
-    margin: 0;
-    color: var(--secondary);
   }
 }
 
 mat-icon {
   font-size: 150px;
-  color: var(--color);
+  color: var(--accent);
   width: auto;
   height: auto;
-}
-
-.full-width {
-  width: 100%;
 }
 
 mat-dialog-actions {

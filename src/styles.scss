@@ -213,6 +213,12 @@ body {
 //   }
 // }
 
+.accent-text-color {
+  color: var(--accent) !important;
+}
+.warn-text-color {
+  color: var(--warn);
+}
 .font-icon {
   font-weight: normal !important;
 }

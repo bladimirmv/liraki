@@ -8,6 +8,15 @@
         #stepper
         class="mat-elevation-z1 cart-stepper"
       >
+        <!-- <mat-step>
+          <ng-template matStepLabel>Completado</ng-template>
+          <p>You are now done.</p>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step> -->
+
         <mat-step [editable]="true" [stepControl]="carritoForm">
           <ng-template matStepLabel>Carrito</ng-template>
           <div class="order" *ngIf="carritoProducto">
@@ -47,8 +56,8 @@
                       style="
                         display: flex;
                         flex-direction: column;
-                        align-items: center;
                         padding: 0 5px;
+                        align-items: center;
                       "
                     >
                       <span
@@ -58,7 +67,8 @@
                       </span>
 
                       <span class="no-select text-bold product-price"
-                        >Bs.{{
+                        >Bs.
+                        {{
                           carrito.producto.descuento > 0
                             ? getDescuento(carrito.producto)
                             : carrito.producto.precio
@@ -101,7 +111,7 @@
 
           <mat-divider *ngIf="carritoProducto"></mat-divider>
           <div class="total-cart" *ngIf="carritoProducto">
-            <h1>Total: Bs. {{ getTotalPrice() }}</h1>
+            <h1>Total: Bs. {{ getTotalPrice().toFixed(2) }}</h1>
           </div>
 
           <div class="btn-stepper" *ngIf="carritoProducto">
@@ -147,13 +157,12 @@
         </mat-step>
 
         <mat-step
-          [stepControl]="secondFormGroup"
-          [editable]="isEditable"
           errorMessage="Name is required."
+          [stepControl]="pedidoCarritoForm"
         >
-          <ng-template matStepLabel>Detalles</ng-template>
+          <ng-template matStepLabel>Detalles del Pedido</ng-template>
 
-          <form class="new-form" [formGroup]="pedidoCarrito">
+          <form class="new-form" [formGroup]="pedidoCarritoForm">
             <section>
               <div class="pedido">
                 <h2 class="full-column text-center">Datos Personales</h2>
@@ -169,12 +178,12 @@
                     {{ isValidField("nombre").icon }}
                   </mat-icon>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('nombre').errors?.required"
+                    *ngIf="pedidoCarritoForm.get('nombre').errors?.required"
                   >
                     Ingrese un nombre.
                   </mat-error>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('nombre').errors?.pattern"
+                    *ngIf="pedidoCarritoForm.get('nombre').errors?.pattern"
                   >
                     Ingresa un nombre valido.
                   </mat-error>
@@ -199,25 +208,27 @@
                   </mat-icon>
                   <mat-error
                     *ngIf="
-                      pedidoCarrito.get('apellidoPaterno').errors?.required
+                      pedidoCarritoForm.get('apellidoPaterno').errors?.required
                     "
                   >
                     Por favor ingrese el apellido paterno.
                   </mat-error>
                   <mat-error
                     *ngIf="
-                      pedidoCarrito.get('apellidoPaterno').errors?.maxlength
+                      pedidoCarritoForm.get('apellidoPaterno').errors?.maxlength
                     "
                   >
                     Debe contener
                     {{
-                      pedidoCarrito.get("apellidoPaterno").errors?.maxlength
+                      pedidoCarritoForm.get("apellidoPaterno").errors?.maxlength
                         ?.requiredLength
                     }}
                     letras como maximo.
                   </mat-error>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('apellidoPaterno').errors?.pattern"
+                    *ngIf="
+                      pedidoCarritoForm.get('apellidoPaterno').errors?.pattern
+                    "
                   >
                     Ingresa un apellido valido.
                   </mat-error>
@@ -232,7 +243,7 @@
                   <mat-icon
                     matSuffix
                     [color]="isValidField('apellidoMaterno').color"
-                    *ngIf="pedidoCarrito.value.apellidoMaterno"
+                    *ngIf="pedidoCarritoForm.value.apellidoMaterno"
                   >
                     {{ isValidField("apellidoMaterno").icon }}
                   </mat-icon>
@@ -243,18 +254,20 @@
                   />
                   <mat-error
                     *ngIf="
-                      pedidoCarrito.get('apellidoMaterno').errors?.maxlength
+                      pedidoCarritoForm.get('apellidoMaterno').errors?.maxlength
                     "
                   >
                     Debe contener
                     {{
-                      pedidoCarrito.get("apellidoMaterno").errors?.maxlength
+                      pedidoCarritoForm.get("apellidoMaterno").errors?.maxlength
                         ?.requiredLength
                     }}
                     letras como maximo.
                   </mat-error>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('apellidoMaterno').errors?.pattern"
+                    *ngIf="
+                      pedidoCarritoForm.get('apellidoMaterno').errors?.pattern
+                    "
                   >
                     Ingresa un apellido valido.
                   </mat-error>
@@ -278,8 +291,8 @@
 
                   <mat-hint align="end">
                     {{
-                      pedidoCarrito.value.celular
-                        ? getString(pedidoCarrito.value.celular).length
+                      pedidoCarritoForm.value.celular
+                        ? getString(pedidoCarritoForm.value.celular).length
                         : 0
                     }}/8
                   </mat-hint>
@@ -287,13 +300,13 @@
                     {{ isValidField("celular").icon }}
                   </mat-icon>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('celular').errors?.required"
+                    *ngIf="pedidoCarritoForm.get('celular').errors?.required"
                   >
                     Ingrese el numero de celular o telefono.
                   </mat-error>
                   <mat-error
                     *ngIf="
-                      pedidoCarrito.get('celular').errors?.pattern;
+                      pedidoCarritoForm.get('celular').errors?.pattern;
                       else min_maxLength
                     "
                   >
@@ -301,21 +314,21 @@
                   </mat-error>
                   <ng-template #min_maxLength>
                     <mat-error
-                      *ngIf="pedidoCarrito.get('celular').errors?.minlength"
+                      *ngIf="pedidoCarritoForm.get('celular').errors?.minlength"
                     >
                       Debe contener
                       {{
-                        pedidoCarrito.get("celular").errors?.minlength
+                        pedidoCarritoForm.get("celular").errors?.minlength
                           ?.requiredLength
                       }}
                       numeros como minimo.
                     </mat-error>
                     <mat-error
-                      *ngIf="pedidoCarrito.get('celular').errors?.maxlength"
+                      *ngIf="pedidoCarritoForm.get('celular').errors?.maxlength"
                     >
                       Debe contener
                       {{
-                        pedidoCarrito.get("celular").errors?.maxlength
+                        pedidoCarritoForm.get("celular").errors?.maxlength
                           ?.requiredLength
                       }}
                       numeros como maximo.
@@ -334,12 +347,12 @@
                     {{ isValidField("correo").icon }}
                   </mat-icon>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('correo').errors?.required"
+                    *ngIf="pedidoCarritoForm.get('correo').errors?.required"
                   >
                     Por favor ingrese el correo.
                   </mat-error>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('correo').errors?.pattern"
+                    *ngIf="pedidoCarritoForm.get('correo').errors?.pattern"
                   >
                     Por favor ingrese un correo valido.
                   </mat-error>
@@ -358,24 +371,24 @@
                   ></textarea>
                   <mat-hint align="end">
                     {{
-                      pedidoCarrito.value.direccion
-                        ? pedidoCarrito.value.direccion.length
+                      pedidoCarritoForm.value.direccion
+                        ? pedidoCarritoForm.value.direccion.length
                         : 0
                     }}/200
                   </mat-hint>
                   <mat-icon
                     matSuffix
                     [color]="isValidField('direccion').color"
-                    *ngIf="pedidoCarrito.value.direccion"
+                    *ngIf="pedidoCarritoForm.value.direccion"
                   >
                     {{ isValidField("direccion").icon }}
                   </mat-icon>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('direccion').errors?.maxlength"
+                    *ngIf="pedidoCarritoForm.get('direccion').errors?.maxlength"
                   >
                     Debe contener
                     {{
-                      pedidoCarrito.get("direccion").errors?.maxlength
+                      pedidoCarritoForm.get("direccion").errors?.maxlength
                         ?.requiredLength
                     }}
                     digitos como maximo.
@@ -384,19 +397,19 @@
 
                 <mat-form-field
                   class="full-width"
-                  [color]="isValidField('nombreFactuta').color"
+                  [color]="isValidField('nombreFactura').color"
                 >
                   <mat-label>Nombre para la Factura</mat-label>
                   <input
                     matInput
-                    formControlName="nombreFactuta"
+                    formControlName="nombreFactura"
                     autocomplete="no"
                   />
                   <mat-icon
                     matSuffix
-                    [color]="isValidField('nombreFactuta').color"
+                    [color]="isValidField('nombreFactura').color"
                   >
-                    {{ isValidField("nombreFactuta").icon }}
+                    {{ isValidField("nombreFactura").icon }}
                   </mat-icon>
                 </mat-form-field>
 
@@ -430,24 +443,26 @@
                   ></textarea>
                   <mat-hint align="end">
                     {{
-                      pedidoCarrito.value.descripcion
-                        ? pedidoCarrito.value.descripcion.length
+                      pedidoCarritoForm.value.descripcion
+                        ? pedidoCarritoForm.value.descripcion.length
                         : 0
                     }}/500
                   </mat-hint>
                   <mat-icon
                     matSuffix
                     [color]="isValidField('direccion').color"
-                    *ngIf="pedidoCarrito.value.descripcion"
+                    *ngIf="pedidoCarritoForm.value.descripcion"
                   >
                     {{ isValidField("descripcion").icon }}
                   </mat-icon>
                   <mat-error
-                    *ngIf="pedidoCarrito.get('descripcion').errors?.maxlength"
+                    *ngIf="
+                      pedidoCarritoForm.get('descripcion').errors?.maxlength
+                    "
                   >
                     Debe contener
                     {{
-                      pedidoCarrito.get("descripcion").errors?.maxlength
+                      pedidoCarritoForm.get("descripcion").errors?.maxlength
                         ?.requiredLength
                     }}
                     digitos como maximo.
@@ -511,7 +526,7 @@
                       flex-direction: column;
                       align-items: center;
                     "
-                    *ngIf="pedidoCarrito.value.metodoDePago === 'bnb'"
+                    *ngIf="pedidoCarritoForm.value.metodoDePago === 'bnb'"
                   >
                     <img src="./assets/bnb.jpeg" alt="" width="300px" />
 
@@ -536,23 +551,14 @@
 
           <div class="btn-stepper">
             <button
-              [disabled]="!(carritoProducto && pedidoCarrito.valid)"
+              [disabled]="!carritoProducto"
+              (click)="addPedido()"
               mat-button
               class="mat-btn-primary"
               matStepperNext
             >
-              <mat-icon> last_page </mat-icon>
-              Continuar
+              Realizar Pedido
             </button>
-          </div>
-        </mat-step>
-
-        <mat-step>
-          <ng-template matStepLabel>Completado</ng-template>
-          <p>You are now done.</p>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>

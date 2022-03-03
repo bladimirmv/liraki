@@ -24,6 +24,7 @@ export class RolInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     this.loader.isLoading.next(true);
+    this.authSvc.checkToken();
 
     const authToken = this.authSvc.userTokenValue;
     const authRequest = request.clone({
@@ -50,32 +51,12 @@ export class RolInterceptor implements HttpInterceptor {
                   }
                 );
                 break;
-              default:
-                errorMessage = `
-                Error: ${httpError.statusText}</br>
-                Status: ${httpError.status}`;
-                errorMessage = `${httpError.error.message}`;
-                this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
-                  timeOut: 7000,
-                  enableHtml: true,
-                });
-                break;
             }
           } else if (httpError.error.message.errno) {
             switch (httpError.error.message.errno) {
               case -111:
                 errorMessage =
                   'No se ha podido establecer una conexion con la base de datos. 🙁';
-                this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
-                  timeOut: 7000,
-                  enableHtml: true,
-                });
-                break;
-              default:
-                errorMessage = `
-                Error: ${httpError.statusText}</br>
-                Status: ${httpError.status}`;
-                errorMessage = `${httpError.error.message}`;
                 this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
                   timeOut: 7000,
                   enableHtml: true,

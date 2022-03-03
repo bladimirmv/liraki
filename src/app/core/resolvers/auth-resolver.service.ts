@@ -1,4 +1,4 @@
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 import { AuthService } from './../services/auth/auth.service';
 import { Usuario } from './../../shared/models/auth/usuario.interface';
 import { Injectable } from '@angular/core';

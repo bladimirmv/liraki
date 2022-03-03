@@ -1,3 +1,4 @@
+import { AuthGuard } from './core/guards/auth.guard';
 import { AuthResolverService } from './core/resolvers/auth-resolver.service';
 import { ShoppingCartResolverService } from './core/resolvers/shopping-cart-resolver.service';
 import { NgModule } from '@angular/core';

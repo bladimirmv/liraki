@@ -165,7 +165,17 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   public addCarritoProducto(): void {
     if (!this.producto.stock) {
-      this.dialog.open(WarningModalComponent);
+      this.dialog.open(WarningModalComponent, {
+        data: {
+          title: 'Producto Agotado!',
+          paragraph: 'No hay stock disponible para agregar al carrito.',
+          btnPrimary: 'Ver Productos',
+          color: 'warn',
+          icon: 'production_quantity_limits',
+          navigate: true,
+          routerLink: '/products',
+        },
+      });
       return;
     }
 

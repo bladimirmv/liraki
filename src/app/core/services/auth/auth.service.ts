@@ -77,7 +77,7 @@ export class AuthService extends RoleValidator {
     this.loggedIn.next(false);
     this.usuario.next(null);
     this.usuarioToken.next(null);
-    this.carritoSvc.addCarritoStore([]);
+    this.carritoSvc.addCarritoStore(null);
 
     if (navigate) {
       this.router.navigate(['/']);
@@ -102,6 +102,7 @@ export class AuthService extends RoleValidator {
           timeOut: 7000,
         }
       );
+      return;
     }
     this.loggedIn.next(true);
     this.usuarioToken.next(usuarioToken);

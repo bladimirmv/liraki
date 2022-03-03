@@ -1,3 +1,8 @@
+import { PedidoProductoService } from './../../core/services/liraki/pedido-producto.service';
+import { WarningModalComponent } from './../../shared/components/warning-modal/warning-modal.component';
+import { WarningPedidoComponent } from './components/warning-pedido/warning-pedido.component';
+import { MatDialog } from '@angular/material/dialog';
+import { PedidoProducto } from './../../shared/models/liraki/pedido.interface';
 import { Producto } from './../../shared/models/liraki/producto.interface';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntil, map, shareReplay } from 'rxjs/operators';
@@ -26,50 +31,31 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
 
   public productos: ProductoView[] = [];
-  public pedidoCarrito: FormGroup;
-  secondFormGroup: FormGroup;
-  public isEditable = false;
+  public pedidoCarritoForm: FormGroup;
   public carritoForm: FormGroup;
-  public breakpoint: boolean;
 
   public carritoProducto: CarritoProductoView[] | null;
   public usuario: Usuario;
+
+  public breakpoint: boolean;
+  public isEditable = false;
   constructor(
     private productSvc: ProductoService,
     private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private carritoSvc: CarritoProyectoService,
     private toastrSvc: ToastrService,
-    private breakpointObserver: BreakpointObserver
+    private matDialog: MatDialog,
+    private pedidoSvc: PedidoProductoService
   ) {}
 
   ngOnInit(): void {
-    this.breakpointObserver
-      .observe('(max-width: 590px)')
-      .pipe(
-        takeUntil(this.destroy$),
-        map((res) => res.matches),
-        shareReplay()
-      )
-      .subscribe((res: boolean) => {
-        this.breakpoint = res;
-      });
-
     this.carritoProducto = this.route.snapshot.data['carrito'];
     this.usuario = this.route.snapshot.data['usuario'];
-    this.initPedidoCarrito();
+    this.initCarritoProductoForm();
+    this.initPedidoCarritoForm();
 
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: [true, Validators.required],
-    });
-
-    this.carritoForm = this._formBuilder.group({
-      control: [
-        this.carritoProducto ? this.carritoProducto : '',
-        Validators.required,
-      ],
-    });
-
+    // !cambiar esto importante
     this.productSvc.getAllProductos().subscribe((productos: ProductoView[]) => {
       this.productos = productos;
     });
@@ -80,6 +66,15 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  public initCarritoProductoForm(): void {
+    this.carritoForm = this._formBuilder.group({
+      control: [
+        this.carritoProducto ? this.carritoProducto : '',
+        Validators.required,
+      ],
+    });
+  }
+
   private initCarritoProducto(): void {
     this.carritoSvc
       .getOneCarritoProducto(this.usuario.uuid)
@@ -87,6 +82,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .subscribe((carrito) => {
         this.carritoProducto = carrito.length ? carrito : null;
         this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
+        this.initCarritoProductoForm();
       });
   }
 
@@ -155,8 +151,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   // !form pedido
-  private initPedidoCarrito(): void {
-    this.pedidoCarrito = this._formBuilder.group({
+  private initPedidoCarritoForm(): void {
+    this.pedidoCarritoForm = this._formBuilder.group({
       nombre: [
         this.usuario ? this.usuario.nombre : '',
         [
@@ -197,13 +193,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       ],
       direccion: [
         this.usuario ? this.usuario.direccion : '',
-        [Validators.maxLength(200)],
+        [Validators.maxLength(200), Validators.required],
       ],
       correo: [
         this.usuario ? this.usuario.correo : '',
         [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)],
       ],
-      nombreFactuta: [
+      nombreFactura: [
         this.usuario ? this.usuario.apellidoPaterno : '',
         Validators.required,
       ],
@@ -219,7 +215,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     status?: boolean;
     icon?: string;
   } {
-    const validateFIeld = this.pedidoCarrito.get(field);
+    const validateFIeld = this.pedidoCarritoForm.get(field);
     return !validateFIeld.valid && validateFIeld.touched
       ? { color: 'warn', status: false, icon: 'close' }
       : validateFIeld.valid
@@ -227,15 +223,15 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       : {};
   }
   // ===========> getString
-  getString(num: number): string {
+  public getString(num: number): string {
     return String(num);
   }
-  getTotalPrice(): number {
-    let total: number = 0;
-    this.carritoProducto.forEach((cart) => {
-      total += cart.cantidad * cart.producto.precio;
-    });
 
+  public getTotalPrice(): number {
+    let total: number = 0;
+    this.carritoProducto.forEach((cart: CarritoProductoView) => {
+      total += cart.cantidad * Number(this.getDescuento(cart.producto));
+    });
     return total;
   }
 
@@ -246,5 +242,34 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       : (result =
           producto.precio - (producto.precio * producto.descuento) / 100);
     return result.toFixed(2);
+  }
+
+  public addPedido(): void {
+    const pedido: PedidoProducto = this.pedidoCarritoForm.value;
+    pedido.total = this.getTotalPrice();
+    pedido.carrito = this.carritoProducto;
+    pedido.uuidCliente = this.usuario.uuid;
+
+    const dialogRef = this.matDialog.open(WarningModalComponent, {
+      data: {
+        title: '¿Estas seguro de continuar?',
+        paragraph: 'No podras revertir los cambios',
+        btnPrimary: 'Continuar',
+        color: 'accent',
+        icon: 'shopping_cart_checkout',
+        navigate: false,
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res: boolean) => {
+        this.pedidoSvc.addPedidoProducto(pedido);
+        this.toastrSvc.success(
+          '😀 Se ha agregado correctamente',
+          'Pedido Realizado'
+        );
+      });
   }
 }
