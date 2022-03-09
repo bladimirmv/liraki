@@ -206,7 +206,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       nitCI: ['', Validators.required],
       tipoEnvio: ['carpinteria', Validators.required],
       descripcion: ['', [Validators.maxLength(500)]],
-      metodoDePago: ['bnb', Validators.required],
+      metodoDePago: ['deposito_transferencia_qr', Validators.required],
     });
   }
   // ===========> isValidField
@@ -265,11 +265,14 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: boolean) => {
-        this.pedidoSvc.addPedidoProducto(pedido);
-        this.toastrSvc.success(
-          '😀 Se ha agregado correctamente',
-          'Pedido Realizado'
-        );
+        if (res) {
+          this.pedidoSvc.addPedidoProducto(pedido).subscribe(() => {
+            this.toastrSvc.success(
+              '😀 Se ha agregado correctamente',
+              'Pedido Realizado'
+            );
+          });
+        }
       });
   }
 }

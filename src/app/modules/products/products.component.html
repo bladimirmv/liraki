@@ -4,17 +4,8 @@
     <div class="filter-mobile">
       <!-- <div class="active-filter"> -->
       <div class="active-filters">
-        <div>Todos</div>
-        <!-- <div>100bs a 200bs.</div>
-        <div>Marcos de Puerta</div>
-        <div>cat 3</div>
-        <div>cat 1</div>
-        <div>cat 4</div>
-        <div>cat 1</div>
-        <div>cat 2</div>
-        <div>cat 3</div>
-        <div>cat 1</div>
-        <div>cat 4</div> -->
+        <!-- <div>Todos</div>
+        <div>100bs a 200bs.</div> -->
       </div>
       <!-- </div> -->
 
@@ -26,9 +17,9 @@
           <span class="gradient-text font-head"> Nuevo y Ofertas</span>
         </button>
 
-        <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
+        <!-- <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
           <span class="gradient-text font-head">Categorias</span>
-        </button>
+        </button> -->
 
         <button mat-menu-item [matMenuTriggerFor]="price">
           <span class="gradient-text font-head">Precio</span>
@@ -36,16 +27,34 @@
 
         <button mat-menu-item>
           <section class="example-section">
-            <mat-checkbox color="primary" class="example-margin"
-              >Sólo en Existencias</mat-checkbox
+            <mat-checkbox
+              color="primary"
+              [(ngModel)]="params.disponibilidad"
+              (change)="filterProducts()"
             >
+              Sólo en Existencias
+            </mat-checkbox>
           </section>
         </button>
       </mat-menu>
 
       <mat-menu #Nuevo_Ofertas="matMenu">
-        <button mat-menu-item>Recientemente agregados</button>
-        <button mat-menu-item>En descuento</button>
+        <!-- <button mat-menu-item>Recientemente agregados</button>
+        <button mat-menu-item>En descuento</button> -->
+
+        <mat-radio-group
+          [(ngModel)]="params.order"
+          (change)="filterProducts()"
+          color="primary"
+        >
+          <mat-radio-button value="todos"> Todos </mat-radio-button>
+          <mat-radio-button value="recientemente_agregados">
+            <span style="white-space: normal"> Recientemente agregados</span>
+          </mat-radio-button>
+          <mat-radio-button value="en_descuento">
+            En descuento
+          </mat-radio-button>
+        </mat-radio-group>
       </mat-menu>
 
       <mat-menu #Nuevo_Ofertas="matMenu">
@@ -53,167 +62,119 @@
       </mat-menu>
 
       <mat-menu #price="matMenu">
-        <button
-          mat-menu-item
-          [routerLink]="['/products']"
-          [queryParams]="{ order: 'catName' }"
+        <mat-radio-group
+          [(ngModel)]="params.precio"
+          (change)="filterProducts()"
+          color="primary"
+          style="display: flex; flex-direction: column; margin: 15px 0"
         >
-          {{ "menos de 100Bs." }}
-        </button>
+          <mat-radio-button value="todos"> Todos </mat-radio-button>
+          <mat-radio-button value="menos_de_100bs">
+            Menos de 100Bs.
+          </mat-radio-button>
 
-        <button
-          mat-menu-item
-          [routerLink]="['/products']"
-          [queryParams]="{ order: 'catName' }"
-        >
-          {{ "100bs. a 200Bs." }}
-        </button>
-        <button
-          mat-menu-item
-          [routerLink]="['/products']"
-          [queryParams]="{ order: 'catName' }"
-        >
-          {{ "200bs. a 300Bs." }}
-        </button>
-
-        <button
-          mat-menu-item
-          [routerLink]="['/products']"
-          [queryParams]="{ order: 'catName' }"
-        >
-          {{ "300bs. a 500bs." }}
-        </button>
-
-        <button
-          mat-menu-item
-          [routerLink]="['/products']"
-          [queryParams]="{ order: 'catName' }"
-        >
-          {{ "500bs. y más" }}
-        </button>
+          <mat-radio-button value="100bs_200bs">
+            100bs. a 200Bs.
+          </mat-radio-button>
+          <mat-radio-button value="200bs_300bs">
+            200bs. a 300Bs.
+          </mat-radio-button>
+          <mat-radio-button value="300bs_500bs">
+            300bs. a 500bs.
+          </mat-radio-button>
+          <mat-radio-button value="500bs_mas"> 500bs. y más </mat-radio-button>
+        </mat-radio-group>
       </mat-menu>
     </div>
 
-    <div class="cotegory-side-container mat-elevation-z">
-      <img class="img-reset" src="./assets/wave-2.svg" alt="" />
-      <button
-        class="btn-reset"
-        mat-icon-button
-        [routerLink]="['/products']"
-        [queryParams]="{}"
-      >
-        <mat-icon>restart_alt</mat-icon>
-      </button>
-      <ul class="list-category">
-        <h3 class="gradient-text font-head" style="margin-top: 0">
-          Nuevo y Ofertas
-        </h3>
+    <div class="cotegory-side-container">
+      <section class="side-nav">
+        <!-- <img class="img-reset" src="./assets/wave-2.svg" alt="" /> -->
+        <!-- <button
+          class="btn-reset"
+          mat-icon-button
+          [routerLink]="['/products']"
+          [queryParams]="{}"
+        >
+          <mat-icon>restart_alt</mat-icon>
+        </button> -->
+        <ul class="list-category">
+          <h3 class="gradient-text font-head" style="margin-top: 0">
+            Nuevo y Ofertas
+          </h3>
+          <mat-radio-group
+            [(ngModel)]="params.order"
+            (change)="filterProducts()"
+            color="primary"
+          >
+            <mat-radio-button value="todos"> Todos </mat-radio-button>
+            <mat-radio-button value="recientemente_agregados">
+              <span style="white-space: normal"> Recientemente agregados</span>
+            </mat-radio-button>
+            <mat-radio-button value="en_descuento">
+              En descuento
+            </mat-radio-button>
+          </mat-radio-group>
 
-        <li class="category">
-          <a
-            routerLink="/products"
-            queryParamsHandling="merge"
-            [queryParams]="{ order: 'recientemente_agregados' }"
-            [class.filter-active]="
-              isLinkActive({ order: 'recientemente_agregados' })
-            "
-            >{{ "Recientemente agregados" }}</a
+          <h3 class="gradient-text font-head">Precio</h3>
+          <mat-radio-group
+            [(ngModel)]="params.precio"
+            (change)="filterProducts()"
+            color="primary"
           >
-        </li>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ order: 'en_descuento' }"
-            [class.filter-active]="isLinkActive({ order: 'en_descuento' })"
-          >
-            {{ "En descuento" }}</a
-          >
-        </li>
+            <mat-radio-button value="todos"> Todos </mat-radio-button>
+            <mat-radio-button value="menos_de_100bs">
+              Menos de 100Bs.
+            </mat-radio-button>
 
-        <h3 class="gradient-text font-head">Precio</h3>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ price: 'menos_de_100bs' }"
-            [class.filter-active]="isLinkActive({ price: 'menos_de_100bs' })"
-            >{{ "Menos de 100Bs." }}</a
-          >
-        </li>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ price: '100bs_200bs' }"
-            [class.filter-active]="isLinkActive({ price: '100bs_200bs' })"
-            >{{ "100bs. a 200Bs." }}</a
-          >
-        </li>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ price: '200bs_300bs' }"
-            [class.filter-active]="isLinkActive({ price: '200bs_300bs' })"
-            >{{ "200bs. a 300Bs." }}</a
-          >
-        </li>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ price: '300bs_500bs' }"
-            [class.filter-active]="isLinkActive({ price: '300bs_500bs' })"
-            >{{ "300bs. a 500bs." }}</a
-          >
-        </li>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ price: '500bs_mas' }"
-            [class.filter-active]="isLinkActive({ price: '500bs_mas' })"
-            >{{ "500bs. y más" }}</a
-          >
-        </li>
-        <h3 class="gradient-text font-head">Categorias</h3>
-        <li class="category">
-          <a
-            [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{ categoria: 'catName' }"
-            [class.filter-active]="isLinkActive({ categoria: 'catName' })"
-            >{{ "category Name" | titlecase }}</a
-          >
-        </li>
+            <mat-radio-button value="100bs_200bs">
+              100bs. a 200Bs.
+            </mat-radio-button>
+            <mat-radio-button value="200bs_300bs">
+              200bs. a 300Bs.
+            </mat-radio-button>
+            <mat-radio-button value="300bs_500bs">
+              300bs. a 500bs.
+            </mat-radio-button>
+            <mat-radio-button value="500bs_mas">
+              500bs. y más
+            </mat-radio-button>
+          </mat-radio-group>
 
-        <h3 class="gradient-text font-head">Disponibilidad</h3>
-        <li class="category">
-          <a
+          <h3 class="gradient-text font-head">Disponibilidad</h3>
+
+          <li class="category">
+            <mat-checkbox
+              color="primary"
+              [(ngModel)]="params.disponibilidad"
+              (change)="filterProducts()"
+            >
+              Sólo en Existencias
+            </mat-checkbox>
+          </li>
+          <br />
+          <button
+            mat-button
+            class="mat-btn-primary"
             [routerLink]="['/products']"
-            queryParamsHandling="merge"
-            [queryParams]="{
-              disponibilidad: true
-            }"
-            [class.filter-active]="isLinkActive({ disponibilidad: 'true' })"
+            [queryParams]="{}"
           >
-            Sólo en Existencias
-          </a>
-        </li>
-      </ul>
+            Restablecer Valores
+          </button>
+        </ul>
+      </section>
     </div>
-    <!-- style="max-height: 500px; overflow-y: auto" -->
 
-    <div class="products">
-      <div class="list-item" infiniteScroll (scrolled)="onScrollDown()">
-        <app-card-product
-          *ngFor="let producto of productos"
-          [producto]="producto"
-          [empty]="productos.length ? false : true"
-        ></app-card-product>
-      </div>
+    <div>
+      <section class="products">
+        <div class="list-item">
+          <app-card-product
+            *ngFor="let producto of productos"
+            [producto]="producto"
+            [empty]="productos.length ? false : true"
+          ></app-card-product>
+        </div>
+      </section>
     </div>
   </div>
 </div>
-<!-- </div> -->

@@ -501,13 +501,16 @@
                   class="full-column full-width"
                   formControlName="metodoDePago"
                 >
-                  <mat-radio-button color="primary" value="bnb">
+                  <mat-radio-button
+                    color="primary"
+                    value="deposito_transferencia_qr"
+                  >
                     <div style="white-space: normal">
                       Depósito Bancario o Pago QR
                     </div>
                   </mat-radio-button>
                   <br />
-                  <mat-radio-button color="primary" value="fisico">
+                  <mat-radio-button color="primary" value="efectivo">
                     <span style="white-space: normal">
                       Pagar al recibir el pedido
                     </span> </mat-radio-button
@@ -526,7 +529,10 @@
                       flex-direction: column;
                       align-items: center;
                     "
-                    *ngIf="pedidoCarritoForm.value.metodoDePago === 'bnb'"
+                    *ngIf="
+                      pedidoCarritoForm.value.metodoDePago ===
+                      'deposito_transferencia_qr'
+                    "
                   >
                     <img src="./assets/bnb.jpeg" alt="" width="300px" />
 
@@ -551,7 +557,7 @@
 
           <div class="btn-stepper">
             <button
-              [disabled]="!carritoProducto"
+              [disabled]="!(carritoProducto && pedidoCarritoForm.valid)"
               (click)="addPedido()"
               mat-button
               class="mat-btn-primary"

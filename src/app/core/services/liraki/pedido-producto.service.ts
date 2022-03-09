@@ -16,7 +16,10 @@ export class PedidoProductoService {
 
   public addPedidoProducto(pedidoProducto: PedidoProducto): Observable<any> {
     return this.htpp
-      .post<PedidoProducto>(``, pedidoProducto)
+      .post<PedidoProducto>(
+        `${this.API_URL}/api/pedidoProducto`,
+        pedidoProducto
+      )
       .pipe(catchError((err) => this.handdleError(err)));
   }
 

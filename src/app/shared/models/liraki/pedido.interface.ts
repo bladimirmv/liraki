@@ -1,5 +1,5 @@
 import { CarritoProductoView } from './carrito.producto.interface';
-export type metodoDePago = 'efectivo' | 'deposito/qr' | 'paypal';
+export type metodoDePago = 'efectivo' | 'deposito_transferencia_qr' | 'paypal';
 export type tipoEnvio = 'delivery' | 'carpinteria';
 
 export interface PedidoProducto {
