@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './core/auth/login/login.component';
 import { RegisterComponent } from './core/auth/register/register.component';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { RegisterComponent } from './core/auth/register/register.component';
     FooterComponent,
     AppContainerComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,10 +37,11 @@ import { RegisterComponent } from './core/auth/register/register.component';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
+    InfiniteScrollModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: RolInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: RolInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import {
   Component,
+  HostListener,
   Inject,
   OnDestroy,
   OnInit,
@@ -9,7 +10,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { ProductoService } from '@services/liraki/producto.service';
-import { Subject } from 'rxjs';
+import { concat, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 export interface FilterParams {
@@ -28,6 +29,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
   public productos: ProductoView[] = [] as ProductoView[];
   public params: FilterParams = {} as FilterParams;
+  private pageNum: number = 1;
+  public showButton: boolean = false;
 
   constructor(
     private productoSvc: ProductoService,
@@ -36,7 +39,27 @@ export class ProductsComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document
   ) {}
 
-  private isVisible = true;
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    const scrollY = window.scrollY;
+    const scrollTop = this.document.documentElement.scrollTop;
+    this.showButton = (scrollY || scrollTop) > 200;
+  }
+
+  public onScrollTop(): void {
+    this.document.documentElement.scrollTop = 0;
+  }
+
+  public onScrollDown(): void {
+    this.pageNum++;
+    this.productoSvc
+      // .getProductosByPage(1)
+      .getProductosByPage(this.pageNum)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((productoView: ProductoView[]) => {
+        this.productos = this.productos.concat(productoView);
+      });
+  }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -68,7 +91,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   private getAllProducts(): void {
     this.productoSvc
-      .getAllProductos()
+      .getProductosByPage(1)
       .pipe(takeUntil(this.destroy$))
       .subscribe((productoView: ProductoView[]) => {
         this.productos = productoView;

@@ -5,7 +5,7 @@ import { environment } from '@env/environment';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { Observable, throwError, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, throwError, Subject, BehaviorSubject, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { CarritoProductoView } from '@models/liraki/carrito.producto.interface';
@@ -70,7 +70,9 @@ export class CarritoProyectoService {
     this.totalCart.next(total);
   }
   // ====================> handdleError
-  public handdleError(httpError: HttpErrorResponse | any): Observable<never> {
+  public handdleError(
+    httpError: HttpErrorResponse | any
+  ): Observable<never | null> {
     let errorMessage = '';
     if (httpError.error.message) {
       if (httpError.error.message.errno) {
@@ -82,6 +84,8 @@ export class CarritoProyectoService {
       }
     }
     console.log('this error', httpError);
+
+    return of(null);
 
     return throwError(httpError);
   }

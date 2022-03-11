@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UsuarioService } from '@app/core/services/auth/usuario.service';
 import { Subject } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '@services/auth/auth.service';
 import { Usuario } from '@app/shared/models/auth/usuario.interface';
@@ -100,17 +102,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private getUsuario(): void {
-    this.authSvc.usuario$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((usrToken: Usuario) => {
-        this.usuarioSvc
-          .getOneUsuario(usrToken.uuid)
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((usr: Usuario) => {
-            this.usuario = usr;
-            this.initForm();
-          });
-      });
+    this.authSvc.usuario$.pipe(take(1)).subscribe((usrToken: Usuario) => {
+      this.usuarioSvc
+        .getOneUsuario(usrToken.uuid)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((usr: Usuario) => {
+          this.usuario = usr;
+          this.initForm();
+        });
+    });
   }
 
   // ===========> oneditUser

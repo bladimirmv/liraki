@@ -1,13 +1,16 @@
-<!-- <div class="bg-products"> -->
-<div class="content">
+<div class="content" (scrolled)="onScrollDown()" infiniteScroll>
+  <button
+    mat-fab
+    color="primary"
+    class="up-button"
+    *ngIf="showButton"
+    (click)="onScrollTop()"
+  >
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
   <div class="products-container">
     <div class="filter-mobile">
-      <!-- <div class="active-filter"> -->
-      <div class="active-filters">
-        <!-- <div>Todos</div>
-        <div>100bs a 200bs.</div> -->
-      </div>
-      <!-- </div> -->
+      <div class="active-filters"></div>
 
       <button class="mat-btn-primary" mat-button [matMenuTriggerFor]="animals">
         Filtrar
@@ -16,10 +19,6 @@
         <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
           <span class="gradient-text font-head"> Nuevo y Ofertas</span>
         </button>
-
-        <!-- <button mat-menu-item [matMenuTriggerFor]="Nuevo_Ofertas">
-          <span class="gradient-text font-head">Categorias</span>
-        </button> -->
 
         <button mat-menu-item [matMenuTriggerFor]="price">
           <span class="gradient-text font-head">Precio</span>
@@ -39,9 +38,6 @@
       </mat-menu>
 
       <mat-menu #Nuevo_Ofertas="matMenu">
-        <!-- <button mat-menu-item>Recientemente agregados</button>
-        <button mat-menu-item>En descuento</button> -->
-
         <mat-radio-group
           [(ngModel)]="params.order"
           (change)="filterProducts()"
@@ -89,15 +85,6 @@
 
     <div class="cotegory-side-container">
       <section class="side-nav">
-        <!-- <img class="img-reset" src="./assets/wave-2.svg" alt="" /> -->
-        <!-- <button
-          class="btn-reset"
-          mat-icon-button
-          [routerLink]="['/products']"
-          [queryParams]="{}"
-        >
-          <mat-icon>restart_alt</mat-icon>
-        </button> -->
         <ul class="list-category">
           <h3 class="gradient-text font-head" style="margin-top: 0">
             Nuevo y Ofertas

@@ -70,6 +70,19 @@ export class ProductoService {
     return stars;
   }
 
+  getProductosByPage(pageNum: number): any {
+    return this.http
+      .get<ProductoView[]>(
+        `${this.API_URL}/api/producto/page/${String(pageNum)}`
+      )
+      .pipe(
+        map((productoView: ProductoView[]) =>
+          productoView.filter((producto) => producto.estado)
+        ),
+        catchError((error) => this.handdleError(error))
+      );
+  }
+
   public getAllCategoriaProducto(): Observable<CategoriaProducto[]> {
     return this.http
       .get<CategoriaProducto[]>(`${this.API_URL}/api/categoriaProducto/`)

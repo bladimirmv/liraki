@@ -1,3 +1,13 @@
+.up-button {
+  position: fixed;
+  bottom: 30px;
+  right: 10px;
+  z-index: 9999;
+  background-color: var(--primary);
+  mat-icon {
+    color: white;
+  }
+}
 .filter-active {
   color: var(--info) !important;
 }

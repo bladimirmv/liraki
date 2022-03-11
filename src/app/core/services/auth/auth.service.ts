@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { Observable, throwError, BehaviorSubject, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { RoleValidator } from '@core/helpers/roleValidator';
@@ -118,7 +118,9 @@ export class AuthService extends RoleValidator {
     this.toastrSvc.info(usuario.nombre, 'Bienvenido! 👋');
   }
   // ====================================================================
-  private handdleError(httpError: HttpErrorResponse | any): Observable<never> {
+  private handdleError(
+    httpError: HttpErrorResponse | any
+  ): Observable<never | null> {
     let errorMessage = '';
 
     if (httpError.error.message) {
@@ -144,6 +146,8 @@ export class AuthService extends RoleValidator {
       timeOut: 7000,
       enableHtml: true,
     });
+
+    return of(null);
     return throwError(httpError);
   }
   // ====================================================================

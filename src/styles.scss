@@ -195,6 +195,8 @@ body {
   padding: 0;
   margin: 0;
   background-color: var(--background);
+
+  scroll-behavior: smooth;
 }
 .mat-divider {
   // border-top-style: dashed !important;

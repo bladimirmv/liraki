@@ -19,6 +19,7 @@ import { BrowserModule } from '@angular/platform-browser';
     FormsModule,
     InfiniteScrollModule,
     ReactiveFormsModule,
+    InfiniteScrollModule,
   ],
   exports: [
     // [SearchComponent]
