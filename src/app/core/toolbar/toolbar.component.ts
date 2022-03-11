@@ -1,7 +1,14 @@
 import { Usuario } from '@shared/models/auth/usuario.interface';
 import { map, shareReplay, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FormControl } from '@angular/forms';
@@ -98,5 +105,21 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   private _normalizeValue(value: string): string {
     return value.toLowerCase().replace(/\s/g, '');
+  }
+
+  // !important for sidenav
+
+  public openSideNav(): void {
+    const sideNav: HTMLElement = document.querySelector('#sideNav');
+    const main: HTMLElement = document.querySelector('#main-shadow');
+    main.style.width = '100%';
+    sideNav.style.width = '250px';
+  }
+
+  public closeSideNav(): void {
+    const sideNav: HTMLElement = document.querySelector('#sideNav');
+    const main: HTMLElement = document.querySelector('#main-shadow');
+    main.style.width = '0';
+    sideNav.style.width = '0';
   }
 }

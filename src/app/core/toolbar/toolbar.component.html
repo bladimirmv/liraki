@@ -1,4 +1,4 @@
-<mat-sidenav-container>
+<!-- <mat-sidenav-container>
   <mat-sidenav mode="over" [opened]="false" #drawer class="sidenav-container">
     <img class="wave" src="./assets/wave-2.svg" alt="" />
     <div class="sidenav-container">
@@ -268,6 +268,272 @@
       </div>
     </div>
 
-    <ng-content></ng-content>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
+
+<nav class="sidenav" id="sideNav">
+  <img class="wave" src="./assets/wave-2.svg" alt="" />
+  <div class="sidenav-container">
+    <div class="header-sidenav">
+      <button mat-icon-button (click)="closeSideNav()">
+        <mat-icon> closed </mat-icon>
+      </button>
+
+      <a class="logo-column" routerLink="/home">
+        <img src="./assets/liraki_isotipo.svg" alt="" />
+        <span class="font-head">LIRAKI</span>
+      </a>
+    </div>
+
+    <section class="list-menu">
+      <li class="menu-item">
+        <a routerLink="home">
+          <button
+            mat-button
+            class="btn-admin font-head"
+            routerLinkActive="active  mat-raised-button"
+            (click)="closeSideNav()"
+          >
+            <mat-icon class="mat-18 mr-3">home</mat-icon>
+            Inicio
+          </button>
+        </a>
+      </li>
+
+      <li class="menu-item">
+        <a routerLink="products" (click)="closeSideNav()">
+          <button
+            mat-button
+            class="btn-admin"
+            routerLinkActive="active  mat-raised-button"
+          >
+            <mat-icon class="mat-18 mr-3">widgets</mat-icon>
+            Productos
+          </button>
+        </a>
+      </li>
+
+      <li class="menu-item">
+        <a routerLink="categories" (click)="closeSideNav()">
+          <button
+            mat-button
+            class="btn-admin"
+            routerLinkActive="active  mat-raised-button"
+          >
+            <mat-icon class="mat-18 mr-3">category</mat-icon>
+            Categorias
+          </button>
+        </a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="about" (click)="closeSideNav()">
+          <button
+            mat-button
+            class="btn-admin"
+            routerLinkActive="active  mat-raised-button"
+          >
+            <mat-icon class="mat-18 mr-3">info</mat-icon>
+            Nosotros
+          </button>
+        </a>
+      </li>
+    </section>
+  </div>
+  <div class="btn-extra">
+    <button mat-raised-button class="btn-fill">Cerrar sesion</button>
+  </div>
+</nav>
+
+<div class="main-shadow" id="main-shadow"></div>
+
+<div class="main-container" id="main-container">
+  <mat-toolbar class="mat-elevation-z1">
+    <button class="btn-menu" mat-icon-button (click)="openSideNav()">
+      <mat-icon> menu </mat-icon>
+    </button>
+
+    <a class="logo" routerLink="/home" *ngIf="!hideSearch">
+      <img
+        class="isotipo"
+        src="./assets/liraki_isotipo.svg"
+        alt="logo liraki"
+      />
+      <span class="font-head">LIRAKI</span>
+    </a>
+
+    <div class="input-search lg-search">
+      <input
+        type="text"
+        placeholder="Buscar un producto..."
+        [matAutocomplete]="auto"
+        (keyup)="onKey($event.target.value)"
+        (keydown.enter)="search($event.target.value)"
+        #btn_search
+      />
+
+      <mat-icon *ngIf="!btn_search.value" class="icon"> search </mat-icon>
+      <button
+        *ngIf="btn_search.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="onKey('')"
+        (click)="btn_search.value = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div *ngIf="hideSearch" class="input-search m-search">
+      <input
+        type="text"
+        placeholder="Buscar un producto..."
+        [matAutocomplete]="auto"
+        (keyup)="onKey($event.target.value)"
+        (keydown.enter)="search($event.target.value)"
+        #btn_search
+      />
+
+      <mat-icon *ngIf="!btn_search.value" class="icon"> search </mat-icon>
+      <button
+        *ngIf="btn_search.value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="onKey('')"
+        (click)="btn_search.value = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        class="autocomplete-option"
+        (click)="search(product.nombre)"
+        *ngFor="let product of filteredProducts"
+        [value]="product.nombre"
+      >
+        {{ product.nombre }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <span class="example-spacer"></span>
+
+    <ul class="menu-list">
+      <li class="menu-item">
+        <a class="font-head" routerLink="home" routerLinkActive="linkActive"
+          >Inicio</a
+        >
+      </li>
+
+      <li class="menu-item">
+        <a class="font-head" routerLink="products" routerLinkActive="linkActive"
+          >Productos</a
+        >
+      </li>
+
+      <li class="menu-item">
+        <a
+          class="font-head"
+          routerLink="categories"
+          routerLinkActive="linkActive"
+        >
+          Categorias
+        </a>
+      </li>
+      <li class="menu-item">
+        <a class="font-head" routerLink="about" routerLinkActive="linkActive"
+          >Nosotros</a
+        >
+      </li>
+
+      <button
+        class="m-btn-search"
+        mat-icon-button
+        (click)="hideSearch ? (hideSearch = false) : (hideSearch = true)"
+      >
+        <mat-icon> {{ hideSearch ? "cancel" : "search" }} </mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        class="btn-shop"
+        *ngIf="!hideSearch"
+        routerLink="shoppingCart"
+      >
+        <mat-icon
+          routerLinkActive="linkBadgeActive"
+          [matBadge]="totalCart"
+          [matBadgeColor]="totalCart ? 'warn' : 'none'"
+          [matBadgeHidden]="!totalCart"
+        >
+          shopping_cart
+        </mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="accountMenu"
+        class="btn-user"
+        *ngIf="!hideSearch"
+      >
+        <mat-icon> account_circle </mat-icon>
+      </button>
+
+      <mat-menu #accountMenu="matMenu">
+        <div>
+          <button
+            *ngIf="(authSvc.isLogged | async) === false"
+            mat-menu-item
+            routerLink="/login"
+          >
+            <mat-icon>login</mat-icon>
+            <span> Iniciar Sesion </span>
+          </button>
+
+          <button
+            *ngIf="(authSvc.isLogged | async) === false"
+            mat-menu-item
+            routerLink="/register"
+          >
+            <mat-icon>app_registration</mat-icon>
+            <span> Registrarse </span>
+          </button>
+
+          <button
+            *ngIf="(authSvc.isLogged | async) === true"
+            mat-menu-item
+            routerLink="/profile"
+          >
+            <mat-icon>manage_accounts</mat-icon>
+            <span> Perfil </span>
+          </button>
+
+          <button
+            *ngIf="(authSvc.isLogged | async) === true"
+            mat-menu-item
+            routerLink="/home"
+            (click)="authSvc.logout()"
+          >
+            <mat-icon>logout</mat-icon>
+            <span> Cerrar Sesion </span>
+          </button>
+        </div>
+      </mat-menu>
+    </ul>
+  </mat-toolbar>
+
+  <div class="spinner-container" *ngIf="loader.isLoading | async">
+    <div class="sk-chase">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+
+  <ng-content></ng-content>
+</div>
