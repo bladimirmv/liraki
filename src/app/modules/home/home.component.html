@@ -48,30 +48,72 @@
 
   <div class="content">
     <div class="top-categorias">
-      <div
-        class="mat-elevation-z1 categoria"
-        *ngFor="let categoria of categorias"
-      >
-        <div class="card-header">
-          <h2 class="gradient-tex">{{ categoria.nombre | titlecase }}</h2>
+      <ng-container *ngIf="mainCategorias">
+        <div
+          class="mat-elevation-z1 categoria"
+          *ngFor="let categoria of mainCategorias"
+        >
+          <div class="card-header">
+            <h2 class="gradient-tex">{{ categoria.nombre | titlecase }}</h2>
+          </div>
+          <div class="img-container">
+            <img [src]="getImage(categoria.keyName)" alt="" />
+          </div>
+          <div class="card-footer">
+            <a href="#">Ver más</a>
+          </div>
         </div>
-        <div class="img-container">
-          <img [src]="getImage(categoria.keyName)" alt="" />
-        </div>
-        <div class="card-footer">
-          <a href="#">Ver más</a>
-        </div>
-      </div>
+      </ng-container>
     </div>
 
-    <app-card-slider
-      [title]="'Novedades'"
-      [id]="'novedades'"
-      [products]="productos"
-      [qParams]="{ order: 'novedades' }"
-    ></app-card-slider>
+    <ng-container *ngIf="recienAgregados">
+      <app-card-slider
+        [title]="'Recientemente Agregados'"
+        [id]="'rescien-agregados'"
+        [products]="recienAgregados"
+        [qParams]="{ order: 'recientemente_agregados' }"
+      ></app-card-slider>
+    </ng-container>
 
-    <app-card-slider
+    <br />
+    <div class="top-categorias">
+      <ng-container *ngIf="finalCategorias">
+        <div
+          class="mat-elevation-z1 categoria"
+          *ngFor="let categoria of finalCategorias"
+        >
+          <div class="card-header">
+            <h2 class="gradient-tex">{{ categoria.nombre | titlecase }}</h2>
+          </div>
+          <div class="img-container">
+            <img [src]="getImage(categoria.keyName)" alt="" />
+          </div>
+          <div class="card-footer">
+            <a href="#">Ver más</a>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="enDescuento">
+      <app-card-slider
+        [title]="'En descuento'"
+        [id]="'en-descuento'"
+        [products]="enDescuento"
+        [qParams]="{ order: 'en_descuento' }"
+      ></app-card-slider>
+    </ng-container>
+
+    <ng-container *ngIf="homePage">
+      <app-card-slider
+        *ngFor="let card of homePage.card_producto"
+        [title]="card.nombre"
+        [id]="card.id"
+        [products]="card.producto"
+        [qParams]="{ precio: card.queryParams }"
+      ></app-card-slider>
+    </ng-container>
+    <!-- <app-card-slider
       [title]="'En descuento'"
       [id]="'en-descuento'"
       [products]="productos"
@@ -82,7 +124,8 @@
       [id]="'recientemente-agregados'"
       [products]="productos"
       [qParams]="{ order: 'recientemente_agregados' }"
-    ></app-card-slider>
+    ></app-card-slider> -->
+
     <br />
   </div>
 </div>

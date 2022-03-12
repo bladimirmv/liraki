@@ -57,20 +57,22 @@
     </div>
   </div> -->
 
-  <div class="list-novedades" [id]="id" *ngIf="products.length">
-    <div
-      class="novedad"
-      routerLink="/products"
-      *ngFor="let product of products"
-    >
-      <img
-        [src]="
-          product.fotos.length
-            ? getImage(product.fotos[0].keyName)
-            : './assets/no-image.svg'
-        "
-        alt=""
-      />
+  <ng-container *ngIf="products">
+    <div class="list-novedades" [id]="id">
+      <div
+        class="novedad"
+        routerLink="/products"
+        *ngFor="let product of products"
+      >
+        <img
+          [src]="
+            product.keyName
+              ? getImage(product.keyName)
+              : './assets/no-image.svg'
+          "
+          alt=""
+        />
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>
