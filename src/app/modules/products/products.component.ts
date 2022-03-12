@@ -1,3 +1,4 @@
+import { Producto } from './../../shared/models/liraki/producto.interface';
 import { DOCUMENT } from '@angular/common';
 import {
   Component,
@@ -13,10 +14,18 @@ import { ProductoService } from '@services/liraki/producto.service';
 import { concat, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+type Precio =
+  | 'menos_de_100bs'
+  | '100bs_200bs'
+  | '200bs_500bs'
+  | '500bs_1000bs'
+  | '1000bs_mas'
+  | 'todos';
+
 export interface FilterParams {
   order?: string;
   disponibilidad?: boolean | string;
-  precio?: string;
+  precio?: Precio;
   categoria?: string;
 }
 @Component({
@@ -28,6 +37,8 @@ export interface FilterParams {
 export class ProductsComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
   public productos: ProductoView[] = [] as ProductoView[];
+  public filteredProductos: ProductoView[] = [] as ProductoView[];
+
   public params: FilterParams = {} as FilterParams;
   private pageNum: number = 1;
   public showButton: boolean = false;
@@ -46,21 +57,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.showButton = (scrollY || scrollTop) > 200;
   }
 
-  public onScrollTop(): void {
-    this.document.documentElement.scrollTop = 0;
-  }
-
-  public onScrollDown(): void {
-    this.pageNum++;
-    this.productoSvc
-      // .getProductosByPage(1)
-      .getProductosByPage(this.pageNum)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((productoView: ProductoView[]) => {
-        this.productos = this.productos.concat(productoView);
-      });
-  }
-
   ngOnInit(): void {
     this.getAllProducts();
 
@@ -68,8 +64,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.params = {
         disponibilidad: params.disponibilidad === 'true' ? true : false,
         precio: params.precio ? params.precio : 'todos',
-        order: params.order ? params.order : 'todos',
+        order: params.order ? params.order : 'recientemente_agregados',
       };
+
+      this.filterProducts();
     });
   }
 
@@ -87,6 +85,66 @@ export class ProductsComponent implements OnInit, OnDestroy {
       },
       queryParamsHandling: 'merge',
     });
+
+    this.checkFilters();
+  }
+
+  public getPrecio(producto: Producto): number {
+    return producto.precio - (producto.precio * producto.descuento) / 100;
+  }
+
+  private checkFilters(): void {
+    this.filteredProductos = this.productos.filter((producto) =>
+      this.params.disponibilidad ? producto.stock > 0 : producto
+    );
+
+    this.filteredProductos.sort((a, b) =>
+      this.params.order === 'en_descuento'
+        ? a.descuento > 0
+          ? -1
+          : 1
+        : a.creadoEn > b.creadoEn
+        ? -1
+        : 1
+    );
+
+    switch (this.params.precio) {
+      case 'menos_de_100bs':
+        this.filteredProductos.sort((a, b) =>
+          this.getPrecio(a) <= 100 ? -1 : 1
+        );
+        break;
+
+      case '100bs_200bs':
+        this.filteredProductos.sort((a, b) =>
+          this.getPrecio(a) > 100 && this.getPrecio(a) <= 200 ? -1 : 1
+        );
+        break;
+
+      case '200bs_500bs':
+        this.filteredProductos.sort((a, b) =>
+          this.getPrecio(a) > 200 && this.getPrecio(a) <= 500 ? -1 : 1
+        );
+        break;
+
+      case '500bs_1000bs':
+        this.filteredProductos.sort((a, b) =>
+          this.getPrecio(a) > 100 && this.getPrecio(a) <= 1000 ? -1 : 1
+        );
+        break;
+
+      case '1000bs_mas':
+        this.filteredProductos.sort((a, b) =>
+          this.getPrecio(a) >= 1000 ? -1 : 1
+        );
+        break;
+      default:
+        this.filteredProductos.sort((a, b) =>
+          a.creadoEn > b.creadoEn ? -1 : 1
+        );
+
+        break;
+    }
   }
 
   private getAllProducts(): void {
@@ -95,6 +153,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((productoView: ProductoView[]) => {
         this.productos = productoView;
+        this.filteredProductos = productoView;
+        this.checkFilters();
+      });
+  }
+
+  public onScrollTop(): void {
+    this.document.documentElement.scrollTop = 0;
+  }
+
+  public onScrollDown(): void {
+    this.pageNum++;
+    this.productoSvc
+      // .getProductosByPage(1)
+      .getProductosByPage(this.pageNum)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((productoView: ProductoView[]) => {
+        this.productos = this.productos.concat(productoView);
+        this.filteredProductos = this.productos;
+        this.checkFilters();
       });
   }
 }
