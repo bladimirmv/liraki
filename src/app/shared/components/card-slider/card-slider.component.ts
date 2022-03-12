@@ -1,3 +1,4 @@
+import { ProductoCard } from './../../models/liraki/home.page.interface';
 import { Producto } from './../../models/liraki/producto.interface';
 import { Component, Input, OnInit } from '@angular/core';
 import { FilterParams } from '@app/modules/products/products.component';
@@ -14,7 +15,7 @@ export class CardSliderComponent implements OnInit {
 
   @Input() public title: string = '';
   @Input() public id: string = '';
-  @Input() public products: Producto & { keyName?: string }[];
+  @Input() public products: ProductoCard[];
   @Input() public qParams: FilterParams = {};
 
   constructor() {}

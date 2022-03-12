@@ -98,16 +98,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
       this.params.disponibilidad ? producto.stock > 0 : producto
     );
 
-    this.filteredProductos.sort((a, b) =>
-      this.params.order === 'en_descuento'
-        ? a.descuento > 0
-          ? -1
-          : 1
-        : a.creadoEn > b.creadoEn
-        ? -1
-        : 1
-    );
-
     switch (this.params.precio) {
       case 'menos_de_100bs':
         this.filteredProductos.sort((a, b) =>
@@ -145,6 +135,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
         break;
     }
+
+    this.filteredProductos.sort(
+      (a, b) =>
+        this.params.order === 'en_descuento' ? (a.descuento > 0 ? -1 : 1) : null
+
+      // a.creadoEn > b.creadoEn
+      // ? -1
+      // : 1
+    );
   }
 
   private getAllProducts(): void {

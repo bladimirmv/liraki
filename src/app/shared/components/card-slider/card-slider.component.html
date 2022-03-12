@@ -1,4 +1,4 @@
-<div class="novedades mat-elevation-z1">
+<section class="novedades mat-elevation-z1">
   <button
     class="btn-arrow btn-back"
     id="btn-left-prev"
@@ -30,38 +30,13 @@
       >Ver más
     </a>
   </div>
-  <!-- <div class="list-novedades" [id]="id" *ngIf="!products.length">
-    <div class="novedad" routerLink="/products">
-      <img src="./assets/images/" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-    <div class="novedad">
-      <img src="./assets/images/vitrina.jpg" alt="" />
-    </div>
-  </div> -->
 
   <ng-container *ngIf="products">
     <div class="list-novedades" [id]="id">
-      <div
+      <a
+        href="#"
         class="novedad"
-        routerLink="/products"
+        [routerLink]="['/product/', product.uuid]"
         *ngFor="let product of products"
       >
         <img
@@ -72,7 +47,7 @@
           "
           alt=""
         />
-      </div>
+      </a>
     </div>
   </ng-container>
-</div>
+</section>
