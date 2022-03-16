@@ -4,13 +4,9 @@ import { HomePageService } from '@services/liraki/home-page.service';
 import { environment } from '@env/environment';
 import { CategoriaProducto } from '@app/shared/models/liraki/categoria.producto.interface';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ProductoService } from '@app/core/services/liraki/producto.service';
-import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import Swiper from 'swiper';
 import { HomePage } from '@app/shared/models/liraki/home.page.interface';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',

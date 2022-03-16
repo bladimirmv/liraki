@@ -1,4 +1,4 @@
-import { Producto } from './../../shared/models/liraki/producto.interface';
+import { Producto } from '@models/liraki/producto.interface';
 import { DOCUMENT } from '@angular/common';
 import {
   Component,
@@ -11,7 +11,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { ProductoService } from '@services/liraki/producto.service';
-import { concat, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 type Precio =
@@ -67,6 +67,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         order: params.order ? params.order : 'recientemente_agregados',
       };
 
+      this.onScrollTop();
       this.filterProducts();
     });
   }
@@ -85,6 +86,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       },
       queryParamsHandling: 'merge',
     });
+
+    this.onScrollTop();
 
     this.checkFilters();
   }
@@ -153,6 +156,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
       .subscribe((productoView: ProductoView[]) => {
         this.productos = productoView;
         this.filteredProductos = productoView;
+
         this.checkFilters();
       });
   }

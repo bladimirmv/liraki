@@ -1,23 +1,21 @@
-import { PedidoProductoService } from './../../core/services/liraki/pedido-producto.service';
-import { WarningModalComponent } from './../../shared/components/warning-modal/warning-modal.component';
-import { WarningPedidoComponent } from './components/warning-pedido/warning-pedido.component';
+import { ProductoCard } from '@models/liraki/home.page.interface';
+import { HomePageService } from '@services/liraki/home-page.service';
+import { PedidoProductoService } from '@services/liraki/pedido-producto.service';
+import { WarningModalComponent } from '@shared/components/warning-modal/warning-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PedidoProducto } from './../../shared/models/liraki/pedido.interface';
-import { Producto } from './../../shared/models/liraki/producto.interface';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { takeUntil, map, shareReplay } from 'rxjs/operators';
-import { CarritoProyectoService } from './../../core/services/liraki/carrito-proyecto.service';
+import { PedidoProducto } from '@shared/models/liraki/pedido.interface';
+import { Producto } from '@shared/models/liraki/producto.interface';
+import { takeUntil } from 'rxjs/operators';
+import { CarritoProyectoService } from '@services/liraki/carrito-proyecto.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '@env/environment';
-import { Usuario } from './../../shared/models/auth/usuario.interface';
+import { Usuario } from '@shared/models/auth/usuario.interface';
 import {
   CarritoProducto,
   CarritoProductoView,
 } from '@models/liraki/carrito.producto.interface';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProductoService } from '@app/core/services/liraki/producto.service';
-import { ProductoView } from '@app/shared/models/liraki/producto.interface';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -30,7 +28,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   private API_URL = environment.API_URL;
   private destroy$: Subject<any> = new Subject<any>();
 
-  public productos: ProductoView[] = [];
+  public productos: ProductoCard[] = [];
   public pedidoCarritoForm: FormGroup;
   public carritoForm: FormGroup;
 
@@ -40,7 +38,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   public breakpoint: boolean;
   public isEditable = false;
   constructor(
-    private productSvc: ProductoService,
+    private homePageSvc: HomePageService,
     private _formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private carritoSvc: CarritoProyectoService,
@@ -55,10 +53,11 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.initCarritoProductoForm();
     this.initPedidoCarritoForm();
 
-    // !cambiar esto importante
-    this.productSvc.getAllProductos().subscribe((productos: ProductoView[]) => {
-      this.productos = productos;
-    });
+    this.homePageSvc
+      .getRecienAgregados()
+      .subscribe((productos: ProductoCard[]) => {
+        this.productos = productos;
+      });
   }
 
   ngOnDestroy(): void {

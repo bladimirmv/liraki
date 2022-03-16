@@ -1,1 +1,115 @@
-<p>categories works!</p>
+<div class="content" (scrolled)="onScrollDown()" infiniteScroll>
+  <button
+    mat-fab
+    color="primary"
+    class="up-button"
+    *ngIf="showButton"
+    (click)="onScrollTop()"
+  >
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+
+  <ng-container *ngIf="categorias; else loading">
+    <section class="categories">
+      <picture
+        class="mat-elevation-z1 categoria"
+        *ngFor="let categoria of categorias"
+        (click)="queryParams(categoria.nombre)"
+      >
+        <div class="card-header">
+          <h2 class="gradient-tex">{{ categoria.nombre | titlecase }}</h2>
+        </div>
+        <div class="img-container">
+          <img [src]="getImage(categoria.keyName)" alt="" />
+        </div>
+        <div routerLink="" class="card-footer">
+          <a>Ver más</a>
+        </div>
+      </picture>
+    </section>
+  </ng-container>
+
+  <ng-template #loading>
+    <section class="categories">
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+
+      <picture class="mat-elevation-z1 categoria categoria-empty">
+        <div class="card-header">
+          <h2 class="gradient-tex"></h2>
+        </div>
+        <div class="img-container"></div>
+        <div routerLink="" class="card-footer">
+          <a></a>
+        </div>
+      </picture>
+    </section>
+  </ng-template>
+</div>

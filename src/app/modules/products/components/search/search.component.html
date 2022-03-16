@@ -1,7 +1,7 @@
 <div class="content">
   <div class="no-content" *ngIf="!filteredProducts.length; else list_item">
     <img src="./assets/no-found.svg" alt="" />
-    No se encontro el producto que buscaba.
+    No se encontro ningun producto.
   </div>
   <ng-template #list_item>
     <div class="list-item">

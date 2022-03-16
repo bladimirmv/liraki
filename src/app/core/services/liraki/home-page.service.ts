@@ -1,3 +1,4 @@
+import { ProductoCard } from './../../../shared/models/liraki/home.page.interface';
 import { HomePage } from '@models/liraki/home.page.interface';
 import { CategoriaProducto } from './../../../shared/models/liraki/categoria.producto.interface';
 import { Producto } from './../../../shared/models/liraki/producto.interface';
@@ -21,7 +22,11 @@ export class HomePageService {
       .get<HomePage>(`${this.API_URL}/api/homePage`)
       .pipe(catchError((err) => this.handdleError(err)));
   }
-
+  public getRecienAgregados(): Observable<ProductoCard[]> {
+    return this.htpp
+      .get<ProductoCard[]>(`${this.API_URL}/api/homePage/recienAgregados`)
+      .pipe(catchError((err) => this.handdleError(err)));
+  }
   public handdleError(httpError: HttpErrorResponse | any): Observable<never> {
     let errorMessage = '';
 
