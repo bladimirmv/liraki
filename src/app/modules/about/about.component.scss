@@ -1,0 +1,31 @@
+.about {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
+  margin: 20px 0;
+  gap: 20px;
+  p {
+    text-align: justify;
+  }
+
+  iframe {
+    border: none;
+    border-radius: 10px;
+  }
+}
+
+.title {
+  word-wrap: break-word;
+  font-family: var(--font-head);
+}
+
+@media screen and(max-width:1080px) {
+  .about {
+    grid-template-columns: 1fr;
+    justify-items: center;
+
+    iframe {
+      width: 100%;
+    }
+  }
+}
