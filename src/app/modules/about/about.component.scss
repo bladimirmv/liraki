@@ -1,8 +1,11 @@
+.content {
+  height: 100%;
+  margin: 20px auto;
+}
+
 .about {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  height: 100%;
-  margin: 20px 0;
   gap: 10px 20px;
 
   .address {
@@ -11,7 +14,7 @@
     padding: 20px;
   }
   p {
-    text-align: justify;
+    // text-align: justify;
   }
 
   iframe {

@@ -48,7 +48,6 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.usuario = this.activateRoute.snapshot.data['usuario'];
-
     moment.locale('es');
     this.getProducto();
   }

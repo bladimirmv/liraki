@@ -14,7 +14,7 @@ import {
   CarritoProducto,
   CarritoProductoView,
 } from '@models/liraki/carrito.producto.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
@@ -44,7 +44,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     private carritoSvc: CarritoProyectoService,
     private toastrSvc: ToastrService,
     private matDialog: MatDialog,
-    private pedidoSvc: PedidoProductoService
+    private pedidoSvc: PedidoProductoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -265,7 +266,17 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: boolean) => {
         if (res) {
-          this.pedidoSvc.addPedidoProducto(pedido).subscribe(() => {
+          if ((pedido.metodoDePago = 'paypal')) {
+            this.pedidoSvc.paypal(pedido).subscribe((res) => {
+              window.location.href = res.links[1].href;
+            });
+
+            return;
+          }
+
+          this.pedidoSvc.addPedidoProducto(pedido).subscribe((res) => {
+            console.log(res);
+
             this.toastrSvc.success(
               '😀 Se ha agregado correctamente',
               'Pedido Realizado'

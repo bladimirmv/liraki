@@ -12,15 +12,27 @@ import { environment } from '@env/environment';
 export class PedidoProductoService {
   private API_URL = environment.API_URL;
 
-  constructor(private htpp: HttpClient, private toastrSvc: ToastrService) {}
+  constructor(private http: HttpClient, private toastrSvc: ToastrService) {}
 
   public addPedidoProducto(pedidoProducto: PedidoProducto): Observable<any> {
-    return this.htpp
+    return this.http
       .post<PedidoProducto>(
         `${this.API_URL}/api/pedidoProducto`,
         pedidoProducto
       )
       .pipe(catchError((err) => this.handdleError(err)));
+  }
+
+  public paypal(pedidoProducto: PedidoProducto): Observable<any> {
+    return this.http
+      .post<any>(`${this.API_URL}/api/paypal/create-order`, pedidoProducto)
+      .pipe(catchError((error) => this.handdleError(error)));
+  }
+
+  public paypalPeido(pedidoProducto: PedidoProducto): Observable<any> {
+    return this.http
+      .post<any>(`${this.API_URL}/api/paypal/create-order`, pedidoProducto)
+      .pipe(catchError((error) => this.handdleError(error)));
   }
 
   public handdleError(httpError: HttpErrorResponse | any): Observable<never> {
@@ -48,7 +60,7 @@ export class PedidoProductoService {
     }
     console.log('this error', httpError);
     this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
-      timeOut: 7000,
+      timeOut: 8000,
       enableHtml: true,
     });
     return throwError(httpError);
