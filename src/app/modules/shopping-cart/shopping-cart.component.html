@@ -19,141 +19,149 @@
 
         <mat-step [editable]="true" [stepControl]="carritoForm">
           <ng-template matStepLabel>Carrito</ng-template>
-          <div class="order" *ngIf="carritoProducto">
-            <header class="order-header">
-              <span class="order-title">
-                <mat-icon> shopping_cart </mat-icon>
-                Resumen del pedido
-              </span>
-              <button
-                mat-button
-                class="btn-remove-all"
-                (click)="deleteCarritoProducto(carritoProducto[0].uuidCliente)"
-              >
-                Eliminar todo
-              </button>
-            </header>
-            <ul class="order-list">
-              <li class="order-item" *ngFor="let carrito of carritoProducto">
-                <div class="product">
-                  <picture class="picture">
-                    <img [src]="getImage(carrito.producto.keyName)" alt="" />
-                  </picture>
 
-                  <div class="product-detail">
-                    <a
-                      href="#"
-                      [routerLink]="['/product', carrito.producto.uuid]"
-                      >{{ carrito.producto.nombre | titlecase }}</a
-                    >
-                    <span>{{ carrito.producto.descripcion }}</span>
+          <ng-container *ngIf="carritoProducto?.length; else empty_cart">
+            <div class="order" *ngIf="carritoProducto.length">
+              <header class="order-header">
+                <span class="order-title">
+                  <mat-icon> shopping_cart </mat-icon>
+                  Resumen del pedido
+                </span>
+                <button
+                  mat-button
+                  class="btn-remove-all"
+                  (click)="
+                    deleteCarritoProducto(carritoProducto[0].uuidCliente)
+                  "
+                >
+                  Eliminar todo
+                </button>
+              </header>
+              <ul class="order-list">
+                <li class="order-item" *ngFor="let carrito of carritoProducto">
+                  <div class="product">
+                    <picture class="picture">
+                      <img [src]="getImage(carrito.producto.keyName)" alt="" />
+                    </picture>
+
+                    <div class="product-detail">
+                      <a
+                        href="#"
+                        [routerLink]="['/product', carrito.producto.uuid]"
+                        >{{ carrito.producto.nombre | titlecase }}</a
+                      >
+                      <span>{{ carrito.producto.descripcion }}</span>
+                    </div>
                   </div>
-                </div>
 
-                <div class="product-options">
-                  <div class="product-quantity">
-                    <div
-                      style="
-                        display: flex;
-                        flex-direction: column;
-                        padding: 0 5px;
-                        align-items: center;
-                      "
-                    >
+                  <div class="product-options">
+                    <div class="product-quantity">
+                      <div
+                        style="
+                          display: flex;
+                          flex-direction: column;
+                          padding: 0 5px;
+                          align-items: center;
+                        "
+                      >
+                        <span
+                          class="antes-price no-select text-bold product-price"
+                          *ngIf="carrito.producto.descuento > 0"
+                          >💸 Bs. {{ carrito.producto.precio }}
+                        </span>
+
+                        <span class="no-select text-bold product-price"
+                          >Bs.
+                          {{
+                            carrito.producto.descuento > 0
+                              ? getDescuento(carrito.producto)
+                              : carrito.producto.precio
+                          }}
+                        </span>
+                      </div>
+
+                      <button
+                        mat-icon-button
+                        (click)="reduceProductoCarrito(carrito)"
+                      >
+                        <mat-icon> remove </mat-icon>
+                      </button>
                       <span
-                        class="antes-price no-select text-bold product-price"
-                        *ngIf="carrito.producto.descuento > 0"
-                        >💸 Bs. {{ carrito.producto.precio }}
+                        style="min-width: 25px; text-align: center"
+                        class="no-select"
+                      >
+                        {{ carrito.cantidad }}
                       </span>
 
-                      <span class="no-select text-bold product-price"
-                        >Bs.
-                        {{
-                          carrito.producto.descuento > 0
-                            ? getDescuento(carrito.producto)
-                            : carrito.producto.precio
-                        }}
-                      </span>
+                      <button
+                        mat-icon-button
+                        (click)="addCarritoProducto(carrito.producto.uuid)"
+                      >
+                        <mat-icon> add </mat-icon>
+                      </button>
                     </div>
 
                     <button
                       mat-icon-button
-                      (click)="reduceProductoCarrito(carrito)"
+                      color="warn"
+                      (click)="deleteOneProducoFromCarrito(carrito.uuid)"
                     >
-                      <mat-icon> remove </mat-icon>
-                    </button>
-                    <span
-                      style="min-width: 25px; text-align: center"
-                      class="no-select"
-                    >
-                      {{ carrito.cantidad }}
-                    </span>
-
-                    <button
-                      mat-icon-button
-                      (click)="addCarritoProducto(carrito.producto.uuid)"
-                    >
-                      <mat-icon> add </mat-icon>
+                      <mat-icon> delete </mat-icon>
                     </button>
                   </div>
+                </li>
+              </ul>
+            </div>
 
-                  <button
-                    mat-icon-button
-                    color="warn"
-                    (click)="deleteOneProducoFromCarrito(carrito.uuid)"
-                  >
-                    <mat-icon> delete </mat-icon>
-                  </button>
-                </div>
-              </li>
-            </ul>
-          </div>
+            <ng-container *ngIf="carritoProducto.length">
+              <mat-divider></mat-divider>
+              <div class="total-cart">
+                <h1>Total: Bs. {{ getTotalPrice().toFixed(2) }}</h1>
+              </div>
 
-          <mat-divider *ngIf="carritoProducto"></mat-divider>
-          <div class="total-cart" *ngIf="carritoProducto">
-            <h1>Total: Bs. {{ getTotalPrice().toFixed(2) }}</h1>
-          </div>
-
-          <div class="btn-stepper" *ngIf="carritoProducto">
-            <button mat-button class="mat-btn-primary" matStepperNext>
-              <mat-icon> last_page </mat-icon>
-              Continuar
-            </button>
-          </div>
-
-          <section class="empty_cart" *ngIf="!carritoProducto">
-            <img src="./assets/empty_cart.svg" alt="" width="300px" />
-            <br />
-            <span>Tu carrito esta vacio 🙁 </span>
-            <br />
-            <button
-              mat-button
-              class="mat-btn-primary"
-              routerLink="/products"
-              *ngIf="usuario && !carritoProducto"
-            >
-              Ver productos
-            </button>
-
-            <div class="no-user-actions">
+              <div class="btn-stepper">
+                <button mat-button class="mat-btn-primary" matStepperNext>
+                  <mat-icon> last_page </mat-icon>
+                  Continuar
+                </button>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #empty_cart>
+            <section class="empty_cart">
+              <img src="./assets/empty_cart.svg" alt="" width="300px" />
+              <br />
+              <span>Tu carrito esta vacio 🙁 </span>
+              <br />
               <button
                 mat-button
                 class="mat-btn-primary"
-                routerLink="/login"
-                *ngIf="!usuario"
+                routerLink="/products"
+                *ngIf="usuario"
               >
-                Iniciar sesión
+                Ver productos
               </button>
-              <button
-                mat-button
-                class="mat-btn-secondary"
-                routerLink="/register"
-                *ngIf="!usuario"
-              >
-                Regístrarse ahora
-              </button>
-            </div>
-          </section>
+
+              <div class="no-user-actions">
+                <button
+                  mat-button
+                  class="mat-btn-primary"
+                  routerLink="/login"
+                  *ngIf="!usuario"
+                >
+                  Iniciar sesión
+                </button>
+                <button
+                  mat-button
+                  class="mat-btn-secondary"
+                  routerLink="/register"
+                  *ngIf="!usuario"
+                >
+                  Regístrarse ahora
+                </button>
+              </div>
+            </section>
+          </ng-template>
         </mat-step>
 
         <mat-step

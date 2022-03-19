@@ -32,7 +32,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   public pedidoCarritoForm: FormGroup;
   public carritoForm: FormGroup;
 
-  public carritoProducto: CarritoProductoView[] | null;
+  public carritoProducto: CarritoProductoView[] | null = null;
   public usuario: Usuario;
 
   public breakpoint: boolean;
@@ -81,7 +81,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((carrito) => {
         this.carritoProducto = carrito.length ? carrito : null;
-        this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
+        this.carritoSvc.addCarritoStore(carrito?.length ? carrito : null);
         this.initCarritoProductoForm();
       });
   }
@@ -265,24 +265,29 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: boolean) => {
+        if (res && pedido.metodoDePago === 'paypal') {
+          this.pedidoSvc.paypal(pedido).subscribe((res) => {
+            window.location.href = res.links[1].href;
+          });
+          return;
+        }
+
         if (res) {
-          if ((pedido.metodoDePago = 'paypal')) {
-            this.pedidoSvc.paypal(pedido).subscribe((res) => {
-              window.location.href = res.links[1].href;
-            });
-
-            return;
-          }
-
           this.pedidoSvc.addPedidoProducto(pedido).subscribe((res) => {
-            console.log(res);
-
             this.toastrSvc.success(
               '😀 Se ha agregado correctamente',
               'Pedido Realizado'
             );
+            this.clearCarritoProducto(pedido.uuidCliente);
           });
         }
       });
+  }
+
+  private clearCarritoProducto(uuidCliente: string): void {
+    this.carritoSvc.deleteCarritoProducto(uuidCliente).subscribe(() => {
+      this.carritoSvc.addCarritoStore(null);
+      this.router.navigate(['profile']);
+    });
   }
 }

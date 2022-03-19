@@ -63,6 +63,9 @@ const routes: Routes = [
       },
       {
         path: 'profile',
+        resolve: {
+          usuario: AuthResolverService,
+        },
         loadChildren: () =>
           import('./modules/profile/profile.module').then(
             (m) => m.ProfileModule

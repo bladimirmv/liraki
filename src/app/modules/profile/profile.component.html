@@ -1,7 +1,9 @@
 <div class="content">
+  <br />
   <div class="profile-container">
     <div class="data-user">
       <form class="user-form" [formGroup]="usuarioForm">
+        <h2 align="center" class="full-column">Datos Personales</h2>
         <!-- *Nombre -->
         <mat-form-field
           class="full-width"
@@ -296,17 +298,103 @@
     </div>
 
     <div class="history">
-      <div class="whish-list" align="center">
+      <!-- <div class="whish-list" align="center">
         <h2 class="font-head gradient-text" align="center">
           Lista de Deseados
         </h2>
         <img src="./assets/wish_list.svg" width="200" align="center" alt="" />
-      </div>
+      </div> -->
 
+      <ng-container *ngIf="pedidos">
+        <section class="pedidos mat-elevation-z2">
+          <h2 align="center" class="full-column">Informacion Pedidos</h2>
+
+          <div *ngFor="let pedido of pedidos" class="pedido">
+            <!-- {{ pedido.estado }} -->
+
+            <div [class]="'estado ' + pedido.estado">
+              <mat-icon> question_answer</mat-icon>
+              <mat-icon> verified</mat-icon>
+              <mat-icon> local_shipping</mat-icon>
+              <mat-icon> done_all</mat-icon>
+            </div>
+
+            <mat-accordion style="border-radius: 0px">
+              <!-- (closed)="panelOpenState = false" -->
+              <!-- [expanded]="true" -->
+              <!-- (opened)="panelOpenState = true" -->
+              <mat-expansion-panel class="mat-elevation-z0 expansion-panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Nro. Pedido:&nbsp;
+                    <span class="numero-pedido">{{
+                      pedido.numeroPedido
+                    }}</span></mat-panel-title
+                  >
+                  <mat-panel-description>
+                    {{ pedido.total }} Bs.
+                  </mat-panel-description>
+                  <mat-divider></mat-divider>
+                </mat-expansion-panel-header>
+
+                <section>
+                  <div>
+                    <h4>
+                      Tipo de envio:
+                      <span class="text-normal">{{
+                        pedido.tipoEnvio === "carpinteria"
+                          ? "Para recoger"
+                          : "Delivery"
+                      }}</span>
+                    </h4>
+
+                    <h4>
+                      Metodo de pago:
+                      <span class="text-normal">{{
+                        pedido.metodoDePago === "deposito_transferencia_qr"
+                          ? "Depósito Bancario o Pago QR"
+                          : (pedido.metodoDePago | titlecase)
+                      }}</span>
+                    </h4>
+
+                    <mat-divider></mat-divider>
+
+                    <div *ngFor="let carrito of pedido?.carrito">
+                      <h4>
+                        Producto:
+                        <a
+                          [routerLink]="['/product', carrito.uuidProducto]"
+                          class="text-normal"
+                        >
+                          {{ carrito.nombre }}
+                        </a>
+                      </h4>
+
+                      <h4>
+                        Descuento:
+                        <span class="text-normal"
+                          >{{ carrito.descuento }} %</span
+                        >
+                      </h4>
+                      <h4>
+                        Precio:
+                        <span class="text-normal"
+                          >{{ carrito.precio }} Bs.</span
+                        >
+                      </h4>
+                      <mat-divider></mat-divider>
+                    </div>
+                  </div>
+                </section>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </section>
+      </ng-container>
       <br />
       <!-- <mat-divider></mat-divider> -->
 
-      <div class="shopping" align="center">
+      <!-- <div class="shopping" align="center">
         <h2 class="font-head gradient-text" align="center">
           Historial de Compras
         </h2>
@@ -314,7 +402,8 @@
         <div>
           <img src="./assets/cart_empty.svg" width="200" alt="" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
+  <br />
 </div>

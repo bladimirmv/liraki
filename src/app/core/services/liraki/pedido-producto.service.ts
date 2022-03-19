@@ -22,6 +22,11 @@ export class PedidoProductoService {
       )
       .pipe(catchError((err) => this.handdleError(err)));
   }
+  public getPedidoProductoByUuid(uuid: string): Observable<any> {
+    return this.http
+      .get<PedidoProducto>(`${this.API_URL}/api/pedidoProducto/${uuid}`)
+      .pipe(catchError((err) => this.handdleError(err)));
+  }
 
   public paypal(pedidoProducto: PedidoProducto): Observable<any> {
     return this.http

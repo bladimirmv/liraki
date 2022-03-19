@@ -4,19 +4,21 @@
 
   display: grid;
   grid-template-columns: minmax(auto, 1fr) 1fr;
-  justify-content: center;
-  align-items: center;
+
+  gap: 20px;
 }
 
 .user-form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 10px;
-  padding: 10px;
+  gap: 10px;
+  padding: 0 20px 20px 20px;
   position: sticky;
   top: 70px;
+  background-color: white;
+  border-radius: 10px;
 
-  max-width: 745px;
+  // max-width: 745px;
 
   mat-slide-toggle,
   mat-checkbox {
@@ -31,7 +33,7 @@
   font-size: 18px;
   border-radius: 25px;
   padding: 5px 0;
-  margin: 20px 0;
+  margin: 10px 0;
 
   &:hover,
   &:focus {
@@ -46,7 +48,7 @@
   font-size: 18px;
   border-radius: 25px;
   padding: 5px 0;
-  margin: 20px 0;
+  margin: 10px 0;
 
   &:hover,
   &:focus {
@@ -76,7 +78,10 @@
     display: grid;
     grid-template-columns: minmax(100%, 1fr);
     grid-gap: 0;
-    padding: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
   }
 
   .full-column {
@@ -87,4 +92,104 @@
   .profile-container {
     grid-template-columns: minmax(100%, 1fr);
   }
+}
+
+.pedidos {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.estado {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding-top: 5px;
+  border-radius: 10px 10px 0 0px;
+
+  border: 1px solid var(--gray3);
+  border-bottom: none;
+  mat-icon {
+    color: var(--gray2);
+    z-index: 99;
+    background-color: white;
+    padding: 0 5px;
+  }
+
+  mat-icon:nth-child(1) {
+    color: var(--success);
+  }
+}
+
+.estado .active-estado {
+  color: var(--success);
+}
+
+.estado .active-estado::after {
+  content: "";
+  width: 40px;
+  height: 10px;
+  background-color: red;
+
+  z-index: 99999;
+}
+
+.estado::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background: var(--gray2);
+  position: absolute;
+  top: 50%;
+  z-index: 9;
+}
+
+.confirmado::after {
+  background: linear-gradient(to right, var(--success) 35%, var(--gray2) 10%);
+}
+.confirmado {
+  mat-icon:nth-child(2) {
+    color: var(--success);
+  }
+}
+
+.envio::after {
+  background: linear-gradient(to right, var(--success) 65%, var(--gray2) 10%);
+}
+
+.envio {
+  mat-icon:nth-child(2),
+  mat-icon:nth-child(3) {
+    color: var(--success);
+  }
+}
+
+.completado::after {
+  background: var(--success) 100%;
+}
+
+.completado mat-icon {
+  color: var(--success);
+}
+
+.expansion-panel {
+  width: 100%;
+  border-radius: 0px 0px 10px 10px !important;
+  border: 1px solid var(--gray3);
+  border-top: none;
+  margin: 0 0 10px 0;
+
+  .numero-pedido {
+    color: var(--warn);
+    font-weight: bold;
+  }
+}
+
+.text-normal {
+  font-weight: normal;
+}
+
+h4 {
+  margin: 2px 0;
 }

@@ -1,4 +1,4 @@
-<img class="wave" src="./assets/wave-1.svg" alt="" />
+<img class="wave" style="z-index: 99" src="./assets/wave-1.svg" alt="" />
 <img class="wave-2" src="./assets/wave-2.svg" alt="" />
 
 <div class="login-container">
@@ -54,6 +54,11 @@
         <button type="submit" class="btn-login" mat-button>
           Iniciar sesión
         </button>
+
+        <a routerLink="/" class="full-column link-login" align="center">
+          @copyright - MendozArq - {{ year }}
+        </a>
+
         <a routerLink="/register" class="full-column link-login" align="center">
           <mat-icon>app_registration </mat-icon>
           Registrarse

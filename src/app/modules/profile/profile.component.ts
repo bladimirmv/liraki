@@ -1,3 +1,5 @@
+import { PedidoProductoService } from '@services/liraki/pedido-producto.service';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -10,6 +12,7 @@ import { AuthService } from '@services/auth/auth.service';
 import { Usuario } from '@app/shared/models/auth/usuario.interface';
 import { takeUntil } from 'rxjs/operators';
 import { ShowContrasenhaComponent } from './components/show-contrasenha/show-contrasenha.component';
+import { PedidoProductoView } from '@app/shared/models/liraki/pedido.interface';
 
 @Component({
   selector: 'app-profile',
@@ -24,17 +27,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public celularString: string;
   public usuario: Usuario = {};
 
+  public pedidos: PedidoProductoView[] = [];
+
   constructor(
     private fb: FormBuilder,
     private toastSvc: ToastrService,
     private usuarioSvc: UsuarioService,
     private matDialog: MatDialog,
-    private authSvc: AuthService
+    private authSvc: AuthService,
+    private route: ActivatedRoute,
+    private _pedidoSvc: PedidoProductoService
   ) {}
 
   ngOnInit(): void {
+    this.usuario = this.route.snapshot.data['usuario'];
     this.initForm();
-    this.getUsuario();
+    this.initPedidos();
   }
   ngOnDestroy(): void {
     this.destroy$.next({});
@@ -102,15 +110,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private getUsuario(): void {
-    this.authSvc.usuario$.pipe(take(1)).subscribe((usrToken: Usuario) => {
-      this.usuarioSvc
-        .getOneUsuario(usrToken.uuid)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((usr: Usuario) => {
-          this.usuario = usr;
-          this.initForm();
-        });
-    });
+    // this.authSvc.usuario$.pipe(take(1)).subscribe((usrToken: Usuario) => {
+    //   this.usuarioSvc
+    //     .getOneUsuario(usrToken.uuid)
+    //     .pipe(takeUntil(this.destroy$))
+    //     .subscribe((usr: Usuario) => {
+    //       this.usuario = usr;
+    //       this.initForm();
+    //       this.initPedidos();
+    //     });
+    // });
+  }
+
+  public initPedidos(): void {
+    this._pedidoSvc
+      .getPedidoProductoByUuid(this.usuario.uuid)
+      .subscribe((data) => {
+        this.pedidos = data;
+      });
   }
 
   // ===========> oneditUser
