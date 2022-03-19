@@ -131,6 +131,17 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   public newComentario(): void {
+    if (!this.usuario) {
+      this.toastrSvc.info(
+        `😀 Por favor <a href="/login" routerLink="/login">inicie sesión</a> para agregar una opinión.`,
+        'No se ha Iniciado Sesión',
+        {
+          timeOut: 5000,
+          enableHtml: true,
+        }
+      );
+      return;
+    }
     const dialoRef = this.dialog.open(NewOpinionComponent, {
       data: this.producto,
     });
