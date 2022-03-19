@@ -2,7 +2,7 @@
   <br />
   <div class="profile-container">
     <div class="data-user">
-      <form class="user-form" [formGroup]="usuarioForm">
+      <form class="user-form mat-elevation-z2" [formGroup]="usuarioForm">
         <h2 align="center" class="full-column">Datos Personales</h2>
         <!-- *Nombre -->
         <mat-form-field
@@ -298,20 +298,10 @@
     </div>
 
     <div class="history">
-      <!-- <div class="whish-list" align="center">
-        <h2 class="font-head gradient-text" align="center">
-          Lista de Deseados
-        </h2>
-        <img src="./assets/wish_list.svg" width="200" align="center" alt="" />
-      </div> -->
-
-      <ng-container *ngIf="pedidos">
-        <section class="pedidos mat-elevation-z2">
-          <h2 align="center" class="full-column">Informacion Pedidos</h2>
-
+      <section class="pedidos mat-elevation-z2">
+        <h2 align="center" class="full-column">Informacion de Pedidos</h2>
+        <ng-container *ngIf="pedidos.length; else no_pedidos">
           <div *ngFor="let pedido of pedidos" class="pedido">
-            <!-- {{ pedido.estado }} -->
-
             <div [class]="'estado ' + pedido.estado">
               <mat-icon> question_answer</mat-icon>
               <mat-icon> verified</mat-icon>
@@ -320,9 +310,6 @@
             </div>
 
             <mat-accordion style="border-radius: 0px">
-              <!-- (closed)="panelOpenState = false" -->
-              <!-- [expanded]="true" -->
-              <!-- (opened)="panelOpenState = true" -->
               <mat-expansion-panel class="mat-elevation-z0 expansion-panel">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -389,8 +376,20 @@
               </mat-expansion-panel>
             </mat-accordion>
           </div>
-        </section>
-      </ng-container>
+        </ng-container>
+
+        <ng-template #no_pedidos>
+          <div class="whish-list" align="center">
+            <img
+              src="./assets/cart_empty.svg"
+              width="200"
+              align="center"
+              alt=""
+            />
+          </div>
+          <br />
+        </ng-template>
+      </section>
       <br />
       <!-- <mat-divider></mat-divider> -->
 
