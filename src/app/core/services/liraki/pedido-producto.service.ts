@@ -24,7 +24,7 @@ export class PedidoProductoService {
   }
   public getPedidoProductoByUuid(uuid: string): Observable<any> {
     return this.http
-      .get<PedidoProducto>(`${this.API_URL}/api/pedidoProducto/${uuid}`)
+      .get<PedidoProducto>(`${this.API_URL}/api/pedidoProducto/cliente/${uuid}`)
       .pipe(catchError((err) => this.handdleError(err)));
   }
 

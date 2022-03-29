@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, ObservableLike, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ProductoView } from '@models/liraki/producto.interface';
 import { catchError, map } from 'rxjs/operators';
 import {

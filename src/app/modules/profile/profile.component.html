@@ -300,17 +300,15 @@
     <div class="history">
       <section class="pedidos mat-elevation-z2">
         <h2 align="center" class="full-column">Informacion de Pedidos</h2>
-        <ng-container *ngIf="pedidos.length; else no_pedidos">
-          <div *ngFor="let pedido of pedidos" class="pedido">
-            <div [class]="'estado ' + pedido.estado">
-              <!-- <mat-icon> question_answer</mat-icon> -->
 
+        <ng-container *ngIf="ventas.length; else no_pedidos">
+          <div *ngFor="let venta of ventas" class="pedido mat-elevation-z2">
+            <div [class]="'estado ' + venta.estado">
               <mat-icon> support_agent</mat-icon>
-
               <mat-icon> verified</mat-icon>
               <mat-icon>
                 {{
-                  pedido.tipoEnvio === "delivery" ? "local_shipping" : "store"
+                  venta.tipoEnvio === "delivery" ? "local_shipping" : "store"
                 }}
               </mat-icon>
               <mat-icon> done_all</mat-icon>
@@ -322,11 +320,11 @@
                   <mat-panel-title>
                     Nro. Pedido:&nbsp;
                     <span class="numero-pedido">{{
-                      pedido.numeroPedido
+                      venta.numeroVenta
                     }}</span></mat-panel-title
                   >
                   <mat-panel-description>
-                    {{ pedido.total }} Bs.
+                    {{ venta.total }} Bs.
                   </mat-panel-description>
                   <mat-divider></mat-divider>
                 </mat-expansion-panel-header>
@@ -336,7 +334,7 @@
                     <h4>
                       Tipo de envio:
                       <span class="text-normal">{{
-                        pedido.tipoEnvio === "carpinteria"
+                        venta.tipoEnvio === "carpinteria"
                           ? "Para recoger"
                           : "Delivery"
                       }}</span>
@@ -345,35 +343,35 @@
                     <h4>
                       Metodo de pago:
                       <span class="text-normal">{{
-                        pedido.metodoDePago === "deposito_transferencia_qr"
+                        venta.metodoDePago === "deposito_transferencia_qr"
                           ? "Depósito Bancario o Pago QR"
-                          : (pedido.metodoDePago | titlecase)
+                          : (venta.metodoDePago | titlecase)
                       }}</span>
                     </h4>
 
                     <mat-divider></mat-divider>
 
-                    <div *ngFor="let carrito of pedido?.carrito">
+                    <div *ngFor="let concepto of venta?.conceptos">
                       <h4>
                         Producto:
                         <a
-                          [routerLink]="['/product', carrito.uuidProducto]"
+                          [routerLink]="['/product', concepto.uuidProducto]"
                           class="text-normal"
                         >
-                          {{ carrito.nombre }}
+                          {{ concepto.nombre }}
                         </a>
                       </h4>
 
                       <h4>
                         Descuento:
                         <span class="text-normal"
-                          >{{ carrito.descuento }} %</span
+                          >{{ concepto.descuento }} %</span
                         >
                       </h4>
                       <h4>
                         Precio:
                         <span class="text-normal"
-                          >{{ carrito.precio }} Bs.</span
+                          >{{ concepto.precioUnitario }} Bs.</span
                         >
                       </h4>
                       <mat-divider></mat-divider>
@@ -398,17 +396,6 @@
         </ng-template>
       </section>
       <br />
-      <!-- <mat-divider></mat-divider> -->
-
-      <!-- <div class="shopping" align="center">
-        <h2 class="font-head gradient-text" align="center">
-          Historial de Compras
-        </h2>
-
-        <div>
-          <img src="./assets/cart_empty.svg" width="200" alt="" />
-        </div>
-      </div> -->
     </div>
   </div>
   <br />

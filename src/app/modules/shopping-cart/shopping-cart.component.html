@@ -8,15 +8,6 @@
         #stepper
         class="mat-elevation-z1 cart-stepper"
       >
-        <!-- <mat-step>
-          <ng-template matStepLabel>Completado</ng-template>
-          <p>You are now done.</p>
-          <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button (click)="stepper.reset()">Reset</button>
-          </div>
-        </mat-step> -->
-
         <mat-step [editable]="true" [stepControl]="carritoForm">
           <ng-template matStepLabel>Carrito</ng-template>
 

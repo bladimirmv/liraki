@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$: Subject<any> = new Subject<any>();
   hide = true;
   public loginForm: FormGroup = new FormGroup({
-    username: new FormControl('blado959', Validators.required),
-    contrasenha: new FormControl('bmvmendo123', Validators.required),
+    username: new FormControl('carmeky8ka', Validators.required),
+    contrasenha: new FormControl('6MNXXhnRMC', Validators.required),
   });
 
   public registerForm: FormGroup = new FormGroup({

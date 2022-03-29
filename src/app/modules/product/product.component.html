@@ -173,15 +173,9 @@
       <div class="comment mat-elevation-z1" *ngFor="let opinion of Opiniones">
         <div class="user-comment full-column-pc">
           <span class="user-circle">
-            {{ opinion.usuario.nombre.slice(0, 1) | titlecase }}</span
+            {{ opinion.cliente.slice(0, 1) | titlecase }}</span
           >
-          <span>{{
-            opinion.usuario.nombre +
-              " " +
-              opinion.usuario.apellidoPaterno +
-              " " +
-              opinion.usuario.apellidoMaterno | titlecase
-          }}</span>
+          <span>{{ opinion.cliente | titlecase }}</span>
         </div>
         <div class="star-rating">
           <div class="stars">

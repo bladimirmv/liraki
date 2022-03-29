@@ -1,10 +1,13 @@
+import { VentaView } from '@models/liraki/venta.interface';
+import { WebsocketService } from '@services/sockets/websocket.service';
 import { PedidoProductoService } from '@services/liraki/pedido-producto.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { UsuarioService } from '@app/core/services/auth/usuario.service';
 import { Subject } from 'rxjs';
+
 import { take } from 'rxjs/operators';
 
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +30,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public celularString: string;
   public usuario: Usuario = {};
 
-  public pedidos: PedidoProductoView[] = [];
+  public ventas: VentaView[] = [];
+  public pedidosOnline: VentaView[] = [];
+  public pedidosFisicos: VentaView[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -36,13 +41,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private matDialog: MatDialog,
     private authSvc: AuthService,
     private route: ActivatedRoute,
-    private _pedidoSvc: PedidoProductoService
+    private _pedidoSvc: PedidoProductoService,
+    private _wsService: WebsocketService
   ) {}
 
   ngOnInit(): void {
     this.usuario = this.route.snapshot.data['usuario'];
+
+    this._wsService.emit('ws:ventas', { uuid: this.usuario.uuid });
+
+    this.initData();
+
     this.initForm();
-    this.initPedidos();
   }
   ngOnDestroy(): void {
     this.destroy$.next({});
@@ -110,24 +120,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private getUsuario(): void {
-    // this.authSvc.usuario$.pipe(take(1)).subscribe((usrToken: Usuario) => {
-    //   this.usuarioSvc
-    //     .getOneUsuario(usrToken.uuid)
-    //     .pipe(takeUntil(this.destroy$))
-    //     .subscribe((usr: Usuario) => {
-    //       this.usuario = usr;
-    //       this.initForm();
-    //       this.initPedidos();
-    //     });
-    // });
+    this.authSvc.usuario$.pipe(take(1)).subscribe((usrToken: Usuario) => {
+      this.usuarioSvc
+        .getOneUsuario(usrToken.uuid)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((usr: Usuario) => {
+          this.usuario = usr;
+          this.initForm();
+        });
+    });
   }
 
-  public initPedidos(): void {
-    this._pedidoSvc
-      .getPedidoProductoByUuid(this.usuario.uuid)
-      .subscribe((data) => {
-        this.pedidos = data;
+  public initData(): void {
+    this._wsService
+      .listen('ws:ventas')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((ventas: VentaView[]) => {
+        this.pedidosFisicos = ventas;
+        this.ventas = [...this.pedidosFisicos, ...this.pedidosOnline];
+        this.filterVentas();
       });
+  }
+
+  private filterVentas(): void {
+    this.ventas = this.ventas.sort((a, b) =>
+      a.creadoEn > b.creadoEn ? -1 : 1
+    );
   }
 
   // ===========> oneditUser
@@ -149,6 +167,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (newContrasenha) {
           this.matDialog.open(ShowContrasenhaComponent, { data: usr });
         }
+
+        this.authSvc.usuario.next(usr);
       }
     });
   }

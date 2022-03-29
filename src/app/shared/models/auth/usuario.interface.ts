@@ -23,3 +23,8 @@ export interface UsuarioResponse {
   body?: Usuario;
   error?: any;
 }
+
+export interface UsuarioSocket {
+  usuarioToken: string;
+  from: 'liraki' | 'mendozarq';
+}

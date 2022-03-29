@@ -98,8 +98,10 @@
   background-color: white;
   padding: 10px;
   border-radius: 10px;
+}
 
-  // min-height: 400px;
+.pedido {
+  border-radius: 10px;
 }
 
 .estado {
@@ -110,8 +112,6 @@
   padding-top: 5px;
   border-radius: 10px 10px 0 0px;
 
-  border: 1px solid var(--gray3);
-  border-bottom: none;
   mat-icon {
     color: var(--gray2);
     z-index: 99;
@@ -132,15 +132,13 @@
   content: "";
   width: 40px;
   height: 10px;
-  background-color: red;
-
   z-index: 99999;
 }
 
 .estado::after {
   content: "";
   width: 100%;
-  height: 2px;
+  height: 5px;
   background: var(--gray2);
   position: absolute;
   top: 50%;
@@ -156,11 +154,22 @@
   }
 }
 
-.envio::after {
+.para_recoger::after {
   background: linear-gradient(to right, var(--success) 65%, var(--gray2) 10%);
 }
 
-.envio {
+.para_recoger {
+  mat-icon:nth-child(2),
+  mat-icon:nth-child(3) {
+    color: var(--success);
+  }
+}
+
+.en_envio::after {
+  background: linear-gradient(to right, var(--success) 65%, var(--gray2) 10%);
+}
+
+.en_envio {
   mat-icon:nth-child(2),
   mat-icon:nth-child(3) {
     color: var(--success);
@@ -178,8 +187,8 @@
 .expansion-panel {
   width: 100%;
   border-radius: 0px 0px 10px 10px !important;
-  border: 1px solid var(--gray3);
-  border-top: none;
+  // border: 1px solid var(--gray3);
+  // border-top: none;
   margin: 0 0 10px 0;
 
   .numero-pedido {

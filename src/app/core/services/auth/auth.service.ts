@@ -20,7 +20,7 @@ const helper = new JwtHelperService();
 export class AuthService extends RoleValidator {
   private API_URL = environment.API_URL;
   private loggedIn = new BehaviorSubject<boolean>(false);
-  private usuario = new BehaviorSubject<Usuario>(null);
+  public usuario = new BehaviorSubject<Usuario>(null);
   public usuario$: Observable<Usuario> = this.usuario.asObservable();
   private usuarioToken = new BehaviorSubject<string>(null);
   // ====================================================================
