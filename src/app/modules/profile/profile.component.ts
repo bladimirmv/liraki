@@ -49,6 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.usuario = this.route.snapshot.data['usuario'];
 
     this._wsService.emit('ws:ventas', { uuid: this.usuario.uuid });
+    this._wsService.emit('ws:ventas-online', { uuid: this.usuario.uuid });
 
     this.initData();
 
@@ -140,11 +141,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.ventas = [...this.pedidosFisicos, ...this.pedidosOnline];
         this.filterVentas();
       });
+
+    this._wsService
+      .listen('ws:ventas-online')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((ventas: VentaView[]) => {
+        this.pedidosOnline = ventas;
+        this.ventas = [...this.pedidosFisicos, ...this.pedidosOnline];
+        this.filterVentas();
+      });
   }
 
   private filterVentas(): void {
     this.ventas = this.ventas.sort((a, b) =>
-      a.creadoEn > b.creadoEn ? -1 : 1
+      a.numeroVenta > b.numeroVenta ? -1 : 1
     );
   }
 

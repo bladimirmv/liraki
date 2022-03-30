@@ -93,6 +93,8 @@ export class ProductoService {
   public handdleError(httpError: HttpErrorResponse | any): Observable<never> {
     let errorMessage = '';
     if (httpError.error.message) {
+      if (typeof httpError.error.message === 'string')
+        errorMessage = `${httpError.error.message}`;
       if (httpError.error.message.errno) {
         switch (httpError.error.message.errno) {
           case 1451:
@@ -116,7 +118,10 @@ export class ProductoService {
       }
     }
     console.log('this error', httpError);
-
+    this.toastrSvc.error(errorMessage, 'Ocurrio un Error!', {
+      timeOut: 8000,
+      enableHtml: true,
+    });
     return throwError(httpError);
   }
 }

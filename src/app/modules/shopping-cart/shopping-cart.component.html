@@ -166,196 +166,43 @@
               <div class="pedido">
                 <h2 class="full-column text-center">Datos Personales</h2>
 
-                <!-- *Nombre -->
-                <mat-form-field
-                  class="full-width"
-                  [color]="isValidField('nombre').color"
+                <a
+                  routerLink="/profile"
+                  class="ci-usuario full-diwth full-column mat-elevation-z8"
                 >
-                  <mat-label>Nombre</mat-label>
-                  <input matInput formControlName="nombre" autocomplete="no" />
-                  <mat-icon matSuffix [color]="isValidField('nombre').color">
-                    {{ isValidField("nombre").icon }}
-                  </mat-icon>
-                  <mat-error
-                    *ngIf="pedidoCarritoForm.get('nombre').errors?.required"
-                  >
-                    Ingrese un nombre.
-                  </mat-error>
-                  <mat-error
-                    *ngIf="pedidoCarritoForm.get('nombre').errors?.pattern"
-                  >
-                    Ingresa un nombre valido.
-                  </mat-error>
-                </mat-form-field>
+                  <header>Datos del Usuario</header>
 
-                <!-- *Apellido Paterno -->
-                <mat-form-field
-                  class="full-width"
-                  [color]="isValidField('apellidoPaterno').color"
-                >
-                  <mat-label>Apellido Paterno</mat-label>
-                  <input
-                    matInput
-                    formControlName="apellidoPaterno"
-                    autocomplete="no"
-                  />
-                  <mat-icon
-                    matSuffix
-                    [color]="isValidField('apellidoPaterno').color"
-                  >
-                    {{ isValidField("apellidoPaterno").icon }}
-                  </mat-icon>
-                  <mat-error
-                    *ngIf="
-                      pedidoCarritoForm.get('apellidoPaterno').errors?.required
-                    "
-                  >
-                    Por favor ingrese el apellido paterno.
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      pedidoCarritoForm.get('apellidoPaterno').errors?.maxlength
-                    "
-                  >
-                    Debe contener
-                    {{
-                      pedidoCarritoForm.get("apellidoPaterno").errors?.maxlength
-                        ?.requiredLength
-                    }}
-                    letras como maximo.
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      pedidoCarritoForm.get('apellidoPaterno').errors?.pattern
-                    "
-                  >
-                    Ingresa un apellido valido.
-                  </mat-error>
-                </mat-form-field>
+                  <div class="ci-content">
+                    <div class="img-container">
+                      <img src="./assets/avatar.svg" alt="" />
+                    </div>
+                    <div class="info-content">
+                      <div class="info">
+                        <h4>Nombre:</h4>
+                        <span>{{ usuario.nombre | titlecase }}</span>
+                      </div>
+                      <div class="info">
+                        <h4>Apellidos:</h4>
+                        <span>{{
+                          usuario.apellidoPaterno.concat(
+                            " ",
+                            usuario.apellidoMaterno
+                          ) | titlecase
+                        }}</span>
+                      </div>
 
-                <!-- *Apellido Materno -->
-                <mat-form-field
-                  class="full-width"
-                  [color]="isValidField('apellidoMaterno').color"
-                >
-                  <mat-label>Apellido Materno</mat-label>
-                  <mat-icon
-                    matSuffix
-                    [color]="isValidField('apellidoMaterno').color"
-                    *ngIf="pedidoCarritoForm.value.apellidoMaterno"
-                  >
-                    {{ isValidField("apellidoMaterno").icon }}
-                  </mat-icon>
-                  <input
-                    matInput
-                    formControlName="apellidoMaterno"
-                    autocomplete="no"
-                  />
-                  <mat-error
-                    *ngIf="
-                      pedidoCarritoForm.get('apellidoMaterno').errors?.maxlength
-                    "
-                  >
-                    Debe contener
-                    {{
-                      pedidoCarritoForm.get("apellidoMaterno").errors?.maxlength
-                        ?.requiredLength
-                    }}
-                    letras como maximo.
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      pedidoCarritoForm.get('apellidoMaterno').errors?.pattern
-                    "
-                  >
-                    Ingresa un apellido valido.
-                  </mat-error>
-                </mat-form-field>
+                      <div class="info">
+                        <h4>Celular:</h4>
+                        <span>{{ usuario.celular }}</span>
+                      </div>
+                    </div>
 
-                <!-- *Celular -->
-                <mat-form-field
-                  class="full-width"
-                  [color]="isValidField('celular').color"
-                >
-                  <mat-label>Celular</mat-label>
-                  <span matPrefix>+591 &nbsp;</span>
-
-                  <input
-                    type="tel"
-                    matInput
-                    placeholder="69409749"
-                    formControlName="celular"
-                    autocomplete="off"
-                  />
-
-                  <mat-hint align="end">
-                    {{
-                      pedidoCarritoForm.value.celular
-                        ? getString(pedidoCarritoForm.value.celular).length
-                        : 0
-                    }}/8
-                  </mat-hint>
-                  <mat-icon matSuffix [color]="isValidField('celular').color">
-                    {{ isValidField("celular").icon }}
-                  </mat-icon>
-                  <mat-error
-                    *ngIf="pedidoCarritoForm.get('celular').errors?.required"
-                  >
-                    Ingrese el numero de celular o telefono.
-                  </mat-error>
-                  <mat-error
-                    *ngIf="
-                      pedidoCarritoForm.get('celular').errors?.pattern;
-                      else min_maxLength
-                    "
-                  >
-                    Debe incluir solo numeros.
-                  </mat-error>
-                  <ng-template #min_maxLength>
-                    <mat-error
-                      *ngIf="pedidoCarritoForm.get('celular').errors?.minlength"
-                    >
-                      Debe contener
-                      {{
-                        pedidoCarritoForm.get("celular").errors?.minlength
-                          ?.requiredLength
-                      }}
-                      numeros como minimo.
-                    </mat-error>
-                    <mat-error
-                      *ngIf="pedidoCarritoForm.get('celular').errors?.maxlength"
-                    >
-                      Debe contener
-                      {{
-                        pedidoCarritoForm.get("celular").errors?.maxlength
-                          ?.requiredLength
-                      }}
-                      numeros como maximo.
-                    </mat-error>
-                  </ng-template>
-                </mat-form-field>
-
-                <!-- *Correo -->
-                <mat-form-field
-                  class="full-width full-column"
-                  [color]="isValidField('correo').color"
-                >
-                  <mat-label>Correo</mat-label>
-                  <input matInput formControlName="correo" />
-                  <mat-icon matSuffix [color]="isValidField('correo').color">
-                    {{ isValidField("correo").icon }}
-                  </mat-icon>
-                  <mat-error
-                    *ngIf="pedidoCarritoForm.get('correo').errors?.required"
-                  >
-                    Por favor ingrese el correo.
-                  </mat-error>
-                  <mat-error
-                    *ngIf="pedidoCarritoForm.get('correo').errors?.pattern"
-                  >
-                    Por favor ingrese un correo valido.
-                  </mat-error>
-                </mat-form-field>
+                    <div class="full-diwth last-row">
+                      <h4>Correo:</h4>
+                      <span>{{ usuario.correo }}</span>
+                    </div>
+                  </div>
+                </a>
 
                 <!-- *Direccion -->
                 <mat-form-field
@@ -395,7 +242,7 @@
                 </mat-form-field>
 
                 <mat-form-field
-                  class="full-width"
+                  class="full-width full-column"
                   [color]="isValidField('nombreFactura').color"
                 >
                   <mat-label>Nombre para la Factura</mat-label>
@@ -412,14 +259,27 @@
                   </mat-icon>
                 </mat-form-field>
 
+                <mat-form-field class="full-width">
+                  <mat-label>Departamento</mat-label>
+                  <mat-select formControlName="departamento">
+                    <mat-option value="cbba"> COCHABAMBA </mat-option>
+                    <mat-option value="lp"> LA PAZ </mat-option>
+                    <mat-option value="scz"> SANTA CRUZ </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
                 <mat-form-field
                   class="full-width"
-                  [color]="isValidField('nitCI').color"
+                  [color]="isValidField('nitCiCex').color"
                 >
                   <mat-label>NIT o CI</mat-label>
-                  <input matInput formControlName="nitCI" autocomplete="no" />
-                  <mat-icon matSuffix [color]="isValidField('nitCI').color">
-                    {{ isValidField("nitCI").icon }}
+                  <input
+                    matInput
+                    formControlName="nitCiCex"
+                    autocomplete="no"
+                  />
+                  <mat-icon matSuffix [color]="isValidField('nitCiCex').color">
+                    {{ isValidField("nitCiCex").icon }}
                   </mat-icon>
                 </mat-form-field>
 
@@ -478,7 +338,7 @@
                   class="full-column full-width"
                   formControlName="tipoEnvio"
                 >
-                  <mat-radio-button color="primary" value="carpinteria">
+                  <mat-radio-button color="primary" value="personal">
                     <span style="white-space: normal">
                       Recoger pedido en la carpinteria
                     </span>

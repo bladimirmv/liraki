@@ -334,9 +334,7 @@
                     <h4>
                       Tipo de envio:
                       <span class="text-normal">{{
-                        venta.tipoEnvio === "carpinteria"
-                          ? "Para recoger"
-                          : "Delivery"
+                        venta.tipoEnvio | titlecase
                       }}</span>
                     </h4>
 
@@ -372,6 +370,13 @@
                         Precio:
                         <span class="text-normal"
                           >{{ concepto.precioUnitario }} Bs.</span
+                        >
+                      </h4>
+
+                      <h4>
+                        Importe:
+                        <span class="text-normal"
+                          >{{ concepto.importe }} Bs.</span
                         >
                       </h4>
                       <mat-divider></mat-divider>

@@ -7,6 +7,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { HomePage } from '@app/shared/models/liraki/home.page.interface';
+import { ResourceLoader } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',

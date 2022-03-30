@@ -1,3 +1,9 @@
+import { WebsocketService } from '@services/sockets/websocket.service';
+import {
+  VentaProducto,
+  ConceptoVentaView,
+} from './../../shared/models/liraki/venta.interface';
+import { VentaService } from './../../core/services/liraki/venta.service';
 import { ProductoCard } from '@models/liraki/home.page.interface';
 import { HomePageService } from '@services/liraki/home-page.service';
 import { PedidoProductoService } from '@services/liraki/pedido-producto.service';
@@ -44,8 +50,9 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     private carritoSvc: CarritoProyectoService,
     private toastrSvc: ToastrService,
     private matDialog: MatDialog,
-    private pedidoSvc: PedidoProductoService,
-    private router: Router
+    private router: Router,
+    private _ventaSvc: VentaService,
+    private _wsService: WebsocketService
   ) {}
 
   ngOnInit(): void {
@@ -153,60 +160,26 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   // !form pedido
   private initPedidoCarritoForm(): void {
     this.pedidoCarritoForm = this._formBuilder.group({
-      nombre: [
-        this.usuario ? this.usuario.nombre : '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          Validators.pattern(
-            /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
-          ),
-        ],
-      ],
-      apellidoPaterno: [
-        this.usuario ? this.usuario.apellidoPaterno : '',
-        [
-          Validators.required,
-          Validators.maxLength(50),
-          Validators.pattern(
-            /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
-          ),
-        ],
-      ],
-      apellidoMaterno: [
-        this.usuario ? this.usuario.apellidoMaterno : '',
-        [
-          Validators.maxLength(50),
-          Validators.pattern(
-            /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
-          ),
-        ],
-      ],
-      celular: [
-        this.usuario ? this.usuario.celular : '',
-        [
-          Validators.required,
-          Validators.minLength(7),
-          Validators.maxLength(8),
-          Validators.pattern(/^[0-9]*$/),
-        ],
-      ],
-      direccion: [
-        this.usuario ? this.usuario.direccion : '',
-        [Validators.maxLength(200), Validators.required],
-      ],
-      correo: [
-        this.usuario ? this.usuario.correo : '',
-        [Validators.required, Validators.pattern(/\S+@\S+\.\S+/)],
-      ],
+      uuidCliente: [this.usuario?.uuid, Validators.required],
       nombreFactura: [
-        this.usuario ? this.usuario.apellidoPaterno : '',
-        Validators.required,
+        this.usuario?.apellidoPaterno.concat(
+          ' ',
+          this.usuario?.apellidoMaterno
+        ),
+        [Validators.required, Validators.maxLength(100)],
       ],
-      nitCI: ['', Validators.required],
-      tipoEnvio: ['carpinteria', Validators.required],
-      descripcion: ['', [Validators.maxLength(500)]],
+      nitCiCex: ['', Validators.required],
+      departamento: ['cbba', Validators.required],
+      tipoVenta: ['online'],
+      tipoEnvio: ['personal', Validators.maxLength(200)],
+      direccion: [
+        this.usuario?.direccion,
+        [Validators.required, Validators.maxLength(200)],
+      ],
+      descripcion: ['', Validators.maxLength(200)],
       metodoDePago: ['deposito_transferencia_qr', Validators.required],
+      estado: ['pendiente'],
+      uuidVendedor: [''],
     });
   }
   // ===========> isValidField
@@ -245,10 +218,26 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   public addPedido(): void {
-    const pedido: PedidoProducto = this.pedidoCarritoForm.value;
-    pedido.total = this.getTotalPrice();
-    pedido.carrito = this.carritoProducto;
-    pedido.uuidCliente = this.usuario.uuid;
+    const venta: VentaProducto = {
+      ...this.pedidoCarritoForm.value,
+    };
+
+    venta.total = this.getTotalPrice();
+    venta.uuidVendedor = null;
+
+    venta.conceptos = this.carritoProducto.map((car) => {
+      const concepto: ConceptoVentaView = {
+        cantidad: car.cantidad,
+        precioUnitario: car.producto.precio,
+        descuento: car.producto.descuento,
+        importe:
+          (car.producto.precio -
+            (car.producto.precio * car.producto.descuento) / 100) *
+          car.cantidad,
+        uuidProducto: car.uuidProducto,
+      };
+      return concepto;
+    });
 
     const dialogRef = this.matDialog.open(WarningModalComponent, {
       data: {
@@ -260,25 +249,23 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
         navigate: false,
       },
     });
-
     dialogRef
       .afterClosed()
       .pipe(takeUntil(this.destroy$))
       .subscribe((res: boolean) => {
-        if (res && pedido.metodoDePago === 'paypal') {
-          this.pedidoSvc.paypal(pedido).subscribe((res) => {
+        if (res && venta.metodoDePago === 'paypal') {
+          this._ventaSvc.paypal(venta).subscribe((res) => {
             window.location.href = res.links[1].href;
           });
           return;
         }
-
         if (res) {
-          this.pedidoSvc.addPedidoProducto(pedido).subscribe((res) => {
+          this._ventaSvc.addVentaOnline(venta).subscribe((res) => {
             this.toastrSvc.success(
               '😀 Se ha agregado correctamente',
               'Pedido Realizado'
             );
-            this.clearCarritoProducto(pedido.uuidCliente);
+            this.clearCarritoProducto(venta.uuidCliente);
           });
         }
       });

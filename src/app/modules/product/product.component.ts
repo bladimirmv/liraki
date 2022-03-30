@@ -207,17 +207,18 @@ export class ProductComponent implements OnInit, OnDestroy {
       cantidad: 1,
     };
 
-    this.carritoSvc
-      .addCarritoProducto(carrito)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((res) => {
-        if (res) {
-          this.toastrSvc.success(
-            '😀 El producto se ha agregado correctamente al carrito',
-            'Producto Agregado'
-          );
-          this.getCarritoProducto();
-        }
-      });
+    console.log(carrito);
+
+    this.carritoSvc.addCarritoProducto(carrito).subscribe((res) => {
+      if (res) {
+        console.log('res', res);
+
+        this.toastrSvc.success(
+          '😀 El producto se ha agregado correctamente al carrito',
+          'Producto Agregado'
+        );
+        this.getCarritoProducto();
+      }
+    });
   }
 }

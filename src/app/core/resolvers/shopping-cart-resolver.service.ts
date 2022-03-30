@@ -32,53 +32,5 @@ export class ShoppingCartResolverService
           : null
       )
     );
-
-    // ! ==========================================
-    // return new Observable((obs) => {
-    //   this.authSvc.usuario$
-    //     .pipe(
-    //       take(1),
-    //       mergeMap((usr) => {
-    //         if (!usr) {
-    //           obs.next(null);
-    //           obs.complete();
-    //           return;
-    //         }
-    //         return this.carritoSvc
-    //           .getOneCarritoProducto(usr.uuid)
-    //           .pipe(take(1));
-    //       })
-    //     )
-    //     .subscribe((carrito) => {
-    //       if (!carrito) {
-    //         obs.next(null);
-    //         obs.complete();
-    //         return;
-    //       }
-    //       this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
-    //       obs.next(carrito.length ? carrito : null);
-    //       obs.complete();
-    //     });
-    // });
-
-    // ! ==========================================
-    // return new Observable((obs) => {
-    //   this.authSvc.usuario$.pipe(take(1)).subscribe((usr) => {
-    //     if (!usr) {
-    //       console.log(usr);
-    //       obs.next(null);
-    //       obs.complete();
-    //       return null;
-    //     }
-    //     this.carritoSvc
-    //       .getOneCarritoProducto(usr.uuid)
-    //       .pipe(take(1))
-    //       .subscribe((carrito) => {
-    //         this.carritoSvc.addCarritoStore(carrito.length ? carrito : null);
-    //         obs.next(carrito.length ? carrito : null);
-    //         obs.complete();
-    //       });
-    //   });
-    // });
   }
 }
