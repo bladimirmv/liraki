@@ -65,7 +65,7 @@ export class VentaService {
       .pipe(catchError((error) => this.handdleError(error)));
   }
 
-  public paypalPeido(venta: VentaProducto): Observable<any> {
+  public paypalPedido(venta: VentaProducto): Observable<any> {
     return this.http
       .post<any>(`${this.API_URL}/api/paypal/create-order`, venta)
       .pipe(catchError((error) => this.handdleError(error)));

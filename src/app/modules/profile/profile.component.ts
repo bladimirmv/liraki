@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.usuario = this.route.snapshot.data['usuario'];
-
     this._wsService.emit('ws:ventas', { uuid: this.usuario.uuid });
     this._wsService.emit('ws:ventas-online', { uuid: this.usuario.uuid });
 
