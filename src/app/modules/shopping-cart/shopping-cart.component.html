@@ -41,7 +41,14 @@
                         [routerLink]="['/product', carrito.producto.uuid]"
                         >{{ carrito.producto.nombre | titlecase }}</a
                       >
-                      <span>{{ carrito.producto.descripcion }}</span>
+                      <!-- <span>{{ carrito.producto.descripcion }}</span> -->
+
+                      <!-- <span
+                        class="description full-column"
+                        contenteditable="false"
+                        id="ul-text"
+                        [innerHtml]="carrito.producto.descripcion"
+                      ></span> -->
                     </div>
                   </div>
 
