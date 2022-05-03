@@ -110,7 +110,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       ? `⏳ Solo queda uno!`
       : stock < 1
       ? `⛔ Agotado!`
-      : `Disponible: ${stock}`;
+      : `Disponible`;
   }
 
   public modalPreview(e: Event, foto: FotoProducto): void {

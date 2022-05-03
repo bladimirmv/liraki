@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="product-detail mat-elevation-z">
+    <div class="product-detail mat-elevation-z2">
       <h2 class="full-column">
         <span class="title gradient-text">
           {{ producto.nombre }}
@@ -65,16 +65,22 @@
         <mat-chip-list aria-label="categories-list">
           <mat-chip
             class="category"
+            [routerLink]="['/search', categoria.nombre]"
             *ngFor="let categoria of producto.categorias"
           >
             {{ categoria.nombre }}
           </mat-chip>
         </mat-chip-list>
       </div>
-      <p class="description full-column">
-        {{ producto.descripcion }}
-      </p>
-      <div class="quantity"></div>
+
+      <div
+        class="description full-column"
+        contenteditable="false"
+        id="ul-text"
+        [innerHtml]="producto.descripcion"
+      ></div>
+
+      <!-- <div class="quantity"></div> -->
 
       <button
         class="btn-carrito full-column"
@@ -210,7 +216,12 @@
         <span class="full-column-pc date-comment">{{
           getRelativeTime(opinion.creadoEn)
         }}</span>
-        <!-- <span class="full-column-pc compra-verificada"> Compra Verificada</span> -->
+        <span
+          class="full-column-pc compra-verificada"
+          *ngIf="opinion?.verificado"
+        >
+          Compra Verificada</span
+        >
         <p class="full-column-pc">
           {{ opinion.descripcion }}
         </p>

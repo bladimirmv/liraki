@@ -91,12 +91,15 @@
 }
 .product-detail {
   padding: 0px 20px;
+  margin-top: 10px;
   border-radius: 10px;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   justify-content: center;
+
+  background-color: white;
 }
 
 .full-column {
@@ -141,6 +144,11 @@
   word-wrap: break-word;
   font-size: 16px;
   text-align: justify;
+  // background-color: white;
+  border-radius: 10px;
+  width: 100% !important;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 .info-stock {
@@ -154,7 +162,9 @@
 }
 
 .btn-carrito {
-  width: auto;
+  // align-self: center;
+  // justify-self: center;
+  // width: 250px;
   background-color: var(--primary);
   color: white;
   font-size: 18px;
