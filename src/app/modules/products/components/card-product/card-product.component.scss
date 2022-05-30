@@ -19,12 +19,13 @@
   // border: 1px var(--secondary);
   border-radius: 5px;
   margin: 10px;
-  // border: 2px solid var(--light-primary);
+  border: 2px solid var(--light-primary);
 
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  // background-color: whitesmoke;
 }
 
 .img-container img {

@@ -11,6 +11,7 @@
   // grid-gap: 20px;
   grid-template-columns: repeat(2, minmax(auto, 550px));
   justify-content: center;
+  gap: 15px;
 }
 
 .product-view-content {
@@ -294,6 +295,8 @@
 @media screen and(max-width: 750px) {
   .content-product {
     grid-template-columns: 1fr;
+    margin-top: 15px;
+    gap: 0;
   }
 
   .content-rm {
