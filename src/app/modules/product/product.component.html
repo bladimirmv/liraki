@@ -34,8 +34,9 @@
           {{ producto.nombre }}
         </span>
       </h2>
+
       <div class="star-rating">
-        <a class="stars">
+        <a class="stars" fragment="calificaciones" routerLink="./">
           <mat-icon class="star-checked"> star </mat-icon>
           <mat-icon class="star-checked"> star </mat-icon>
           <mat-icon class="star-checked"> star </mat-icon>
@@ -98,7 +99,7 @@
   </div>
 
   <div class="content-rm">
-    <div class="product-rating">
+    <div class="product-rating mat-elevation-z2">
       <h3 class="text-center">
         <span class="font-icon"> ⭐ </span>
         <span class="gradient-text font-head"
@@ -108,7 +109,7 @@
       <span>{{ Opiniones ? Opiniones.length : 0 }} calificaciones</span>
 
       <div class="list-stars">
-        <div class="star-progress">
+        <div class="star-progress" id="calificaciones">
           <span>5 estrellas</span>
           <span>
             <mat-progress-bar
@@ -162,21 +163,21 @@
         </span>
       </h3>
 
-      <p>Comparte tu opinión con otros clientes</p>
+      <p class="text-center">Comparte tu opinión con otros clientes</p>
 
       <button mat-button class="btn-comentario" (click)="newComentario()">
         Añadir Opinión
       </button>
     </div>
 
-    <div class="product-comment">
+    <div class="product-comment mat-elevation-z2">
       <h3 class="full-column-pc text-center">
         <span class="font-icon"> 📄 </span>
 
         <span class="gradient-text font-head"> Opiniones de clientes </span>
       </h3>
 
-      <div class="comment mat-elevation-z1" *ngFor="let opinion of Opiniones">
+      <div class="comment" *ngFor="let opinion of Opiniones">
         <div class="user-comment full-column-pc">
           <span class="user-circle">
             {{ opinion.cliente.slice(0, 1) | titlecase }}</span

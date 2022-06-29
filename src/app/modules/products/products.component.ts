@@ -15,11 +15,11 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 type Precio =
-  | 'menos_de_100bs'
-  | '100bs_200bs'
-  | '200bs_500bs'
-  | '500bs_1000bs'
-  | '1000bs_mas'
+  | 'menos_de_500bs'
+  | '500bs_800bs'
+  | '800bs_1000bs'
+  | '1000bs_2000bs'
+  | '2000bs_mas'
   | 'todos';
 
 export interface FilterParams {
@@ -102,33 +102,33 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
 
     switch (this.params.precio) {
-      case 'menos_de_100bs':
+      case 'menos_de_500bs':
         this.filteredProductos.sort((a, b) =>
-          this.getPrecio(a) <= 100 ? -1 : 1
+          this.getPrecio(a) <= 500 ? -1 : 1
         );
         break;
 
-      case '100bs_200bs':
+      case '500bs_800bs':
         this.filteredProductos.sort((a, b) =>
-          this.getPrecio(a) > 100 && this.getPrecio(a) <= 200 ? -1 : 1
+          this.getPrecio(a) > 500 && this.getPrecio(a) <= 800 ? -1 : 1
         );
         break;
 
-      case '200bs_500bs':
+      case '800bs_1000bs':
         this.filteredProductos.sort((a, b) =>
-          this.getPrecio(a) > 200 && this.getPrecio(a) <= 500 ? -1 : 1
+          this.getPrecio(a) > 800 && this.getPrecio(a) <= 1000 ? -1 : 1
         );
         break;
 
-      case '500bs_1000bs':
+      case '1000bs_2000bs':
         this.filteredProductos.sort((a, b) =>
-          this.getPrecio(a) > 100 && this.getPrecio(a) <= 1000 ? -1 : 1
+          this.getPrecio(a) > 1000 && this.getPrecio(a) <= 2000 ? -1 : 1
         );
         break;
 
-      case '1000bs_mas':
+      case '2000bs_mas':
         this.filteredProductos.sort((a, b) =>
-          this.getPrecio(a) >= 1000 ? -1 : 1
+          this.getPrecio(a) >= 2000 ? -1 : 1
         );
         break;
       default:
